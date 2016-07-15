@@ -1,0 +1,258 @@
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+body {
+    margin: 0;
+}
+html, body {
+    height: 100%;
+    font-weight: 300;
+}
+header {
+  form, fieldset {
+    margin: 0;
+    padding: 0;
+    border-style: none;
+        min-width: 0;
+  }
+  button, input[type="button"], input[type="reset"], input[type="file"], input[type="submit"] {
+    line-height: 30px;
+    height: 30px;
+    color: #fff;
+    border: none;
+    font-size: 14px;
+    margin: 0 ;
+    cursor: pointer;
+    padding: 0 15px 2px;
+    display: block;
+    background: #1ad3ad;
+  }
+  .alignleft {
+    float: left;
+    width: 70%;
+    text-align: left;
+    margin: 11px 0 0;
+    @media (min-width: 1100px){
+      .btn-filter.inner {
+        min-width: 150px;
+      }
+    }
+    .btn-filter {
+        display: inline-block;
+        vertical-align: middle;
+        font-size: 14px;
+        line-height: 18px;
+        color: #333;
+        position: relative;
+        padding: 0 14px 0 0;
+
+    }
+    .inner {
+      background: #d7d7d7;
+      border: 1px solid #d7d7d7;
+      padding: 5px 8px;
+      text-align: center;
+      color: #505050;
+    }
+}
+  .search-form {
+    border-radius: 4px;
+    input[type="text"], input[type="tel"], input[type="email"], input[type="url"],  input[type="password"],  input[type="search"]{
+      border: none;
+      font-size: 15px;
+      line-height: 28px;
+      float: left;
+      background-color: #c9c9c9;
+      width: 85%;
+      padding: 2px 2%;
+          display: inline-block;
+    }
+
+  }
+  .btn {
+
+    border-radius: 1px;
+    font-weight: 400;
+    text-align: center;
+    margin-bottom: 6px;
+    width: 80%;
+    margin-bottom: 7px !important;
+    text-decoration: none;
+  }
+  .btn:hover {
+    background: #17a78c;
+    text-decoration: none;
+  }
+  .btn-green {
+    font-size: 14px;
+    line-height: 30px;
+    height: 30px;
+    font-weight: 600;
+    color: #fff;
+    border: medium none;
+    margin: 0 auto;
+    padding: 0 15px 2px;
+    display: block;
+    -webkit-transition: all .3s ease 0s;
+    transition: all .3s ease 0s;
+    background: #afc43b;
+    width:80%;
+    :hover {
+      background: #86982c;
+      text-decoration: none;
+    }
+  }
+  .logo {
+    float: left;
+    width: 79px;
+    height: 27px;
+    margin: 14px 0 0 -100%;
+  }
+  background: #fff;
+  position: relative;
+  z-index: 50;
+  display: block;
+  padding: 5px 44px 6px;
+  box-shadow: 0 0 6px 0 rgba(0, 0, 0, .25);
+  float: left;
+  width: 100%;
+  text-align: right;
+  padding: 0 22px 0 0;
+  .nav-drop {
+    input[type="text"], input[type="tel"], input[type="email"], input[type="url"],  input[type="password"],  input[type="search"]{
+      border:none;
+      width:100%;
+    }
+    box-shadow: 0 0 6px 0 rgba(0, 0, 0, .66);
+    background-color: white;
+    content: "";
+    display: block;
+    position: absolute;
+    top: 100%;
+    left: -56px;
+    width: 239px;
+    text-align: left;
+    font-size: 14px;
+    line-height: 18px;
+    .holder {
+      position: relative;
+      background: #fff;
+      margin: 1px 6px 0;
+      padding: 16px 15px 14px;
+      box-shadow: 0 0 6px 0 rgba(0, 0, 0, .66);
+
+    }
+    .recover-link a:hover {
+      text-decoration: underline;
+    }
+    .recover-link a {
+      color: #000;
+      text-align: right;
+      font-size: 11px;
+      padding-top: 3px;
+    }
+    .input-wrap {
+
+      border: 1px solid #c9c9c9;
+      padding: 0 10px 0 29px;
+      margin-bottom: 7px;
+      position: relative;
+      text-align: left;
+      font-size: 14px;
+      line-height: 18px;
+      }
+      .ico-email {
+        background: url("../img/ico-at.png") no-repeat;
+        background-position-y: center;
+        background-position-x: 5%;
+      }
+      .ico-key {
+        background: url("../img/ico-key.png") no-repeat;
+        background-position-y: center;
+        background-position-x: 5%;
+      }
+
+
+      .holder:before {
+        z-index: -1;
+        box-shadow: 0 0 4px #000;
+      }
+
+
+    }
+    .icon-search {
+      background: url("../img/ico-search.png") no-repeat center !important;
+      background-size: 80% 80%;
+
+      height:20px;
+      width:20px;
+      color: white;
+    }
+    .user-photo {
+      display: inline-block;
+      vertical-align: middle;
+      width: 51px;
+      margin: 0 0 0 1px;
+      background: #1ad3ad;
+      border-radius: 50%;
+      overflow: hidden;
+    }
+    .menu-open {
+      font-size: 19px;
+      line-height: 22px;
+      color: #333;
+      display: inline-block;
+      vertical-align: middle;
+    }
+    #nav {
+      display: inline-block;
+      vertical-align: middle;
+      max-width: 50%;
+      position: relative;
+      margin: 0 0 0 13px;
+      z-index: 10;
+    }
+    .head-bar {
+      float: left;
+      width: 100%;
+      text-align: right;
+      padding: 0 22px 0 0;
+    }
+    .hold {
+      margin: 0 0 0 120px;
+    }
+    .top-holder {
+      padding: 5px 44px 6px;
+      box-shadow: 0 0 6px 0 rgba(0, 0, 0, .25);
+    }
+    .alignleft {
+      float: left;
+      width: 70%;
+      text-align: left;
+      margin: 11px 0 0;
+      .search-holder {
+        display: inline-block;
+        vertical-align: middle;
+        width: 63.7%;
+        max-width: 520px;
+        position: relative;
+        margin: 0 1.2% 0 0;
+        @media (min-width: 768px){
+        .search-drop.js-slide-hidden {
+            position: static !important;
+        }
+}
+      }
+    }
+    .lightbox .top-holder:after, .lightbox-title:after, .lightbox-content .info-box:after, .top-holder:after,.alignleft:after, .filter-form:after, .checkbox-list li:after, .header-holder:after, .header-nav:after, #main:after, .buyer-checkout-holder .header:after, .efect-content .efect-box:after, .efect-content .clientes-holder:after, .efect-content .products-holder:after, .sales-detail-holder:after, .navbar:after, .nav ul:after, .numbers-list li:after, .date-box.inner:after {
+      content: " ";
+      display: block;
+      clear: both;
+    }
+    .js-slide-hidden{position:absolute !important;left:-9999px !important;top:-9999px !important;display:block !important}
+
+    .input-filters {
+      position: absolute; height: 100%; width: 100%; opacity: 0; margin: 0px;
+    }
+  }
+@import "index2";

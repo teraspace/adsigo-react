@@ -1,0 +1,184 @@
+#main {
+
+  select, input {width:205px; float: right; clear: both; }
+  input[type="file"]{
+      color: transparent;
+      width:205px;
+  }
+    padding: 0 43px 106px;
+    .login-steps li {
+      padding-top: 31px;
+      padding-right: 200px;
+      padding-bottom: 30px;
+      padding-left: 73px;
+        background: #f5f5f5;
+        border-radius: 2px;
+        margin: 0 0 25px;
+        position: relative;
+    }
+    .quote-box blockquote {
+        margin: 0 0 8px;
+    }
+    blockquote {
+        border-left: 3px solid #e1edf6;
+        padding: 0 0 0 16px;
+        margin: 0 0 16px;
+        font-size: 17.5px;
+    }
+    fieldset {
+        padding: 0;
+        margin: 0;
+        border: 0;
+        min-width: 0;
+    }
+    .main-holder {
+        max-width: 830px;
+        margin: 0 auto;
+        padding: 0 65px;
+    }
+    .quote-box {
+        font: 26px/32px "Calisto MT", Georgia, serif;
+        color: #000;
+        text-align: right;
+        padding: 25px 0 0;
+        margin: 0 0 29px;
+    }
+  label {
+      display: inline-block;
+      max-width: 100%;
+      margin-bottom: 5px;
+      font-weight: bold;
+      font-weight: normal;
+          font-size: 14px;
+          line-height: 2.3;
+    color: #4B4B4B;
+  }
+  .space-form.login .terms-conditions {
+      font-weight: 300;
+      color: #000;
+      font-size: 14px;
+      line-height: 20px;
+      text-align: center;
+      background: #d8d8d8;
+      border-radius: 2px;
+      padding: 15px;
+      margin: 0 0 15px;
+  }
+  .space-form.login .bottom-text {
+      font: 50px/1.2 "Calisto MT", Georgia, serif;
+      color: #000;
+      text-align: right;
+      display: block;
+      padding: 31px 0 0;
+  }
+  .space-form.login .btn-sign-up {
+border: none;
+      font-size: 18px;
+      line-height: 26px;
+      text-transform: uppercase;
+      font-weight: 700;
+      width: 100%;
+      padding: 7px;
+      height: auto;
+    background: #1ad3ad;
+  }
+  button:hover, input[type="button"]:hover, input[type="reset"]:hover, input[type="file"]:hover, input[type="submit"]:hover {
+      text-decoration: underline;
+      background: #13ab8c;
+      border-radius: 2px;
+
+  }
+  .space-form.login .form-input-wrap {
+      display: inline-block;
+      vertical-align: middle;
+  }
+.question-holder {
+  width:10px;
+    display: inline-block;
+}
+  .question-slide {
+      position: absolute;
+      left: 100%;
+      top: -9px;
+      color: #fff;
+      font-size: 9px;
+      line-height: 14px;
+      padding: 0 0 0 11px;
+      z-index: 20;
+  }
+  .space-form.login .label-holder {
+      font-size: 20px;
+      line-height: 1.2;
+      font-weight: 300;
+
+      letter-spacing: .025em;
+      margin: 0 7px 5px 0;
+  }
+  .space-form .label-holder {
+      display: inline-block;
+      vertical-align: middle;
+      margin: 0 22px 0 0;
+      text-align: right;
+  }
+  .space-form.login .row {
+      margin-bottom: 12px;
+  }
+  .space-form .row {
+      margin: 0 0 7px;
+  }
+
+  .jcf-select {
+      display: inline-block;
+      vertical-align: middle;
+      position: relative;
+      border: 1px solid #c9c9c9;
+      background: #fff;
+      border-radius: 2px;
+      margin: 0;
+      width: 235px;
+      height: 25px;
+  }
+  .jcf-select .jcf-select-opener {
+      position: absolute;
+      text-align: center;
+      right: 8px;
+      top: 50%;
+      cursor: pointer;
+      -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+      transform: translateY(-50%);
+      color: #333;
+  }
+  .space-form.login .jcf-select .jcf-select-text {
+      font-size: 17px;
+      line-height: 30px;
+  }
+  .space-form.login .jcf-select .jcf-select-opener {
+      font-size: 23px;
+      right: 3px;
+  }
+  .jcf-select {
+      display: inline-block;
+      vertical-align: middle;
+      position: relative;
+      border: 1px solid #c9c9c9;
+      background: #fff;
+      border-radius: 2px;
+      margin: 0;
+      width: 235px;
+      height: 25px;
+  }
+  .space-form.login .label-holder {
+    font-size: 20px;
+    line-height: 1.2;
+    font-weight: 300;
+    letter-spacing: .025em;
+    margin: 0 7px 5px 0;
+}
+.space-form .label-holder {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 22px 0 0;
+    text-align: right;
+}
+}

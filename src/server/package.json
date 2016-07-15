@@ -1,0 +1,52 @@
+{
+  "name": "adsigo-react",
+  "version": "1.0.0",
+  "description": "Services store",
+  "main": "index.js",
+  "scripts": {
+    "start": "watchify -o js/bundle.js -v -d js/app.js",
+    "build": "browserify . | uglifyjs -cm > js/bundle.min.js",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@gitlab.com/carlosman79/adsigo-react.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/carlosman79/adsigo-react/issues"
+  },
+  "homepage": "https://gitlab.com/carlosman79/adsigo-react#README",
+  "devDependencies": {
+    "babelify": "^6.1.2",
+    "browserify": "^10.2.4",
+    "gulp": "^3.9.0",
+    "gulp-minify-css": "^1.1.6",
+    "gulp-nodemon": "^2.0.7",
+    "gulp-sass": "^2.3.1",
+    "gulp-sourcemaps": "^1.5.2",
+    "gulp-stylus": "^2.0.4",
+    "gulp-webserver": "^0.9.1",
+    "http-server": "^0.8.0",
+    "nib": "^1.1.0",
+    "standard": "^4.2.1",
+    "vinyl-source-stream": "^1.1.0"
+  },
+  "dependencies": {
+    "bluebird": "^3.4.0",
+    "body-parser": "^1.15.1",
+    "browserify-middleware": "^7.0.0",
+    "express": "^4.14.0",
+    "font-awesome": "^4.3.0",
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.0",
+    "normalize.css": "^3.0.3",
+    "page": "^1.7.1",
+    "pg-promise": "^4.2.6",
+    "react": "^15.1.0",
+    "react-dom": "^15.1.0",
+    "react-router": "^2.4.1",
+    "socketio": "^1.0.0"
+  }
+}

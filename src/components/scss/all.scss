@@ -1,0 +1,32 @@
+$mq-breakpoints: (
+    // Base device classes
+    mobile:      768px,
+    tablet:      1024px,
+    desktop: 1100px,
+    widescreen: 1350px,
+    tvscreen:   1920px,
+
+    // Tweakpoints
+    mobileLandscape: 480px
+);
+
+// Show active breakpoint in top right corner of viewport
+// $mq-show-breakpoints: (mobile, mobileLandscape, tablet, desktop, widescreen, tvscreen);
+
+@import "vendors/mq";
+
+@import "utils/markup-variables";
+@import "utils/markup-mixins";
+
+@import "base/base-reset";
+@import "base/fonts-ico";
+
+@import "components/custom-form";
+@import "components/filter-content";
+@import "components/fancybox";
+@import "components/datepicker";
+
+@import "layout/header";
+@import "layout/content";
+@import "layout/footer";
+@import "layout/main";

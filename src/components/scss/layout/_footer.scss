@@ -1,0 +1,27 @@
+#footer{
+	padding:4px 43px 7px;
+	background:$dark-gray;
+	text-align:center;
+	font-size:17px;
+	line-height:20px;
+}
+.btn-help{
+	color:$white;
+	&:hover{
+		color:$dark-gray-2;
+		span{
+			text-decoration:underline;
+		}
+	}
+	span{
+		display:inline-block;
+		vertical-align:middle;
+		margin:0 3px 0 0;
+	}
+	[class^="icon-"]{
+		display:inline-block;
+		vertical-align:middle;
+		font-size:20px;
+	}
+	
+}
