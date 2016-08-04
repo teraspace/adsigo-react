@@ -153,7 +153,7 @@ app.get('/bundle.js', function(req, res) {
   res.sendFile('./js/bundle.js');
 });
 app.get('/*', function(req, res) {
-  res.sendFile('/home/cmpm/adsigo-react/build/index.html');
+  res.sendFile('/home/carlos/adsigo-react/build/index.html');
 });
 //Crea el método de inicio de sesión.
 app.post('/api/cities', function(req, res) {
@@ -220,6 +220,7 @@ app.post('/api/register', function(req, res) {
   var photo = JSON.parse(p.in_user_photo)
   p.in_user_photo = photo.data.originalname
   var fileExtension = String(p.in_user_photo).slice(-4);
+p.in_user_photo = p.in_identification+''+fileExtension
 
   _.appregistro = p;
 

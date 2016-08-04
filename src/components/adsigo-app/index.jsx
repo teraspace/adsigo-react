@@ -6,7 +6,13 @@ class AdsigoApp extends React.Component {
     constructor(props) {
         super(props);
     }
+	componentDidMount () {
+    var evt = document.createEvent('Event');
+    evt.initEvent('load', false, false);
+    window.dispatchEvent(evt);
 
+
+}
 
     render() {
 

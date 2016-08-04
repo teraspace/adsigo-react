@@ -8,7 +8,7 @@
  */
 var _ = {};
 _.globals = {
-  hostaddress: 'http://localhost:8080'
+  hostaddress: 'http://adsigo.teraspace.co:8080'
 };
 // Estandar Prefijo 'APP' + Acción + Entidad-Objeto
 _.applogin = {

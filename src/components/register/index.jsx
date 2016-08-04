@@ -25,6 +25,10 @@ export default class Register extends React.Component {
 
   }
   componentDidMount (){
+    var evt = document.createEvent('Event');
+    evt.initEvent('load', false, false);
+    window.dispatchEvent(evt);
+
     $('#iphoto').change(function() {
       $('#iphoto').simpleUpload( _.globals.hostaddress +'/api/photo',{
               allowedExts: ["jpg", "jpeg", "jpe", "jif", "jfif", "jfi", "png", "gif"],
