@@ -67,5 +67,15 @@ _.appstock = {
      in_daily_price :'',
      in_production_price :''
 }
-
+_.applanding = {
+  in_user_token :'',
+  in_date_start:'',
+  in_date_end :'',
+  in_id_type_stock:'',
+  in_id_price_range :'',
+  in_id_country :'',
+  in_id_city :'',
+  in_offset:'',
+  in_limit:''
+}
 module.exports = _;

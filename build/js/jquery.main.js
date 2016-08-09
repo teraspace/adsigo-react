@@ -86,6 +86,7 @@ function initCycleCarousel() {
 			swipeThreshold: 15,
 			vertical: false
 		}, options);
+	this.destroy();
 		this.init();
 	}
 	ScrollAbsoluteGallery.prototype = {
@@ -169,13 +170,20 @@ function initCycleCarousel() {
 					e.preventDefault();
 					self.prevSlide();
 				};
-				this.btnPrev.click(this.btnPrevHandler);
+				this.btnPrev.unbind('click', this.btnPrevHandler);
+				this.btnNext.unbind('click', this.btnNextHandler);
+				this.pagerLinks.unbind('click', this.pagerLinksHandler);
+				this.holder.unbind('mouseenter', this.hoverHandler);
+				this.holder.unbind('mouseleave', this.leaveHandler);
+				$(window).unbind('load resize orientationchange', this.resizeHandler);				this.btnPrev.click(this.btnPrevHandler);
 			}
 			if(this.btnNext.length) {
 				this.btnNextHandler = function(e) {
 					e.preventDefault();
 					self.nextSlide();
 				};
+				this.btnNext.unbind('click', this.btnNextHandler);
+
 				this.btnNext.click(this.btnNextHandler);
 			}
 			if(this.pagerLinks.length) {
@@ -377,6 +385,7 @@ function initCycleCarousel() {
 		},
 		destroy: function() {
 			// destroy handler
+		try {
 			this.btnPrev.unbind('click', this.btnPrevHandler);
 			this.btnNext.unbind('click', this.btnNextHandler);
 			this.pagerLinks.unbind('click', this.pagerLinksHandler);
@@ -396,6 +405,7 @@ function initCycleCarousel() {
 			if(typeof this.options.generatePagination === 'string') {
 				this.pagerHolder.empty();
 			}
+}catch(err){console.log(err)}
 		}
 	};
 

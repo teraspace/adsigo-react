@@ -45,6 +45,28 @@ app.use(bodyParser.urlencoded({
 }));
 
 //Crea el método de inicio de sesión.
+app.post('/api/landing', function(req, res) {
+  var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+  var p = JSON.parse(req.body.params);
+  //  p.in_ip_user_host = ip;
+  _.applanding = p;
+console.log(_.applanding)
+  console.log(_.appcity)
+  var procedureCall = apiUtil.getJsonquery(_.applanding);
+  //Se invoca el promice local para llamada al Procedimiento almacenado.
+  callFunction(procedureCall).then(function(response) {
+    //Se procesa la respuesta que se envia al cliente.
+    try {
+      res.send(response[0]); //Se envia la respuesta al request.
+    } catch (err) {
+      console.log('error1');
+    }
+  })
+});
+
+
+
+//Crea el método de inicio de sesión.
 app.post('/api/register-stock', function(req, res) {
   //Se procesan las cabeceras donde llega el nombre de ususario y password.
   var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;

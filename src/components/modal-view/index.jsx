@@ -12,7 +12,7 @@ export default class ModalView  extends React.Component{
 
   }
   render () {
-    return <div id="modalContainer" className="modal fade" tabindex="-1" role="dialog">
+    return <div id="modalContainer" className="modal fade" tabIndex="-1" role="dialog">
             <div className="modal-dialog">
               <div className="modal-content">
                 <div className="modal-header">

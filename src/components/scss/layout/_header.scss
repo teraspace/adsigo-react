@@ -1,9 +1,9 @@
 
 #header{
 	background:$white;
-	position:relative;
+	position:fixed;
 	z-index:50;
-
+	width: 100%;
 	.shown {
  display: none;
 	}

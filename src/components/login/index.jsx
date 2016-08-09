@@ -50,7 +50,7 @@ export default class Login extends React.Component {
 
 
     console.log('onLoginClick');
-    fetch('http://adsigo.teraspace.co:8080/api/login', {
+    fetch(_.globals.hostaddress+'/api/login', {
       method: 'POST',
       headers: {
         "Content-Type": "application/x-www-form-urlencoded"

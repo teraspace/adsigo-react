@@ -1,5 +1,5 @@
 var cn = {
-    host: 'localhost', // server name or IP address;
+    host: 'adsigo.teraspace.co', // server name or IP address;
     port: 5432,
     database: 'node-pg',
     user: 'cmpm',

@@ -13,7 +13,7 @@ import RegisterStock from './register-stock'
 
 var routes = [
   ['#', AdsigoApp],
-  ['/', AdsigoApp],
+  ['/', Landing],
   ['/login', Login],
   ['/register', Register],
   ['/register-stock', RegisterStock],

@@ -41,6 +41,7 @@
     "font-awesome": "^4.3.0",
     "gulp": "^3.9.1",
     "gulp-concat": "^2.6.0",
+    "multer": "^1.1.0",
     "normalize.css": "^3.0.3",
     "page": "^1.7.1",
     "pg-promise": "^4.2.6",

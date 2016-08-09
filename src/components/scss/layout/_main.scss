@@ -1928,7 +1928,7 @@ display: none;
 .ajax-holder{
 	&.inner{
 		@include mq($from: tablet) {
-			padding: 25px 43px 0;
+			padding: 90px 43px 0;
 		}
 	}
 }
