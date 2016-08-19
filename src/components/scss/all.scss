@@ -13,6 +13,18 @@ $mq-breakpoints: (
 // Show active breakpoint in top right corner of viewport
 // $mq-show-breakpoints: (mobile, mobileLandscape, tablet, desktop, widescreen, tvscreen);
 
+.page-center {
+ display: table;
+  text-align: center;
+  height: 100%;
+  width: 100%;
+}
+#landing-country{
+  display: table-cell;
+ line-height: normal;
+ vertical-align: middle;
+
+}
 @import "vendors/mq";
 
 @import "utils/markup-variables";

@@ -22,7 +22,7 @@ var nombreFuncion = 'listarusuario';
 function prepareCallFunction(callFunction) {
     return new promise(function(fullfill, reject) {
         Parametros = callFunction.Parametros;
-        db.one('select proargnames from pg_proc where proname=$1', callFunction.metodo).then(function(data) {
+        db.one('select proargnames from pg_proc where proname=$1 limit 1', callFunction.metodo).then(function(data) {
             db.tx(function(t) {
                 // t = this;
                 var progargs = data.proargnames;
@@ -48,7 +48,7 @@ function prepareCallFunction(callFunction) {
                 // returning a promise that determines a successful transaction:
                 return this.batch([q1, q2]); // all of the queries are to be resolved;
             }).then(function(data) {
-                console.log(data)
+              //  console.log(data)
                 pgp.end()
                 fullfill(data);
             }).catch(function(error) {

@@ -39,19 +39,73 @@ if (process.argv.length > 0) {}
 
 //Publica el folder con los archivos del sitio.
 app.use(express.static(path.join(__dirname, '../../build/')));
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 //Setea el formato de request a urlencoded. Usado para el inicioa de sesión únicamente.
 app.use(bodyParser.urlencoded({
   extended: true
 }));
-
+//Crea el método de inicio de sesión.
+app.post('/api/stock-availbility', function(req, res) {
+  var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+  var p = JSON.parse(req.body.params);
+  //  p.in_ip_user_host = ip;
+  _.appgetavailability = p;
+  var procedureCall = apiUtil.getJsonquery(_.appgetavailability);
+  //Se invoca el promice local para llamada al Procedimiento almacenado.
+  callFunction(procedureCall).then(function(response) {
+    //Se procesa la respuesta que se envia al cliente.
+    try {
+      res.send(response[0]); //Se envia la respuesta al request.
+    } catch (err) {
+      console.log('error1');
+    }
+  })
+});
+//Crea el método de inicio de sesión.
+app.post('/api/stock-detail', function(req, res) {
+  var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+  var p = JSON.parse(req.body.params);
+  //  p.in_ip_user_host = ip;
+  _.appshowstock = p;
+  var procedureCall = apiUtil.getJsonquery(_.appshowstock);
+  //Se invoca el promice local para llamada al Procedimiento almacenado.
+  callFunction(procedureCall).then(function(response) {
+    //Se procesa la respuesta que se envia al cliente.
+    try {
+      res.send(response[0]); //Se envia la respuesta al request.
+    } catch (err) {
+      console.log('error1');
+    }
+  })
+});
+//Crea el método de inicio de sesión.
+app.post('/api/pricerange', function(req, res) {
+  var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+  //var p = JSON.parse(req.body.params);
+  //  p.in_ip_user_host = ip;
+  //_.appgettypestock = p;
+  var procedureCall = apiUtil.getJsonquery(_.appgetpricerange);
+  //Se invoca el promice local para llamada al Procedimiento almacenado.
+  callFunction(procedureCall).then(function(response) {
+    //Se procesa la respuesta que se envia al cliente.
+    try {
+      res.send(response[0]); //Se envia la respuesta al request.
+    } catch (err) {
+      console.log('error1');
+    }
+  })
+});
 //Crea el método de inicio de sesión.
 app.post('/api/landing', function(req, res) {
   var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
   var p = JSON.parse(req.body.params);
   //  p.in_ip_user_host = ip;
   _.applanding = p;
-console.log(_.applanding)
-  console.log(_.appcity)
+
   var procedureCall = apiUtil.getJsonquery(_.applanding);
   //Se invoca el promice local para llamada al Procedimiento almacenado.
   callFunction(procedureCall).then(function(response) {
@@ -108,8 +162,6 @@ app.post('/api/register-stock', function(req, res) {
   callFunction(procedureCall).then(function(response) {
     //Se procesa la respuesta que se envia al cliente.
     try {
-      //  console.log(p)
-      console.log(response)
       var dir = __dirname  +  '/img/stock/user_' + p.in_fk_id_user + '/stock_' + response[0].id;
       var userDir = __dirname  + '/img/stock/user_' + p.in_fk_id_user + '/';
       var stockDir = 'stock_' + response[0].id + '/';
@@ -121,7 +173,6 @@ app.post('/api/register-stock', function(req, res) {
         console.log('dirrectorio creado')
       }
 
-      console.log(dir)
       var photosok = true;
       photos.forEach(function(photo,index){
         console.log(photo)
@@ -329,7 +380,7 @@ function callFunction(procedureCall) {
       clearTimeout(timeout);
       fullfill([JSON.stringify(Response), target]);
       reject([JSON.stringify(Response), target]);
-    }, 60000);
+    }, 5000);
 
     n.on('message', (m) => {
       clearTimeout(timeout);

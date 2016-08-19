@@ -6,8 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>React Example</title>
-  <script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
-
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
   <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
@@ -30,6 +28,12 @@
   <div id="modalview">
   </div>
   <script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
+  <script type="text/javascript" src="js/jquery-ui.js"></script>
+  <script type="text/javascript" src="js/jquery-2.1.1.js"></script>
+  <script type="text/javascript" src="js/jquery-ui.js"></script>
+
+  <script type="text/javascript" src="js/jquery-ui.multidatespicker.js"></script>
+
 	<script type="text/javascript" src="js/jssor.js"></script>
 	<script type="text/javascript" src="js/jssor.slider.min.js"></script>
 	<script type="text/javascript" src="js/jquery.main.js"></script>
@@ -37,6 +41,23 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
   <script src="/js/jquery.jscroll.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment.min.js"></script>
+<script src='https://maps.googleapis.com/maps/api/js?v=3.exp'></script><script type='text/javascript'>
+function init_map(){
+console.log('init_map')
+  var myOptions = {
+    zoom:16,
+    center:new google.maps.LatLng(11.004270439295391,-74.80891249049068),
+    mapTypeId: google.maps.MapTypeId.ROADMAP};
+    map = new google.maps.Map(document.getElementById('detailmap'), myOptions);
+    marker = new google.maps.Marker({map: map,position: new google.maps.LatLng(11.004270439295391,-74.80891249049068)});
+    infowindow = new google.maps.InfoWindow({content:'<strong>Adsigo</strong><br>Barranquilla, Colombia<br>'});
+  google.maps.event.addListener(marker, 'click', function(){
+    infowindow.open(map,marker);
+  });
+  infowindow.open(map,marker);
+}
+//google.maps.event.addDomListener(window, 'load', init_map);
+</script>
   <script src="/js/bundle.js"></script>
 </body>
 </html>

@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom'
 import Header from '../header'
 import _ from '../../server/ConstantsAPI';
 import LandingGallery from '../landing-gallery'
+import LandingDetail from '../landing-detail';
+
 class Landing extends React.Component {
 
   constructor(props) {
@@ -56,6 +58,7 @@ class Landing extends React.Component {
 
     selectPrice = $('#selectPrice').val();
     selectTypestock = $('#selectTypestock').val();
+console.log(selectTypestock)
     try {
       if ('session' in that.state)
       token=that.state.session.v_user_token
@@ -67,7 +70,7 @@ class Landing extends React.Component {
       in_user_token :token,
       in_date_start:fromdate,
       in_date_end :todate,
-      in_id_type_stock:0,
+      in_id_type_stock:selectTypestock,
       in_id_price_range :selectPrice,
       in_id_country :'CO',
       in_id_city :null,

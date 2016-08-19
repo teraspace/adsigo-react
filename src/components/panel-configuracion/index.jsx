@@ -16,8 +16,10 @@ export default class PanelConfiguracion extends React.Component {
   render() {
     var user_photo,last_name;
     if(this.state.session!=null){
-      user_photo = "./img/photo_user/"+this.state.session.user_photo ;
-      last_name = this.state.session.last_name
+      if(this.state.session.user_photo!=null){
+        user_photo = "./img/photo_user/"+this.state.session.user_photo ;
+        last_name = this.state.session.last_name
+      }
     }
 
     return <div id="nav">
@@ -59,6 +61,7 @@ export default class PanelConfiguracion extends React.Component {
   logOut (){
     localStorage.setItem('session',null)
     localStorage.removeItem('session');
+  localStorage.removeItem('country');
     setTimeout (function (){
       location.reload();
     },100)

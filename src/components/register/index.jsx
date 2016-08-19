@@ -51,7 +51,7 @@ export default class Register extends React.Component {
     var optionCountries = [];
     var countries = this.state.countries;
     try {
-      optionCountries.push(<option value="0" className="hide-me">Select Country</option>);
+      optionCountries.push(<option  key={"Cx"}  value="0" className="hide-me">Select Country</option>);
       countries.forEach(function(country, index){
         optionCountries.push(<option key={"C"+index} value={country.id_iso} className="hide-me">{country.description}</option>);
       })
@@ -60,9 +60,9 @@ export default class Register extends React.Component {
     var optionCities = [];
     var cities = this.state.cities;
     try {
-      optionCities.push(<option value="0" className="hide-me">Select City</option>);
+      optionCities.push(<option key={'cityx'}  value="0" className="hide-me">Select City</option>);
       cities.forEach(function(city, index){
-        optionCities.push(<option key={index} value={city.id_city} className="hide-me">{city.name}</option>);
+        optionCities.push(<option key={'city'+index} value={city.id_city} className="hide-me">{city.name}</option>);
       })
     }catch(err){}
 
@@ -96,9 +96,9 @@ export default class Register extends React.Component {
 
                 <div className="row required-row">
                   <div className="label-holder">
-                    <label For="typeIdentification">Tipo de Identificacion:</label>
+                    <label htmlFor="typeIdentification">Tipo de Identificacion:</label>
                   </div>
-                  <select align="right" className="required-select login-form" id="typeIdentification" name="typeIdentification" required >
+                  <select  className="required-select login-form" id="typeIdentification" name="typeIdentification" required >
                     <option value="0" className="hide-me">Select Type Identify</option>
                     <option value="C.C">C.C</option>
                     <option value="T.I">T.I</option>
@@ -108,27 +108,27 @@ export default class Register extends React.Component {
 
                 <div className="row required-row">
                   <div className="label-holder">
-                    <label For="identification">Numero de Identificacion:</label>
+                    <label htmlFor="identification">Numero de Identificacion:</label>
                   </div>
                   <input maxLength={20} className="required" type="text" placeholder="Numero de Identifiacion" id="identification" name="identification" required />
                 </div>
                 <div className="row required-row">
                       <div className="label-holder">
-                        <label For="iphoto">Photo:</label>
+                        <label htmlFor="iphoto">Photo:</label>
                       </div>
-                      <input align="right" className="required-select login-form"  name="iphoto"  accept="image/*" type="file" placeholder="Photo" id="iphoto" />
+                      <input  className="required-select login-form"  name="iphoto"  accept="image/*" type="file" placeholder="Photo" id="iphoto" />
                       <span id="fileInfo"></span>
-                      <img heigth="50px" id="previewPhoto" />
+                      <img  id="previewPhoto" />
                 </div>
                 <div className="row required-row">
                   <div className="label-holder">
-                    <label For="firstName">First Name:</label>
+                    <label htmlFor="firstName">First Name:</label>
                   </div>
-                  <input  maxLength={50} c className="required" type="text" placeholder="Dolmen Visual S.A.S" id="firstName" name="firstName"  required />
+                  <input  maxLength={50} className="required" type="text" placeholder="Dolmen Visual S.A.S" id="firstName" name="firstName"  required />
                 </div>
                 <div className="row required-row">
                   <div className="label-holder">
-                    <label For="lastNane">Last Name:</label>
+                    <label htmlFor="lastNane">Last Name:</label>
                   </div>
                   <input maxLength={100}  className="required" type="text" placeholder="Dolmen Visual S.A.S" id="lastName" name="lastName"  />
                 </div>
@@ -136,7 +136,7 @@ export default class Register extends React.Component {
 
                 <div className="row required-row">
                   <div className="label-holder">
-                    <label For="selectCountry">Country of Resident:</label>
+                    <label htmlFor="selectCountry">Country of Resident:</label>
                   </div>
                   <select key={12} onChange={this.selectCountry} className="required-select login-form" id="selectCountry"   name="selectCountry" required >
                     {optionCountries}
@@ -144,7 +144,7 @@ export default class Register extends React.Component {
                 </div>
                 <div className="row required-row">
                   <div className="label-holder">
-                    <label For="selectCity">City of Resident:</label>
+                    <label htmlFor="selectCity">City of Resident:</label>
                   </div>
                   <select className="required-select login-form" id="selectCity" name="selectCity" required >
                     {optionCities}
@@ -154,13 +154,13 @@ export default class Register extends React.Component {
 
                 <div className="row required-row">
                   <div className="label-holder">
-                    <label For="address">Address:</label>
+                    <label htmlFor="address">Address:</label>
                   </div>
                   <input maxLength={200}   className="required" type="text" placeholder="Address" id="address" name="address"  />
                 </div>
                 <div className="row required-row">
                   <div className="label-holder">
-                    <label For="phone">Phone:</label>
+                    <label htmlFor="phone">Phone:</label>
                   </div>
                   <input maxLength={20}   className="required" type="tel" placeholder="321 592 53 55" id="phone" name="phone"  />
                   <div className="question-holder">
@@ -182,7 +182,7 @@ export default class Register extends React.Component {
                 </div>
                 <div className="row required-row">
                   <div className="label-holder">
-                    <label For="email1">e-mail</label>
+                    <label htmlFor="email1">e-mail</label>
                   </div>
                   <input maxLength={100}  name="email" className="required" type="mail" placeholder="myname@myemail.com" id="mail" />
                   <div className="question-holder">
@@ -197,7 +197,7 @@ export default class Register extends React.Component {
                 </div>
                 <div className="row required-row">
                   <div className="label-holder">
-                    <label For="password">Password:</label>
+                    <label htmlFor="password">Password:</label>
                   </div>
                   <input maxLength={50} name="pass" id="pass" className="required eq" type="password" placeholder="***********" />
                   <input maxLength={50} name="pass_confirmation" id="pass_confirmation" className="required eq" type="password" placeholder="Confirm Password"  />
@@ -235,9 +235,8 @@ export default class Register extends React.Component {
       in_email:  document.getElementById('mail').value,
       in_password:  document.getElementById('pass').value,
       in_type_identification:  document.getElementById('typeIdentification').value,
-      in_id_country:  '4',
-      in_id_city:  '1',
-      //in_id_city:  document.getElementById('city').value,
+      in_id_country:  document.getElementById('selectCountry').value,
+      in_id_city:  document.getElementById('selectCity').value,
       in_ip_user_host: ''
     });
     if(!validar(payload)) {

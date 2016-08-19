@@ -1,0 +1,101 @@
+import React from 'react'
+import ReactDOM from 'react-dom'
+import _ from '../../server/ConstantsAPI';
+
+class LandingDetail extends React.Component {
+
+
+    constructor(props) {
+      super(props)
+      this.state = { detail: [] }
+    }
+    componentDidMount () {
+      console.log('componentDidMount')
+      $('#gridSystemModal').on('show.bs.modal', function (e) {
+
+      $('#closemodal').text('Cerrar').click(function(e){
+                console.log(e)
+                $('#gridSystemModal').modal('hide');
+                ReactDOM.unmountComponentAtNode(document.getElementById('modalview'))
+        })
+      }).modal({
+              keyboard: false,
+              backdrop: 'static'
+              });
+
+  }
+    render(){
+      var details = this.props.data;
+      console.log(details)
+      var that = this;
+      if (this.props.data) {
+            var first_photo,second_photo,third_photo,fourth_photo = null;
+            var path_photo = "images/stock/user_"+this.props.data.fk_id_user+"/stock_"+this.props.data.id_stock+"/"
+            var photo_gallery = []
+            first_photo = path_photo + this.props.data.first_photo
+            second_photo = path_photo + this.props.data.second_photo
+            third_photo = path_photo + this.props.data.third_photo
+            fourth_photo = path_photo + this.props.data.fourth_photo
+      }
+      if(this.props.data.first_photo!=""){
+              photo_gallery.push(                  <div  key={"photo1"} className="slide" style={{height:'307px', position: 'absolute', left: '390px',  width: '390px'}}>
+              <img  style={{height:'307px'}} src={first_photo} height="307" width="402" alt="image description" />
+            </div>)
+      }
+      if(this.props.data.second_photo!=""){
+            photo_gallery.push(                   <div key={"photo2"} className="slide" style={{position: 'absolute', left: '780px', width: '390px'}}>
+            <img style={{height:'307px'}}  src={second_photo} height="307" width="402" alt="image description" />
+          </div>)
+      } else {
+          photo_gallery.push(                   <div key={"photo2"} className="slide" style={{position: 'absolute', left: '780px', width: '390px'}}>
+          <img style={{height:'307px'}}  src={first_photo} height="307" width="402" alt="image description" />
+        </div>)
+      }
+      if(this.props.data.third_photo!=""){
+        photo_gallery.push(         <div key={"photo3"} className="slide" style={{position: 'absolute', left: '0px', width: '390px'}}>
+        <img style={{height:'307px'}}  src={third_photo} height="307" width="402" alt="image description" />
+      </div>)
+      }
+      if(this.props.data.fourth_photo!=""){
+        photo_gallery.push(         <div key={"photo4"} className="slide" style={{position: 'absolute', left: '0px', width: '390px'}}>
+        <img style={{height:'307px'}}  src={fourth_photo} height="307" width="402" alt="image description" />
+      </div>)
+      }
+      return <div id="gridSystemModal" className="modal fade" tabIndex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
+          <div className="modal-dialog" role="document">
+            <div className="modal-content">
+              <div className="modal-header">
+                     <button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                     <h4 className="modal-title" id="gridModalLabel">{details.name}</h4>
+              </div>
+              <div className="modal-body">
+                <div className="container-fluid bd-example-row">
+                  <h5> {details.name} </h5>
+                </div>
+                <div className="container-fluid bd-example-row">
+                  <h5> {details.description} </h5>
+                </div>
+                <div className="picture-holder" style={{height: '307px'}}>
+                  <div className="cycle-gallery gallery-js-ready" style={{height: '307px'}}>
+                    <div className="mask" style={{height: '307px'}}>
+                      <div className="slideset" style={{position: 'relative', height: '100%', marginLeft: '-390px'}}>
+                        {photo_gallery}
+                      </div>
+                    </div>
+                    <a className="btn-prev" href="#"><span className="icon-arrow-left"></span></a>
+                    <a className="btn-next" href="#"><span className="icon-arrow-right"></span></a>
+                  </div>
+                </div>
+              </div>
+              <div className="modal-footer">
+                   <button id="closemodal" type="button" className="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+
+          </div>
+
+      </div>
+    }
+}
+
+export default LandingDetail

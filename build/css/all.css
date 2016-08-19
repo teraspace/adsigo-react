@@ -1,3 +1,14 @@
+.page-center {
+  display: table;
+  text-align: center;
+  height: 100%;
+  width: 100%; }
+
+#landing-country {
+  display: table-cell;
+  line-height: normal;
+  vertical-align: middle; }
+
 .lightbox .top-holder:after, .lightbox-title:after, .lightbox-content .info-box:after, #header .top-holder:after, .filter-form:after, .checkbox-list li:after, .header-nav:after, #main:after, .buyer-checkout-holder .header:after, .efect-content .efect-box:after, .efect-content .clientes-holder:after, .efect-content .products-holder:after, .sales-detail-holder:after, .navbar:after, .nav ul:after, .numbers-list li:after, .date-box.inner:after {
   content: " ";
   display: block;

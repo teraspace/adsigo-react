@@ -1,16 +1,48 @@
 import React from 'react';
 import PanelConfiguracion from '../panel-configuracion'
 import Login from '../login'
+import _ from '../../server/ConstantsAPI'
+
 var that;
 export default class Header extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      session: JSON.parse(localStorage.getItem('session'))
+      session: JSON.parse(localStorage.getItem('session')),
+      typeStock: [],
+      priceRange:[],
+      cities: []
     };
   }
 
   componentWillMount() {
+    fetch(_.globals.hostaddress+'/api/typestock',{method: 'POST'})
+    .then((response) => {
+      return response.json()
+    })
+    .then((typeStock) => {
+      this.setState({  typeStock: typeStock.data })
+    })
+    fetch(_.globals.hostaddress+'/api/pricerange',{method: 'POST'})
+    .then((response) => {
+      return response.json()
+    })
+    .then((priceRange) => {
+      this.setState({  priceRange: priceRange.data })
+    })
+
+    var payload = JSON.stringify({in_country: 'CO'});
+    fetch( _.globals.hostaddress + '/api/cities' ,
+    {   method: 'POST',
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      body: "params=" + payload
+    }).then((response) => {
+      return response.json()
+    }).then((cities) => {
+      this.setState({  cities: cities.data })
+    })
 
   }
   componendDidMount (){
@@ -26,8 +58,25 @@ export default class Header extends React.Component {
     }else {
       modo = <PanelConfiguracion />;
     }
+    var typeStock = this.state.typeStock
+    var typeStockOptions = []
+    typeStockOptions.push(<option key={'ts0'}  value={0} data-sort="symbol">Formato</option>)
+    typeStock.forEach(function(ts,index){
+      typeStockOptions.push(<option key={'ts'+(index+1)}  value={parseInt(ts.id_type_stock)} data-sort="symbol">{ts.name}</option>)
+    })
+    var priceRange = this.state.priceRange
+    var priceRangeOptions = []
+    priceRangeOptions.push(<option key={'ts0'}  value={0} data-sort="symbol">Precio</option>)
+    priceRange.forEach(function(pr,index){
+      priceRangeOptions.push(<option key={'pr'+(index+1)}  value={parseInt(pr.id_price_range)} data-sort="symbol">{pr.label}</option>)
+    })
 
-
+    var cities = this.state.cities
+    var cityOptions = []
+    cityOptions.push(<option key={'city0'}  value={0} data-sort="symbol">Ciudad</option>)
+    cities.forEach(function(city,index){
+      cityOptions.push(<option key={'city'+(index+1)}  value={parseInt(city.fk_country_id_iso)} data-sort="symbol">{city.name}</option>)
+    })
     return <header id="header" className="home">
 		<div className="top-holder">
 			<div className="head-bar">
@@ -76,102 +125,21 @@ export default class Header extends React.Component {
 					<li>
             <div className="filter-right">
                 <select id="selectTypestock" className="sorting-select">
-                  <option value={0} data-sort="symbol">Formato</option>
-
-      						<option value={1} data-sort="symbol">Valla Externa</option>
-      						<option  value={2} data-sort="symbol">Paradero</option>
-      						<option  value={3} data-sort="symbol" >Valla Externa Digital</option>
-
+                  {typeStockOptions}
       					</select>
   						</div>
 					</li>
 					<li>
-						<a href="#" className="drop-opener"><span>Ciudad</span></a>
-						<div className="drop">
-							<ul className="checkbox-list">
-								<li>
-									<div className="checkbox-holder">
-										<input type="checkbox" id="checkbox-3" />
-										<label htmlFor="checkbox-3">Miami</label>
-									</div>
-								</li>
-								<li>
-									<div className="checkbox-holder">
-										<input type="checkbox" id="checkbox-4" />
-										<label htmlFor="checkbox-4">Las Vegas</label>
-									</div>
-								</li>
-								<li>
-									<div className="checkbox-holder">
-										<input type="checkbox" id="checkbox-5" />
-										<label htmlFor="checkbox-5">San Francisco</label>
-									</div>
-								</li>
-								<li>
-									<div className="checkbox-holder">
-										<input type="checkbox" id="checkbox-6" />
-										<label htmlFor="checkbox-6">Rio de Janeiro</label>
-									</div>
-								</li>
-								<li>
-									<div className="checkbox-holder">
-										<input type="checkbox" id="checkbox-7" />
-										<label htmlFor="checkbox-7">Buenos Aires</label>
-									</div>
-								</li>
-								<li>
-									<div className="checkbox-holder">
-										<input type="checkbox" id="checkbox-8" />
-										<label htmlFor="checkbox-8">Santiago</label>
-									</div>
-								</li>
-								<li>
-									<div className="checkbox-holder">
-										<input type="checkbox" id="checkbox-9" />
-										<label htmlFor="checkbox-9">Barranquilla</label>
-									</div>
-								</li>
-								<li>
-									<div className="checkbox-holder">
-										<input type="checkbox" id="checkbox-10" />
-										<label htmlFor="checkbox-10">Paris</label>
-									</div>
-								</li>
-								<li>
-									<div className="checkbox-holder">
-										<input type="checkbox" id="checkbox-11" />
-										<label htmlFor="checkbox-11">London</label>
-									</div>
-								</li>
-								<li>
-									<div className="checkbox-holder">
-										<input type="checkbox" id="checkbox-12" />
-										<label htmlFor="checkbox-12">Lima</label>
-									</div>
-								</li>
-								<li>
-									<div className="checkbox-holder">
-										<input type="checkbox" id="checkbox-13" />
-										<label htmlFor="checkbox-13">Quito</label>
-									</div>
-								</li>
-								<li>
-									<div className="checkbox-holder">
-										<input type="checkbox" id="checkbox-14" />
-										<label htmlFor="checkbox-14">Toronto</label>
-									</div>
-								</li>
-							</ul>
-						</div>
+            <div className="filter-right">
+                <select id="selectCity" className="sorting-select">
+                  {cityOptions}
+      					</select>
+  						</div>
 					</li>
 					<li>
 					<div className="filter-right">
               <select id="selectPrice" className="sorting-select">
-    						<option value={0} data-sort="symbol">Precio</option>
-    						<option  value={1} data-sort="symbol">0 - $1.000.000</option>
-    						<option  value={2} data-sort="symbol" >$1.000.000 - $5.000.000</option>
-    						<option  value={3} data-sort="number">$10.000.000 - $20.000.000</option>
-    						<option  value={4} data-sort="number" >$20.000.000 - y superior</option>
+                {priceRangeOptions}
     					</select>
 						</div>
 					</li>

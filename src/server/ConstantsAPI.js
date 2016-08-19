@@ -8,7 +8,7 @@
  */
 var _ = {};
 _.globals = {
-  hostaddress: 'http://adsigo.teraspace.co:8080'
+  hostaddress: 'http://192.168.0.18:8080'
 };
 // Estandar Prefijo 'APP' + Acción + Entidad-Objeto
 _.applogin = {
@@ -16,6 +16,10 @@ _.applogin = {
     in_password: '123456',
     in_language: 'US',
     in_ip_user_host: ''
+};
+_.appgetavailability = {
+  in_user_token :'',
+  in_id_stock : -1
 };
 _.appregister = {
   in_type_user: '',
@@ -35,7 +39,7 @@ _.appregister = {
 _.appcountry = {
 
 }
-
+_.appgetpricerange = {}
 _.appgettypestock = {
 
 }

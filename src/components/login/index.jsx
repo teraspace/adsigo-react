@@ -80,6 +80,7 @@ export default class Login extends React.Component {
         return;
       }
       localStorage.setItem('session',JSON.stringify(session.data[0]));
+    localStorage.setItem('country',session.data[0].id_country);
       that.props.loginResponse(session);
 
     });

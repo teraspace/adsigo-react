@@ -22,8 +22,7 @@ console.log('reloading')
 // jQuery(function() {
 // 	reload();
 // });
-
-jQuery(window).on('load', function() {
+function myload() {
 	reload();
 console.log('loading')
 	initAjaxFilter();
@@ -36,6 +35,9 @@ console.log('loading')
 	initTabs();
 	initCounter();
 	initMarked();
+}
+jQuery(window).on('load', function() {
+ myload();
 });
 
 
@@ -405,7 +407,7 @@ function initCycleCarousel() {
 			if(typeof this.options.generatePagination === 'string') {
 				this.pagerHolder.empty();
 			}
-}catch(err){console.log(err)}
+}catch(err){}
 		}
 	};
 
@@ -1145,6 +1147,7 @@ function initMarked() {
 }
 
 function initJssorGallery() {
+console.log('initJssorGallery')
 	var win = jQuery(window);
 	var timer;
 
@@ -1181,17 +1184,19 @@ function initJssorGallery() {
 			$SpacingX: 3,                                   //[Optional] Horizontal space between each thumbnail in pixel, default value is 0
 			$SpacingY: 3,                                   //[Optional] Vertical space between each thumbnail in pixel, default value is 0
 			$DisplayPieces: 10,                              //[Optional] Number of pieces to display, default value is 1
+			$Cols: 4,
 			$ParkingPosition: 260,                          //[Optional] The offset position to park thumbnail
 			$Orientation: 1,                                //[Optional] Orientation to arrange thumbnails, 1 horizental, 2 vertical, default value is 1
 			$DisableDrag: false                            //[Optional] Disable drag or not, default value is false
 		}
 	};
 
-	var jssor_slider2 = new $JssorSlider$('slider1_container', options);
+	var jssor_slider = new $JssorSlider$('slider1_container', options);
 	function ScaleSlider() {
-		var parentWidth = jssor_slider2.$Elmt.parentNode.clientWidth;
+		var parentWidth = jssor_slider.$Elmt.parentNode.clientWidth;
+
 		if (parentWidth){
-			jssor_slider2.$ScaleWidth(Math.min(parentWidth, 653));
+			jssor_slider.$ScaleWidth(Math.min(parentWidth, 653));
 		} else {
 			window.setTimeout(ScaleSlider, 30);
 		}
@@ -1581,7 +1586,7 @@ function initTableFunc() {
 
 function initDatepicker() {
 	var selectedClass = 'selected';
-
+//$('.multidate').datepicker();
 	jQuery('.date-box').each(function() {
 		var holder = jQuery(this);
 		var dateFrom = holder.find('.date-from');
@@ -1994,7 +1999,7 @@ function initOpenClose() {
 function initLightbox() {
 	jQuery('.btn-review, a[rel*="lightbox"]').fancybox({
 		padding: 0,
-		loop: false,
+		loop: true,
 		scrolling: 'visible',
 		// fitToView: true,
 		// autoSize: false,
