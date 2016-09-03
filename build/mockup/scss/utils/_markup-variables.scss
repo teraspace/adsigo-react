@@ -1,0 +1,40 @@
+// brand colors (http://name-of-color.com/)
+$black:#000;
+$white:#fff;
+$turquoise:#1ad3ad;
+$dark-turquoise:#13ab8c;
+$mountain-mist:#999;
+$light-gray:#f2f2f2;
+$light-gray-2:#bfbfbf;
+$light-gray-3:#dcdcdc;
+$light-gray-4:#ddd;
+$gray:#e9e9e9;
+$gray-2:#c4c4c4;
+$gray-3:#ccc;
+$gray-4:#c2c2c2;
+$gray-5:#cfcfcf;
+$gray-6:#c9c9c9;
+$gray-7:#d2d2d2;
+$gray-8:#666;
+$gray-9:#9a9a9a;
+$dark-gray:#b3b3b3;
+$dark-gray-2:#333;
+$dark-gray-3:#585858;
+$dark-gray-4:#4b4b4b;
+$dark-gray-5:#201f1f;
+$red:#ed1c24;
+
+// base variables
+$base-text-color:$black;
+$base-background-color:$gray;
+$base-link-color:$turquoise;
+$base-form-text-color:$gray-6;
+$base-form-placeholder-color:$mountain-mist;
+$base-input-border-color:$gray-6;
+
+$base-font-size:13px;
+$base-line-height:16px;
+$base-font-family:'Open Sans', Arial, Helvetica, sans-serif;
+$base-text-interval:($base-font-size * $base-line-height);
+
+$base-min-width:320px;

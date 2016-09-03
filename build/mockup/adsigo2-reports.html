@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>AdSigo</title>
+	<link media="all" rel="stylesheet" href="css/all.css">
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700' rel='stylesheet' type='text/css'>
+</head>
+<body>
+	<header id="header">
+		<div class="top-holder">
+			<div class="head-bar">
+				<div class="hold">
+					<div class="alignleft">
+						<div class="search-holder">
+							<a href="#" class="open-search"><i class="icon-search"></i></a>
+							<div class="search-drop">
+								<div class="box">
+									<form action="#" class="search-form">
+										<fieldset>
+											<input type="search" placeholder="Ciudad, Región, Tipo de Medio">
+											<button type="submit"><i class="icon-search"></i></button>
+										</fieldset>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="add-block">
+						<a href="#" class="btn-add">+</a>
+						<div class="add-drop">
+							<div class="box">
+								<a href="#">Create New Order</a>
+							</div>
+						</div>
+					</div>
+					<div id="nav">
+						<a href="#" class="menu-open"><span class="burger"><span></span></span><span class="text">Dolmen Visual</span></a>
+						<div class="nav-drop">
+							<ul>
+								<li><a href="#">My Magazines</a></li>
+								<li><a href="#">Past Bill</a></li>
+								<li><a href="#">My Billboards</a></li>
+								<li><a href="#">Profile</a></li>
+								<li><a href="#">Inbox</a></li>
+							</ul>
+						</div>
+					</div>
+					<a href="#" class="user-photo">
+						<img src="images/img1.png" height="51" width="51" alt="image description">
+					</a>
+				</div>
+			</div>
+			<div class="logo">
+				<a href="#"><img src="images/logo.png" height="27" width="79" alt="adsigo"></a>
+			</div>
+		</div>
+	</header>
+	<main id="main" role="main">
+		<div id="content">
+			<div class="content-holder order-detail">
+				<h1><img src="images/ico1.png" height="34" width="32" alt="image description">Reportes de Ventas</h1>
+				<div class="adsigo2-reports">
+					<form action="#" class="sales-filter-form">
+						<fieldset>
+							<div class="left-box">
+								<span class="title-text">Seleccionar mes:</span>
+								<span class="select-wrap big">
+									<select class="sales-select">
+										<option>Mes</option>
+										<option>Option 1</option>
+										<option>Option 2</option>
+									</select>
+								</span>
+							</div>
+						</fieldset>
+					</form>
+					<div class="sales-detail-holder same-h-holder same-h-inner">
+						<div class="box-col-holder">
+							<div class="total-sales">
+								<strong class="title same-h-i"><span>Ventas Totales en Mayo</span></strong>
+								<span class="sales-price-info gray">$388,000,000</span>
+								<span class="en">en COP</span>
+							</div>
+							<div class="total-sales">
+								<strong class="title">Promedio de precio por venta</strong>
+								<span class="sales-price-info">$4,000,000</span>
+								<span class="en">en COP</span>
+							</div>
+						</div>
+						<div class="box-col-holder">
+							<div class="circle-info same-h graph-section">
+								<strong class="title same-h-i"><span>Ventas Totales en Mayo</span></strong>
+								<div class="graph-holder">
+									<div class="donut-graph" data-value="70.8" data-max="100"></div>
+									<strong class="title-box"><span class="number"></span>%</strong>
+								</div>
+							</div>
+						</div>
+						<div class="box-col-holder">
+							<div class="circle-info same-h graph-section">
+								<strong class="title same-h-i"><span>Ocupación (en días)</span></strong>
+								<div class="graph-holder">
+									<div class="donut-graph" data-value="23.3" data-max="30"></div>
+									<strong class="title-box"><span class="number"></span><sub>días</sub></strong>
+								</div>
+							</div>
+						</div>
+						<div class="box-col-holder">
+							<div class="circle-info same-h">
+								<strong class="title same-h-i"><span>Cantidad de Vallas</span></strong>
+								<div class="num-info">
+									<span class="num">78</span>
+									Vallas
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="graph-box line-graph-holder">
+						<strong class="title">Ventas por mes</strong>
+						<div class="graph-holder">
+							<div class="line-graph" data-json="inc/date.json"></div>
+						</div>
+					</div>
+					<div class="graph-box line-graph-holder">
+						<strong class="title">Ocupación por mes (en %)</strong>
+						<div class="graph-holder add">
+							<div class="line-graph" data-json="inc/date-percent.json"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<aside id="sidebar">
+			<nav class="side-nav">
+				<ul>
+					<li><a href="#">Mis Ordenes<span class="number">3</span></a></li>
+					<li>
+						<a href="#">Mis Espacios</a>
+						<ul>
+							<li><a href="#">Espacios Indoor</a></li>
+							<li><a href="#">Espacios Outdoor</a></li>
+							<li><a href="#">Agregar Espacio</a></li>
+						</ul>
+					</li>
+					<li>
+						<a href="#">Reportes</a>
+						<ul>
+							<li><a href="#">Reportes Indoor</a></li>
+							<li><a href="#">Reportes Outdoor</a></li>
+						</ul>
+					</li>
+					<li>
+						<a href="#">Disponibilidad</a>
+						<ul>
+							<li><a href="#">Disponibilidad Indoor</a></li>
+							<li><a href="#">Disponibilidad Outdoor</a></li>
+						</ul>
+					</li>
+				</ul>
+			</nav>
+		</aside>
+	</main>
+	<script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
+	<script type="text/javascript" src="js/highcharts.js"></script>
+	<script type="text/javascript" src="js/jquery.main.js"></script>
+</body>
+</html>

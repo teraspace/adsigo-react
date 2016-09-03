@@ -1,0 +1,53 @@
+{
+	"date": [
+		{
+			"titleX": "JAN",
+			"value": 200000000
+		},
+		{
+			"titleX": "FEB",
+			"value": 223000000
+		},
+		{
+			"titleX": "MAR",
+			"value": 170000000
+		},
+		{
+			"titleX": "APR",
+			"value": 180000000
+		},
+		{
+			"titleX": "MAY",
+			"value": 250000000
+		},
+		{
+			"titleX": "JUN",
+			"value": 220000000
+		},
+		{
+			"titleX": "JUL",
+			"value": 538000000
+		},
+		{
+			"titleX": "AUG",
+			"value": 160000000
+		},
+		{
+			"titleX": "SEP",
+			"value": 160000000
+		},
+		{
+			"titleX": "OCT",
+			"value": 190000000
+		},
+		{
+			"titleX": "NOV",
+			"value": 220000000
+		},
+		{
+			"titleX": "DEC",
+			"value": 260000000
+		}
+		
+	]
+}

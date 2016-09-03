@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>AdSigo</title>
+	<link media="all" rel="stylesheet" href="css/all.css">
+	<link media="all" rel="stylesheet" href="css/jquery-ui.min.css">
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700' rel='stylesheet' type='text/css'>
+</head>
+<body>
+	<header id="header" class="home">
+		<div class="top-holder">
+			<div class="head-bar">
+				<div class="hold">
+					<div class="alignleft">
+						<div class="search-holder">
+							<a href="#" class="open-search"><i class="icon-search"></i></a>
+							<div class="search-drop">
+								<div class="box">
+									<form action="#" class="search-form">
+										<fieldset>
+											<input type="search" placeholder="Ciudad, Región, Tipo de Medio">
+											<button type="submit"><i class="icon-search"></i></button>
+										</fieldset>
+									</form>
+								</div>
+							</div>
+						</div>
+						<a href="#" class="btn-filter"><span>Filtro <span class="none">Avanzado</span></span></a>
+					</div>
+					<div class="help-desk"><a href="#">?</a></div>
+					<div id="nav">
+						<a href="#" class="menu-open"><span class="burger"><span></span></span><span class="text">Iniciar Sesión</span></a>
+						<a href="#" class="user-photo menu-open">
+							<img src="images/ico-menu.png" height="51" width="51" alt="image description">
+						</a>
+						<div class="nav-drop">
+							<div class="holder">
+								<div class="switch-wrap">
+									<span class="title">Buyer / Seller:</span>
+									<label class="switcher"><input type="checkbox"> <span>Buyer</span> <i>Seller</i></label>
+								</div>
+								<div class="input-wrap ico-email">
+									<input type="email" placeholder="E-mail">
+								</div>
+								<div class="input-wrap ico-key">
+									<input type="password" placeholder="Contraseña">
+								</div>
+								<input type="submit" class="btn" value="Login">
+								<a href="#" class="btn btn-green">Nuevo? Regístrate!</a>
+								<div class="recover-link">
+									<a href="#">Recuperar Contraseña.</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="logo">
+				<a href="#"><img src="images/logo.png" height="27" width="79" alt="adsigo"></a>
+			</div>
+		</div>
+		<form action="inc/filter-post/filter-post.html" class="filter-form" method="get">
+			<fieldset>
+				<ul class="item-list">
+					<li>
+						<a href="#"><span>Fechas</span></a>
+						<div class="drop small date-box">
+							<div class="js-date-open-close">
+								<label for="from">Inicio:</label>
+								<div class="date-holder">
+									<input class="js-date-field date-from" type="text" placeholder="dd/mm" id="from">
+									<i class="icon-calendar"></i>
+								</div>
+							</div>
+							<span class="icon-arrow-down"></span>
+							<div class="js-date-open-close">
+								<label for="to">Final:</label>
+								<div class="date-holder">
+									<input class="js-date-field date-to" type="text" placeholder="dd/mm" id="to">
+									<i class="icon-calendar"></i>
+								</div>
+							</div>
+						</div>
+					</li>
+					<li>
+						<a href="#"><span>Revista </span></a>
+						<ul class="drop options">
+							<li>
+								<a href="#">Outdoor</a>
+								<div class="subdrop marked-section">
+									<input class="mark-button" type="reset" value="Unmark All">
+									<ul class="checkbox-list">
+										<li>
+											<div class="checkbox-holder">
+												<input type="checkbox" id="checkbox-1">
+												<label for="checkbox-1">Valla Externa Fija</label>
+											</div>
+										</li>
+										<li>
+											<div class="checkbox-holder">
+												<input type="checkbox" id="checkbox-2">
+												<label for="checkbox-2">Paradero</label>
+											</div>
+										</li>
+										<li>
+											<div class="checkbox-holder">
+												<input type="checkbox" checked id="checkbox1-2">
+												<label for="checkbox1-2">Valla Externa Digital</label>
+											</div>
+										</li>
+									</ul>
+								</div>
+							</li>
+							<li><a href="#">Indoor</a></li>
+						</ul>
+					</li>
+					<li>
+						<a href="#"><span>Ciudad</span></a>
+						<div class="drop">
+							<ul class="checkbox-list">
+								<li>
+									<div class="checkbox-holder">
+										<input type="checkbox" id="checkbox-3">
+										<label for="checkbox-3">Miami</label>
+									</div>
+								</li>
+								<li>
+									<div class="checkbox-holder">
+										<input type="checkbox" id="checkbox-4">
+										<label for="checkbox-4">Las Vegas</label>
+									</div>
+								</li>
+								<li>
+									<div class="checkbox-holder">
+										<input type="checkbox" id="checkbox-5">
+										<label for="checkbox-5">San Francisco</label>
+									</div>
+								</li>
+								<li>
+									<div class="checkbox-holder">
+										<input type="checkbox" id="checkbox-6">
+										<label for="checkbox-6">Rio de Janeiro</label>
+									</div>
+								</li>
+								<li>
+									<div class="checkbox-holder">
+										<input type="checkbox" id="checkbox-7">
+										<label for="checkbox-7">Buenos Aires</label>
+									</div>
+								</li>
+								<li>
+									<div class="checkbox-holder">
+										<input type="checkbox" id="checkbox-8">
+										<label for="checkbox-8">Santiago</label>
+									</div>
+								</li>
+								<li>
+									<div class="checkbox-holder">
+										<input type="checkbox" id="checkbox-9">
+										<label for="checkbox-9">Barranquilla</label>
+									</div>
+								</li>
+								<li>
+									<div class="checkbox-holder">
+										<input type="checkbox" id="checkbox-10">
+										<label for="checkbox-10">Paris</label>
+									</div>
+								</li>
+								<li>
+									<div class="checkbox-holder">
+										<input type="checkbox" id="checkbox-11">
+										<label for="checkbox-11">London</label>
+									</div>
+								</li>
+								<li>
+									<div class="checkbox-holder">
+										<input type="checkbox" id="checkbox-12">
+										<label for="checkbox-12">Lima</label>
+									</div>
+								</li>
+								<li>
+									<div class="checkbox-holder">
+										<input type="checkbox" id="checkbox-13">
+										<label for="checkbox-13">Quito</label>
+									</div>
+								</li>
+								<li>
+									<div class="checkbox-holder">
+										<input type="checkbox" id="checkbox-14">
+										<label for="checkbox-14">Toronto</label>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</li>
+					<li>
+						<a href="#"><span>Precio</span></a>
+						<div class="drop large-2">
+							<ul class="checkbox-list">
+								<li>
+									<div class="checkbox-holder">
+										<input type="checkbox" id="checkbox-15">
+										<label for="checkbox-15">0  - $1,000,000</label>
+									</div>
+								</li>
+								<li>
+									<div class="checkbox-holder">
+										<input type="checkbox" id="checkbox-16">
+										<label for="checkbox-16">$1,000,000  - $5,000,000</label>
+									</div>
+								</li>
+								<li>
+									<div class="checkbox-holder">
+										<input type="checkbox" id="checkbox-17">
+										<label for="checkbox-17">$5,000,000  - $10,000,000</label>
+									</div>
+								</li>
+								<li>
+									<div class="checkbox-holder">
+										<input type="checkbox" id="checkbox-18">
+										<label for="checkbox-18">$10,000,000  - $20,000,000</label>
+									</div>
+								</li>
+								<li>
+									<div class="checkbox-holder">
+										<input type="checkbox" id="checkbox-19">
+										<label for="checkbox-19">$20,000,000 y superior.</label>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</li>
+					<li>
+						<a href="#"><span>Tamaño Revista</span></a>
+						<div class="drop">
+							<ul class="checkbox-list">
+								<li>
+									<div class="checkbox-holder">
+										<input type="checkbox" id="checkbox-21">
+										<label for="checkbox-21">1 Estrella</label>
+									</div>
+								</li>
+								<li>
+									<div class="checkbox-holder">
+										<input type="checkbox" id="checkbox-22">
+										<label for="checkbox-22">2 Estrellas</label>
+									</div>
+								</li>
+								<li>
+									<div class="checkbox-holder">
+										<input type="checkbox" id="checkbox-23">
+										<label for="checkbox-23">3 Estrellas</label>
+									</div>
+								</li>
+								<li>
+									<div class="checkbox-holder">
+										<input type="checkbox" id="checkbox-24">
+										<label for="checkbox-24">4 Estrellas</label>
+									</div>
+								</li>
+								<li>
+									<div class="checkbox-holder">
+										<input type="checkbox" id="checkbox-25">
+										<label for="checkbox-25">5 Estrellas</label>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</li>
+					<li>
+						<a href="#"><span>Disponibilidad</span></a>
+						<div class="drop large">
+							<ul class="checkbox-list">
+								<li>
+									<div class="question-holder">
+										<a href="#">[?]</a>
+										<div class="question-slide">
+											<div class="slide-holder">
+												<p>Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. Por scientie, musica. Li lingues differe solmen in li grammatica, li pronunciation e li. </p>
+											</div>
+										</div>
+									</div>
+									<div class="checkbox-holder">
+										<input type="checkbox" id="checkbox-26">
+										<label for="checkbox-26">Disponible</label>
+									</div>
+								</li>
+								<li>
+									<div class="question-holder">
+										<a href="#">[?]</a>
+										<div class="question-slide">
+											<div class="slide-holder">
+												<p>Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. Por scientie, musica. Li lingues differe solmen in li grammatica, li pronunciation e li. </p>
+											</div>
+										</div>
+									</div>
+									<div class="checkbox-holder">
+										<input type="checkbox" id="checkbox-27">
+										<label for="checkbox-27">NO-Disponible</label>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</li>
+				</ul>
+				<div class="filter-right">
+					<label for="select">Sort by:</label>
+					<select id="select" class="sorting-select">
+						<option data-sort="symbol">A - Z</option>
+						<option data-sort="symbol" data-ascending="false">Z - A</option>
+						<option data-sort="number">0 - 9</option>
+						<option data-sort="number" data-ascending="false">9 - 0</option>
+					</select>
+				</div>
+				<button type="submit"><i class="icon-search"></i></button>
+			</fieldset>
+		</form>
+	</header>
+	<div id="ajax-holder" class="ajax-holder">
+		<ul class="filter-content" id="container">
+			<li data-num="2" data-name="a">
+				<div class="picture-holder">
+					<img src="images/img2.jpg" height="301" width="239" alt="image description">
+					<a href="inc/modal/modal01.html" class="btn-review fancybox.ajax"><i class="icon-eye"></i>Ver Espacio</a>
+				</div>
+				<div class="price-holder">
+					<span class="price-main">6,800,000 p/mes</span>
+					<span class="price-add">COP 227,000 p/día</span>
+				</div>
+				<div class="info-box">
+					<span class="title">Revista Externa: Cra. 51b # 90 - 52</span>
+					<span class="text-holder">Cra 52 # 90 - 52</span>
+					<span class="text-holder">Barranquilla, Atlántico, Colombia</span>
+					<span class="text-holder">Disponible desde <time datetime="2015-03-15">15/03/2015</time></span>
+				</div>
+			</li>
+			<li data-num="1" data-name="f">
+				<div class="picture-holder">
+					<img src="images/img2.jpg" height="301" width="239" alt="image description">
+					<a href="inc/modal/modal01.html" class="btn-review fancybox.ajax"><i class="icon-eye"></i>Ver Espacio</a>
+				</div>
+				<div class="price-holder">
+					<span class="price-main">6,800,000 p/mes</span>
+					<span class="price-add">COP 227,000 p/día</span>
+				</div>
+				<div class="info-box">
+					<span class="title">Revista Externa: Cra. 51b # 90 - 52</span>
+					<span class="text-holder">Cra 52 # 90 - 52</span>
+					<span class="text-holder">Barranquilla, Atlántico, Colombia</span>
+					<span class="text-holder">Disponible desde <time datetime="2015-03-15">15/03/2015</time></span>
+				</div>
+			</li>
+			<li data-num="3" data-name="h">
+				<div class="picture-holder">
+					<img src="images/img2.jpg" height="301" width="239" alt="image description">
+					<a href="inc/modal/modal01.html" class="btn-review fancybox.ajax"><i class="icon-eye"></i>Ver Espacio</a>
+				</div>
+				<div class="price-holder">
+					<span class="price-main">6,800,000 p/mes</span>
+					<span class="price-add">COP 227,000 p/día</span>
+				</div>
+				<div class="info-box">
+					<span class="title">Revista Externa: Cra. 51b # 90 - 52</span>
+					<span class="text-holder">Cra 52 # 90 - 52</span>
+					<span class="text-holder">Barranquilla, Atlántico, Colombia</span>
+					<span class="text-holder">Disponible desde <time datetime="2015-03-15">15/03/2015</time></span>
+				</div>
+			</li>
+			<li data-num="3" data-name="r">
+				<div class="picture-holder">
+					<img src="images/img2.jpg" height="301" width="239" alt="image description">
+					<a href="inc/modal/modal01.html" class="btn-review fancybox.ajax"><i class="icon-eye"></i>Ver Espacio</a>
+				</div>
+				<div class="price-holder">
+					<span class="price-main">6,800,000 p/mes</span>
+					<span class="price-add">COP 227,000 p/día</span>
+				</div>
+				<div class="info-box">
+					<span class="title">Revista Externa: Cra. 51b # 90 - 52</span>
+					<span class="text-holder">Cra 52 # 90 - 52</span>
+					<span class="text-holder">Barranquilla, Atlántico, Colombia</span>
+					<span class="text-holder">Disponible desde <time datetime="2015-03-15">15/03/2015</time></span>
+				</div>
+			</li>
+			<li data-num="7" data-name="v">
+				<div class="picture-holder">
+					<img src="images/img2.jpg" height="301" width="239" alt="image description">
+					<a href="inc/modal/modal01.html" class="btn-review fancybox.ajax"><i class="icon-eye"></i>Ver Espacio</a>
+				</div>
+				<div class="price-holder">
+					<span class="price-main">6,800,000 p/mes</span>
+					<span class="price-add">COP 227,000 p/día</span>
+				</div>
+				<div class="info-box">
+					<span class="title">Revista Externa: Cra. 51b # 90 - 52</span>
+					<span class="text-holder">Cra 52 # 90 - 52</span>
+					<span class="text-holder">Barranquilla, Atlántico, Colombia</span>
+					<span class="text-holder">Disponible desde <time datetime="2015-03-15">15/03/2015</time></span>
+				</div>
+			</li>
+			<li data-num="9" data-name="i">
+				<div class="picture-holder">
+					<img src="images/img2.jpg" height="301" width="239" alt="image description">
+					<a href="inc/modal/modal01.html" class="btn-review fancybox.ajax"><i class="icon-eye"></i>Ver Espacio</a>
+				</div>
+				<div class="price-holder">
+					<span class="price-main">6,800,000 p/mes</span>
+					<span class="price-add">COP 227,000 p/día</span>
+				</div>
+				<div class="info-box">
+					<span class="title">Revista Externa: Cra. 51b # 90 - 52</span>
+					<span class="text-holder">Cra 52 # 90 - 52</span>
+					<span class="text-holder">Barranquilla, Atlántico, Colombia</span>
+					<span class="text-holder">Disponible desde <time datetime="2015-03-15">15/03/2015</time></span>
+				</div>
+			</li>
+			<li data-num="4" data-name="b">
+				<div class="picture-holder">
+					<img src="images/img2.jpg" height="301" width="239" alt="image description">
+					<a href="inc/modal/modal01.html" class="btn-review fancybox.ajax"><i class="icon-eye"></i>Ver Espacio</a>
+				</div>
+				<div class="price-holder">
+					<span class="price-main">6,800,000 p/mes</span>
+					<span class="price-add">COP 227,000 p/día</span>
+				</div>
+				<div class="info-box">
+					<span class="title">Revista Externa: Cra. 51b # 90 - 52</span>
+					<span class="text-holder">Cra 52 # 90 - 52</span>
+					<span class="text-holder">Barranquilla, Atlántico, Colombia</span>
+					<span class="text-holder">Disponible desde <time datetime="2015-03-15">15/03/2015</time></span>
+				</div>
+			</li>
+			<li data-num="5" data-name="a">
+				<div class="picture-holder">
+					<img src="images/img2.jpg" height="301" width="239" alt="image description">
+					<a href="inc/modal/modal01.html" class="btn-review fancybox.ajax"><i class="icon-eye"></i>Ver Espacio</a>
+				</div>
+				<div class="price-holder">
+					<span class="price-main">6,800,000 p/mes</span>
+					<span class="price-add">COP 227,000 p/día</span>
+				</div>
+				<div class="info-box">
+					<span class="title">Revista Externa: Cra. 51b # 90 - 52</span>
+					<span class="text-holder">Cra 52 # 90 - 52</span>
+					<span class="text-holder">Barranquilla, Atlántico, Colombia</span>
+					<span class="text-holder">Disponible desde <time datetime="2015-03-15">15/03/2015</time></span>
+				</div>
+			</li>
+			<li data-num="7" data-name="l">
+				<div class="picture-holder">
+					<img src="images/img2.jpg" height="301" width="239" alt="image description">
+					<a href="inc/modal/modal01.html" class="btn-review fancybox.ajax"><i class="icon-eye"></i>Ver Espacio</a>
+				</div>
+				<div class="price-holder">
+					<span class="price-main">6,800,000 p/mes</span>
+					<span class="price-add">COP 227,000 p/día</span>
+				</div>
+				<div class="info-box">
+					<span class="title">Revista Externa: Cra. 51b # 90 - 52</span>
+					<span class="text-holder">Cra 52 # 90 - 52</span>
+					<span class="text-holder">Barranquilla, Atlántico, Colombia</span>
+					<span class="text-holder">Disponible desde <time datetime="2015-03-15">15/03/2015</time></span>
+				</div>
+			</li>
+			<li data-num="2" data-name="x">
+				<div class="picture-holder">
+					<img src="images/img2.jpg" height="301" width="239" alt="image description">
+					<a href="inc/modal/modal01.html" class="btn-review fancybox.ajax"><i class="icon-eye"></i>Ver Espacio</a>
+				</div>
+				<div class="price-holder">
+					<span class="price-main">6,800,000 p/mes</span>
+					<span class="price-add">COP 227,000 p/día</span>
+				</div>
+				<div class="info-box">
+					<span class="title">Revista Externa: Cra. 51b # 90 - 52</span>
+					<span class="text-holder">Cra 52 # 90 - 52</span>
+					<span class="text-holder">Barranquilla, Atlántico, Colombia</span>
+					<span class="text-holder">Disponible desde <time datetime="2015-03-15">15/03/2015</time></span>
+				</div>
+			</li>
+		</ul>
+		<a href="inc/posts/post01.html" class="loader">loader</a>
+	</div>
+	<footer id="footer">
+		<a href="#" class="btn-help"><span>Need Help</span> <i class="icon-help-circle"></i></a>
+	</footer>
+	<script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
+	<script type="text/javascript" src="js/jssor.js"></script>
+	<script type="text/javascript" src="js/jssor.slider.min.js"></script>
+	<script type="text/javascript" src="js/jquery.main.js"></script>
+</body>
+</html>

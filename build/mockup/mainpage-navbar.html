@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+	<title>AdSigo</title>
+	<link media="all" rel="stylesheet" href="css/all.css">
+	<link media="all" rel="stylesheet" href="css/jquery-ui.min.css">
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,400italic' rel='stylesheet' type='text/css'>
+</head>
+<body>
+	<header id="header" class="home">
+		<div class="top-holder inner">
+			<div class="head-bar">
+				<div class="hold">
+					<div class="alignleft">
+						<div class="search-holder">
+							<a href="#" class="open-search"><i class="icon-search"></i></a>
+							<div class="search-drop">
+								<div class="box">
+									<form action="#" class="search-form">
+										<fieldset>
+											<input type="search" placeholder="Valla Externa en Barranquilla Cra 53 Norte">
+											<button type="submit"><i class="icon-search"></i></button>
+										</fieldset>
+									</form>
+								</div>
+							</div>
+						</div>
+						<a href="#" class="btn-filter inner"><span>Filtro <span class="none">Avanzado</span></span></a>
+					</div>
+					<div id="nav" class="inner">
+						<a href="#" class="menu-open"><span class="burger"><span></span></span><span class="text">Dolmen Visual</span></a>
+						<a href="#" class="user-photo menu-open">
+							<img src="images/img1.png" height="51" width="51" alt="image description">
+						</a>
+						<div class="nav-drop inner">
+							<div class="holder">
+								<ul class="sub-list">
+									<li><a href="#">Mis Ventas</a></li>
+									<li><a href="#">Mis Espacios</a></li>
+									<li><a href="#">Reportes</a></li>
+									<li><a href="#">Disponibilidad</a></li>
+									<li><a href="#">Perfil</a></li>
+									<li><a href="#">Help Center</a></li>
+									<li><a href="#">Cerrar Sesion</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="logo">
+				<a href="#"><img src="images/logo.png" height="27" width="79" alt="adsigo"></a>
+			</div>
+		</div>
+		<form action="#" class="filter-form inner">
+			<fieldset>
+				<ul class="item-list inner">
+					<li>
+						<div class="date-box inner">
+							<div class="js-date-open-close">
+								<div class="date-holder">
+									<input class="js-date-field date-from" type="text" placeholder="Fecha Inicio" id="from">
+								</div>
+							</div>
+							<div class="js-date-open-close">
+								<div class="date-holder">
+									<input class="js-date-field date-to" type="text" placeholder="Fecha Final" id="to">
+								</div>
+							</div>
+						</div>
+					</li>
+					<li>
+						<a href="#" class="drop-opener"><span>Formato </span></a>
+						<ul class="drop options">
+							<li>
+								<a href="#">Outdoor</a>
+								<div class="subdrop marked-section">
+									<div class="subdrop-holder">
+										<input class="mark-button" type="reset" value="Unmark All">
+										<ul class="checkbox-list">
+											<li>
+												<div class="checkbox-holder">
+													<input type="checkbox" id="checkbox-1">
+													<label for="checkbox-1">Valla Externa Fija</label>
+												</div>
+											</li>
+											<li>
+												<div class="checkbox-holder">
+													<input type="checkbox" id="checkbox-2">
+													<label for="checkbox-2">Paradero</label>
+												</div>
+											</li>
+											<li>
+												<div class="checkbox-holder">
+													<input type="checkbox" checked id="checkbox1-2">
+													<label for="checkbox1-2">Valla Externa Digital</label>
+												</div>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</li>
+							<li><a href="#">Indoor</a></li>
+						</ul>
+					</li>
+					<li>
+						<a href="#" class="drop-opener"><span>Ciudad</span></a>
+						<div class="drop">
+							<ul class="checkbox-list">
+								<li>
+									<div class="checkbox-holder">
+										<input type="checkbox" id="checkbox-3">
+										<label for="checkbox-3">Miami</label>
+									</div>
+								</li>
+								<li>
+									<div class="checkbox-holder">
+										<input type="checkbox" id="checkbox-4">
+										<label for="checkbox-4">Las Vegas</label>
+									</div>
+								</li>
+								<li>
+									<div class="checkbox-holder">
+										<input type="checkbox" id="checkbox-5">
+										<label for="checkbox-5">San Francisco</label>
+									</div>
+								</li>
+								<li>
+									<div class="checkbox-holder">
+										<input type="checkbox" id="checkbox-6">
+										<label for="checkbox-6">Rio de Janeiro</label>
+									</div>
+								</li>
+								<li>
+									<div class="checkbox-holder">
+										<input type="checkbox" id="checkbox-7">
+										<label for="checkbox-7">Buenos Aires</label>
+									</div>
+								</li>
+								<li>
+									<div class="checkbox-holder">
+										<input type="checkbox" id="checkbox-8">
+										<label for="checkbox-8">Santiago</label>
+									</div>
+								</li>
+								<li>
+									<div class="checkbox-holder">
+										<input type="checkbox" id="checkbox-9">
+										<label for="checkbox-9">Barranquilla</label>
+									</div>
+								</li>
+								<li>
+									<div class="checkbox-holder">
+										<input type="checkbox" id="checkbox-10">
+										<label for="checkbox-10">Paris</label>
+									</div>
+								</li>
+								<li>
+									<div class="checkbox-holder">
+										<input type="checkbox" id="checkbox-11">
+										<label for="checkbox-11">London</label>
+									</div>
+								</li>
+								<li>
+									<div class="checkbox-holder">
+										<input type="checkbox" id="checkbox-12">
+										<label for="checkbox-12">Lima</label>
+									</div>
+								</li>
+								<li>
+									<div class="checkbox-holder">
+										<input type="checkbox" id="checkbox-13">
+										<label for="checkbox-13">Quito</label>
+									</div>
+								</li>
+								<li>
+									<div class="checkbox-holder">
+										<input type="checkbox" id="checkbox-14">
+										<label for="checkbox-14">Toronto</label>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</li>
+					<li>
+						<a href="#" class="drop-opener"><span>Precio</span></a>
+						<div class="drop large-2">
+							<ul class="checkbox-list">
+								<li>
+									<div class="checkbox-holder">
+										<input type="checkbox" id="checkbox-15">
+										<label for="checkbox-15">0  - $1,000,000</label>
+									</div>
+								</li>
+								<li>
+									<div class="checkbox-holder">
+										<input type="checkbox" id="checkbox-16">
+										<label for="checkbox-16">$1,000,000  - $5,000,000</label>
+									</div>
+								</li>
+								<li>
+									<div class="checkbox-holder">
+										<input type="checkbox" id="checkbox-17">
+										<label for="checkbox-17">$5,000,000  - $10,000,000</label>
+									</div>
+								</li>
+								<li>
+									<div class="checkbox-holder">
+										<input type="checkbox" id="checkbox-18">
+										<label for="checkbox-18">$10,000,000  - $20,000,000</label>
+									</div>
+								</li>
+								<li>
+									<div class="checkbox-holder">
+										<input type="checkbox" id="checkbox-19">
+										<label for="checkbox-19">$20,000,000 y superior.</label>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</li>
+				</ul>
+				<div class="filter-right">
+					<label for="select">Ordernar por:</label>
+					<select id="select" class="sorting-select">
+						<option data-sort="symbol">Relevancia</option>
+						<option data-sort="symbol">A - Z</option>
+						<option data-sort="symbol" data-ascending="false">Z - A</option>
+						<option data-sort="number">0 - 9</option>
+						<option data-sort="number" data-ascending="false">9 - 0</option>
+					</select>
+				</div>
+				<button type="submit" class="button">Aplicar Filtros</button>
+			</fieldset>
+		</form>
+	</header>
+	<div class="ajax-holder inner">
+		<ul class="filter-content inner same-height">
+			<li>
+				<div class="picture-holder">
+					<div class="cycle-gallery">
+						<div class="mask">
+							<div class="slideset">
+								<div class="slide">
+									<img src="images/img25.jpg" height="332" width="402" alt="image description">
+								</div>
+								<div class="slide">
+									<img src="images/img26.jpg" height="332" width="402" alt="image description">
+								</div>
+								<div class="slide">
+									<img src="images/img27.jpg" height="332" width="402" alt="image description">
+								</div>
+							</div>
+						</div>
+						<a class="btn-prev" href="#"><span class="icon-arrow-left"></span></a>
+						<a class="btn-next" href="#"><span class="icon-arrow-right"></span></a>
+					</div>
+					<a href="#" class="btn-reviews">Ver Espacio</a>
+				</div>
+				<div class="price-holder">
+					<span class="price-main">6,800,000 mes by Dolmen Visual</span>
+				</div>
+				<div class="info-box height">
+					<div class="address-holder">
+						<address>Cra 93 # 53 - 180. Norte-Occidente. <br>Barranquilla, Colombia</address>
+					</div>
+				</div>
+			</li>
+			<li>
+				<div class="picture-holder">
+					<div class="cycle-gallery">
+						<div class="mask">
+							<div class="slideset">
+								<div class="slide">
+									<img src="images/img26.jpg" height="332" width="402" alt="image description">
+								</div>
+								<div class="slide">
+									<img src="images/img27.jpg" height="332" width="402" alt="image description">
+								</div>
+								<div class="slide">
+									<img src="images/img28.jpg" height="332" width="402" alt="image description">
+								</div>
+							</div>
+						</div>
+						<a class="btn-prev" href="#"><span class="icon-arrow-left"></span></a>
+						<a class="btn-next" href="#"><span class="icon-arrow-right"></span></a>
+					</div>
+					<a href="#" class="btn-reviews">Ver Espacio</a>
+				</div>
+				<div class="price-holder">
+					<span class="price-main">1,500,000 mes by Dolmen Visual</span>
+				</div>
+				<div class="info-box height">
+					<div class="address-holder">
+						<address>Cra 93 # 53 - 180. Norte-Occidente. <br>Centro Comercial Portal del Prado <br>Barranquilla, Colombia</address>
+					</div>
+				</div>
+			</li>
+			<li>
+				<div class="picture-holder">
+					<div class="cycle-gallery">
+						<div class="mask">
+							<div class="slideset">
+								<div class="slide">
+									<img src="images/img27.jpg" height="332" width="402" alt="image description">
+								</div>
+								<div class="slide">
+									<img src="images/img26.jpg" height="332" width="402" alt="image description">
+								</div>
+								<div class="slide">
+									<img src="images/img28.jpg" height="332" width="402" alt="image description">
+								</div>
+							</div>
+						</div>
+						<a class="btn-prev" href="#"><span class="icon-arrow-left"></span></a>
+						<a class="btn-next" href="#"><span class="icon-arrow-right"></span></a>
+					</div>
+					<a href="#" class="btn-reviews">Ver Espacio</a>
+				</div>
+				<div class="price-holder">
+					<span class="price-main">1,000,000 mes by Dolmen Visual</span>
+				</div>
+				<div class="info-box height">
+					<div class="address-holder">
+						<address>Cra 93 # 53 - 180. Norte-Occidente. <br>Barranquilla, Colombia</address>
+					</div>
+				</div>
+			</li>
+			<li>
+				<div class="picture-holder">
+					<div class="cycle-gallery">
+						<div class="mask">
+							<div class="slideset">
+								<div class="slide">
+									<img src="images/img28.jpg" height="332" width="402" alt="image description">
+								</div>
+								<div class="slide">
+									<img src="images/img26.jpg" height="332" width="402" alt="image description">
+								</div>
+								<div class="slide">
+									<img src="images/img27.jpg" height="332" width="402" alt="image description">
+								</div>
+							</div>
+						</div>
+						<a class="btn-prev" href="#"><span class="icon-arrow-left"></span></a>
+						<a class="btn-next" href="#"><span class="icon-arrow-right"></span></a>
+					</div>
+					<a href="#" class="btn-reviews">Ver Espacio</a>
+				</div>
+				<div class="price-holder">
+					<span class="price-main">6,000,000 mes by Dolmen Visual</span>
+				</div>
+				<div class="info-box height">
+					<div class="address-holder">
+						<address>Cra 93 # 53 - 180. Norte-Occidente. <br>Barranquilla, Colombia</address>
+					</div>
+				</div>
+			</li>
+			<li>
+				<div class="picture-holder">
+					<div class="cycle-gallery">
+						<div class="mask">
+							<div class="slideset">
+								<div class="slide">
+									<img src="images/img29.jpg" height="332" width="402" alt="image description">
+								</div>
+								<div class="slide">
+									<img src="images/img27.jpg" height="332" width="402" alt="image description">
+								</div>
+								<div class="slide">
+									<img src="images/img28.jpg" height="332" width="402" alt="image description">
+								</div>
+							</div>
+						</div>
+						<a class="btn-prev" href="#"><span class="icon-arrow-left"></span></a>
+						<a class="btn-next" href="#"><span class="icon-arrow-right"></span></a>
+					</div>
+					<a href="#" class="btn-reviews">Ver Espacio</a>
+				</div>
+				<div class="price-holder">
+					<span class="price-main">3,000,000 mes by Dolmen Visual</span>
+				</div>
+				<div class="info-box height">
+					<div class="address-holder">
+						<address>Cra 93 # 53 - 180. Norte-Occidente. <br>Centro Comercial Portal del Prado <br>Barranquilla, Colombia</address>
+					</div>
+				</div>
+			</li>
+			<li>
+				<div class="picture-holder">
+					<div class="cycle-gallery">
+						<div class="mask">
+							<div class="slideset">
+								<div class="slide">
+									<img src="images/img30.jpg" height="332" width="402" alt="image description">
+								</div>
+								<div class="slide">
+									<img src="images/img27.jpg" height="332" width="402" alt="image description">
+								</div>
+								<div class="slide">
+									<img src="images/img28.jpg" height="332" width="402" alt="image description">
+								</div>
+							</div>
+						</div>
+						<a class="btn-prev" href="#"><span class="icon-arrow-left"></span></a>
+						<a class="btn-next" href="#"><span class="icon-arrow-right"></span></a>
+					</div>
+					<a href="#" class="btn-reviews">Ver Espacio</a>
+				</div>
+				<div class="price-holder">
+					<span class="price-main">1,500,000 mes by Dolmen Visual</span>
+				</div>
+				<div class="info-box height">
+					<div class="address-holder">
+						<address>Cra 93 # 53 - 180. Norte-Occidente. <br>Centro Comercial Portal del Prado <br>Barranquilla, Colombia</address>
+					</div>
+				</div>
+			</li>
+			<li>
+				<div class="picture-holder">
+					<div class="cycle-gallery">
+						<div class="mask">
+							<div class="slideset">
+								<div class="slide">
+									<img src="images/img28.jpg" height="332" width="402" alt="image description">
+								</div>
+								<div class="slide">
+									<img src="images/img26.jpg" height="332" width="402" alt="image description">
+								</div>
+								<div class="slide">
+									<img src="images/img27.jpg" height="332" width="402" alt="image description">
+								</div>
+							</div>
+						</div>
+						<a class="btn-prev" href="#"><span class="icon-arrow-left"></span></a>
+						<a class="btn-next" href="#"><span class="icon-arrow-right"></span></a>
+					</div>
+					<a href="#" class="btn-reviews">Ver Espacio</a>
+				</div>
+				<div class="price-holder">
+					<span class="price-main">6,000,000 mes by Dolmen Visual</span>
+				</div>
+				<div class="info-box height">
+					<div class="address-holder">
+						<address>Cra 93 # 53 - 180. Norte-Occidente. <br>Barranquilla, Colombia</address>
+					</div>
+				</div>
+			</li>
+			<li>
+				<div class="picture-holder">
+					<div class="cycle-gallery">
+						<div class="mask">
+							<div class="slideset">
+								<div class="slide">
+									<img src="images/img29.jpg" height="332" width="402" alt="image description">
+								</div>
+								<div class="slide">
+									<img src="images/img27.jpg" height="332" width="402" alt="image description">
+								</div>
+								<div class="slide">
+									<img src="images/img28.jpg" height="332" width="402" alt="image description">
+								</div>
+							</div>
+						</div>
+						<a class="btn-prev" href="#"><span class="icon-arrow-left"></span></a>
+						<a class="btn-next" href="#"><span class="icon-arrow-right"></span></a>
+					</div>
+					<a href="#" class="btn-reviews">Ver Espacio</a>
+				</div>
+				<div class="price-holder">
+					<span class="price-main">3,000,000 mes by Dolmen Visual</span>
+				</div>
+				<div class="info-box height">
+					<div class="address-holder">
+						<address>Cra 93 # 53 - 180. Norte-Occidente. <br>Centro Comercial Portal del Prado <br>Barranquilla, Colombia</address>
+					</div>
+				</div>
+			</li>
+			<li>
+				<div class="picture-holder">
+					<div class="cycle-gallery">
+						<div class="mask">
+							<div class="slideset">
+								<div class="slide">
+									<img src="images/img30.jpg" height="332" width="402" alt="image description">
+								</div>
+								<div class="slide">
+									<img src="images/img27.jpg" height="332" width="402" alt="image description">
+								</div>
+								<div class="slide">
+									<img src="images/img28.jpg" height="332" width="402" alt="image description">
+								</div>
+							</div>
+						</div>
+						<a class="btn-prev" href="#"><span class="icon-arrow-left"></span></a>
+						<a class="btn-next" href="#"><span class="icon-arrow-right"></span></a>
+					</div>
+					<a href="#" class="btn-reviews">Ver Espacio</a>
+				</div>
+				<div class="price-holder">
+					<span class="price-main">1,500,000 mes by Dolmen Visual</span>
+				</div>
+				<div class="info-box height">
+					<div class="address-holder">
+						<address>Cra 93 # 53 - 180. Norte-Occidente. <br>Centro Comercial Portal del Prado <br>Barranquilla, Colombia</address>
+					</div>
+				</div>
+			</li>
+			<li>
+				<div class="picture-holder">
+					<div class="cycle-gallery">
+						<div class="mask">
+							<div class="slideset">
+								<div class="slide">
+									<img src="images/img28.jpg" height="332" width="402" alt="image description">
+								</div>
+								<div class="slide">
+									<img src="images/img26.jpg" height="332" width="402" alt="image description">
+								</div>
+								<div class="slide">
+									<img src="images/img27.jpg" height="332" width="402" alt="image description">
+								</div>
+							</div>
+						</div>
+						<a class="btn-prev" href="#"><span class="icon-arrow-left"></span></a>
+						<a class="btn-next" href="#"><span class="icon-arrow-right"></span></a>
+					</div>
+					<a href="#" class="btn-reviews">Ver Espacio</a>
+				</div>
+				<div class="price-holder">
+					<span class="price-main">6,000,000 mes by Dolmen Visual</span>
+				</div>
+				<div class="info-box height">
+					<div class="address-holder">
+						<address>Cra 93 # 53 - 180. Norte-Occidente. <br>Barranquilla, Colombia</address>
+					</div>
+				</div>
+			</li>
+			<li>
+				<div class="picture-holder">
+					<div class="cycle-gallery">
+						<div class="mask">
+							<div class="slideset">
+								<div class="slide">
+									<img src="images/img29.jpg" height="332" width="402" alt="image description">
+								</div>
+								<div class="slide">
+									<img src="images/img27.jpg" height="332" width="402" alt="image description">
+								</div>
+								<div class="slide">
+									<img src="images/img28.jpg" height="332" width="402" alt="image description">
+								</div>
+							</div>
+						</div>
+						<a class="btn-prev" href="#"><span class="icon-arrow-left"></span></a>
+						<a class="btn-next" href="#"><span class="icon-arrow-right"></span></a>
+					</div>
+					<a href="#" class="btn-reviews">Ver Espacio</a>
+				</div>
+				<div class="price-holder">
+					<span class="price-main">3,000,000 mes by Dolmen Visual</span>
+				</div>
+				<div class="info-box height">
+					<div class="address-holder">
+						<address>Cra 93 # 53 - 180. Norte-Occidente. <br>Centro Comercial Portal del Prado <br>Barranquilla, Colombia</address>
+					</div>
+				</div>
+			</li>
+			<li>
+				<div class="picture-holder">
+					<div class="cycle-gallery">
+						<div class="mask">
+							<div class="slideset">
+								<div class="slide">
+									<img src="images/img30.jpg" height="332" width="402" alt="image description">
+								</div>
+								<div class="slide">
+									<img src="images/img27.jpg" height="332" width="402" alt="image description">
+								</div>
+								<div class="slide">
+									<img src="images/img28.jpg" height="332" width="402" alt="image description">
+								</div>
+							</div>
+						</div>
+						<a class="btn-prev" href="#"><span class="icon-arrow-left"></span></a>
+						<a class="btn-next" href="#"><span class="icon-arrow-right"></span></a>
+					</div>
+					<a href="#" class="btn-reviews">Ver Espacio</a>
+				</div>
+				<div class="price-holder">
+					<span class="price-main">1,500,000 mes by Dolmen Visual</span>
+				</div>
+				<div class="info-box height">
+					<div class="address-holder">
+						<address>Cra 93 # 53 - 180. Norte-Occidente. <br>Centro Comercial Portal del Prado <br>Barranquilla, Colombia</address>
+					</div>
+				</div>
+			</li>
+		</ul>
+	</div>
+	<div class="pagination-wrap">
+		<ul class="pagination">
+			<li class="active"><a href="#">1</a></li>
+			<li><a href="#">2</a></li>
+			<li><a href="#">3</a></li>
+			<li class="next"><a href="#">&gt;</a></li>
+		</ul>
+	</div>
+	<script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
+	<script type="text/javascript" src="js/jssor.js"></script>
+	<script type="text/javascript" src="js/jssor.slider.min.js"></script>
+	<script type="text/javascript" src="js/jquery.main.js"></script>
+</body>
+</html>

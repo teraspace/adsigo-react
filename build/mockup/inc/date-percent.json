@@ -1,0 +1,54 @@
+{
+	"percent": true,
+	"date": [
+		{
+			"titleX": "JAN",
+			"value": 31
+		},
+		{
+			"titleX": "FEB",
+			"value": 25
+		},
+		{
+			"titleX": "MAR",
+			"value": 39
+		},
+		{
+			"titleX": "APR",
+			"value": 43
+		},
+		{
+			"titleX": "MAY",
+			"value": 32
+		},
+		{
+			"titleX": "JUN",
+			"value": 51
+		},
+		{
+			"titleX": "JUL",
+			"value": 43
+		},
+		{
+			"titleX": "AUG",
+			"value": 59
+		},
+		{
+			"titleX": "SEP",
+			"value": 78
+		},
+		{
+			"titleX": "OCT",
+			"value": 67
+		},
+		{
+			"titleX": "NOV",
+			"value": 75
+		},
+		{
+			"titleX": "DEC",
+			"value": 33
+		}
+		
+	]
+}
