@@ -7,9 +7,25 @@
  *	Declaración de constantes que documenta lo Procedimientos Almacenados de la API
  */
 var _ = {};
-_.globals = {
-  hostaddress: 'http://192.168.0.18:8080'
-};
+
+_.app_get_user_stock = {
+  in_user_token:'',
+  in_fk_id_user:0
+}
+_.appdealings = {
+  in_user_token:'',
+   in_id_stock : 0,
+   in_name :'',
+   in_id_city :'',
+   in_address:'',
+   in_fk_id_user:0,
+   in_daily_price :0,
+   in_production_price :0,
+   in_number_of_arts :0,
+   in_date_start :'',
+   in_date_end :''
+}
+
 // Estandar Prefijo 'APP' + Acción + Entidad-Objeto
 _.applogin = {
     in_mail: 'carlosman79@gmail.com',
@@ -24,8 +40,8 @@ _.appgetavailability = {
 _.appregister = {
   in_type_user: '',
   in_identification:'',
-  in_first_name: '',
-  in_last_name: '',
+  in_name: '',
+  in_name_company: '',
   in_user_photo:  '',
   in_phone:  '',
   in_address:  '',
@@ -33,7 +49,7 @@ _.appregister = {
   in_password:  '',
   in_type_identification:  '',
   in_id_country:  '',
-  //in_id_city:  document.getElementById('city').value,
+  in_id_city:  '',
   in_ip_user_host: ''
 };
 _.appcountry = {

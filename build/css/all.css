@@ -2613,6 +2613,46 @@ body > .jcf-select-drop {
   .top-holder.inner .search-holder {
     margin: 5px 0 5px 8px; } }
 
+#sidebar {
+  margin-top: 50px !important; }
+
+.user-photo {
+  height: 50px !important; }
+
+.image-container {
+  float: left;
+  width: 150px;
+  height: 150px;
+  position: relative;
+  overflow: hidden;
+  background-color: #ffffff;
+  color: #ecf0f1; }
+  .image-container span {
+    display: none; }
+  .image-container input {
+    line-height: 200px;
+    font-size: 200px;
+    position: absolute;
+    opacity: 0;
+    z-index: 10; }
+  .image-container label {
+    position: absolute;
+    z-index: 5;
+    opacity: 0.8;
+    cursor: pointer;
+    background-color: #bdc3c7;
+    width: 200px;
+    height: 50px;
+    font-size: 20px;
+    line-height: 50px;
+    text-transform: uppercase;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    text-align: center; }
+
 #main {
   padding: 0 0px 106px; }
   @media all and (max-width: 1023px) {

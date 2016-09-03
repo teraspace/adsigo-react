@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import _ from '../../server/ConstantsAPI';
+import x from '../../server/ConstantsSocket';
+
 var that ;
 export default class Login extends React.Component {
 
@@ -50,7 +52,7 @@ export default class Login extends React.Component {
 
 
     console.log('onLoginClick');
-    fetch(_.globals.hostaddress+'/api/login', {
+    fetch(x.globals.hostaddress+'/api/login', {
       method: 'POST',
       headers: {
         "Content-Type": "application/x-www-form-urlencoded"

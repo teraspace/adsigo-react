@@ -14,11 +14,14 @@ export default class PanelConfiguracion extends React.Component {
   }
 
   render() {
-    var user_photo,last_name;
+    var user_photo,name;
     if(this.state.session!=null){
       if(this.state.session.user_photo!=null){
         user_photo = "./img/photo_user/"+this.state.session.user_photo ;
-        last_name = this.state.session.last_name
+        if(this.state.name_company!=null)
+          name = this.state.session.name_company
+        else
+          name = this.state.session.name
       }
     }
 
@@ -28,35 +31,31 @@ export default class PanelConfiguracion extends React.Component {
           <span>                    </span>
         </span>
         <span onClick={this.showPanel} className="text">
-          Buyer {last_name}
+          {name}
         </span>
       </a>
       <a href="#" className="user-photo menu-open">
         <img src={user_photo} height="51" width="51" alt="image description" />
       </a>
-      <div  id="nav-prop" className="nav-drop js-slide-hidden">
-        <ul>
-          <li>
-            <a href="/register-stock">Vender</a>
-          </li>
-          <li>
-            <a href="http://adsigo.co/user/dashboard">Panel de Administracion</a>
-          </li>
-          <li>
-            <a href="http://adsigo.co/user/profile">Perfil</a>
-          </li>
-          <li>
-            <a href="/user/orders">Mis Compras</a>
-          </li>
-          <li>
-            <a onClick={this.logOut} href="#">Salir</a>
-          </li>
-        </ul>
+
+      <div className="nav-drop inner js-slide-hidden">
+        <div className="holder">
+          <ul className="sub-list">
+            <li><a href="/my-sells">Mis Ventas</a></li>
+            <li><a href="#">Mis Espacios</a></li>
+            <li><a href="#">Reportes</a></li>
+            <li><a href="#">Disponibilidad</a></li>
+            <li><a href="#">Perfil</a></li>
+            <li><a href="#">Help Center</a></li>
+            <li><a onClick={this.logOut} href="#">Cerrar Sesion</a></li>
+          </ul>
+        </div>
       </div>
+
     </div>;
   }
   showPanel (){
-    document.getElementById("nav-prop").classList.toggle("shown");
+  //  document.getElementById("nav-prop").classList.toggle("shown");
   }
   logOut (){
     localStorage.setItem('session',null)

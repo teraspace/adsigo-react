@@ -15,6 +15,7 @@ var async = require("async");
 var browserify = require('browserify-middleware');
 var multer  =   require('multer');
 var fs = require('fs')
+
 var storage =   multer.diskStorage({
   destination: function (req, file, callback) {
     callback(null, './uploads');
@@ -25,6 +26,7 @@ var storage =   multer.diskStorage({
 });
 var upload = multer({ storage : storage}).single('iphoto');
 var uploads = multer({ dest: 'uploads/' })
+
 var COMMANDER = false;
 
 //Reinicia a la cero horas de cada día.
@@ -36,6 +38,18 @@ setInterval(function() {
   }
 }, 60000);
 if (process.argv.length > 0) {}
+//Ruta estandar router ReactJS
+app.get('/*', function(req,res){
+  console.log(req.path)
+  if(req.path=='/')
+    res.sendFile(path.join(__dirname, '../../build/')+'index.html')
+  else if((req.path).toString().includes('.'))
+    res.sendFile(path.join(__dirname, '../../build')+req.path)
+  else
+    res.sendFile(path.join(__dirname, '../../build/')+'index.html')
+
+//  process.exit()
+})
 
 //Publica el folder con los archivos del sitio.
 app.use(express.static(path.join(__dirname, '../../build/')));
@@ -48,6 +62,44 @@ app.use(function(req, res, next) {
 app.use(bodyParser.urlencoded({
   extended: true
 }));
+
+//Crea el método de inicio de sesión.
+app.post('/api/get-stock', function(req, res) {
+  var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+  var p = JSON.parse(req.body.params);
+  //  p.in_ip_user_host = ip;
+  _.app_get_user_stock = p;
+  var procedureCall = apiUtil.getJsonquery(_.app_get_user_stock);
+  //Se invoca el promice local para llamada al Procedimiento almacenado.
+  callFunction(procedureCall).then(function(response) {
+    //Se procesa la respuesta que se envia al cliente.
+    try {
+      res.send(response[0]); //Se envia la respuesta al request.
+    } catch (err) {
+      console.log('error1');
+    }
+  })
+});
+
+
+//Crea el método de inicio de sesión.
+app.post('/api/stock-dealings', function(req, res) {
+  var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+  var p = JSON.parse(req.body.params);
+  //  p.in_ip_user_host = ip;
+  _.appdealings = p;
+  var procedureCall = apiUtil.getJsonquery(_.appdealings);
+  //Se invoca el promice local para llamada al Procedimiento almacenado.
+  callFunction(procedureCall).then(function(response) {
+    //Se procesa la respuesta que se envia al cliente.
+    try {
+      res.send(response[0]); //Se envia la respuesta al request.
+    } catch (err) {
+      console.log('error1');
+    }
+  })
+});
+
 //Crea el método de inicio de sesión.
 app.post('/api/stock-availbility', function(req, res) {
   var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
@@ -200,7 +252,7 @@ app.post('/api/register-stock', function(req, res) {
   });
 });
 
-app.post('/api/photo/stock', uploads.array('photo1', 3), function (req, res, next) {
+app.post('/api/photo/stock', uploads.array('photo1', 4), function (req, res, next) {
   // req.files is array of `photos` files
   // req.body will contain the text fields, if there were any
 
@@ -366,6 +418,7 @@ function callFunction(procedureCall) {
     const cp = require('child_process');
     const n = cp.fork(`${__dirname}/CallFunction.js`);
     var timeout = setTimeout(function() {
+      console.log('timeout')
       //  n.send({ statement: 'kill' });
       n.kill('SIGHUP');
       console.log('consulta pesada ' + target);
@@ -383,7 +436,6 @@ function callFunction(procedureCall) {
     }, 5000);
 
     n.on('message', (m) => {
-      clearTimeout(timeout);
       var Response = require('./model/Response');
       var resp;
       if (typeof procedureCall == 'string') {
@@ -412,7 +464,8 @@ function callFunction(procedureCall) {
         Response.message = testResponse.app.split(',')[1];
         Response.code = "API_SUCCESS";
       }
-
+      clearTimeout(timeout);
+      n.kill('SIGHUP');
       fullfill([Response, target]);
     });
     n.send({

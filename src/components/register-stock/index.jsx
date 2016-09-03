@@ -2,7 +2,9 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import Header from '../header'
 import _ from '../../server/ConstantsAPI'
+import x from '../../server/ConstantsSocket';
 
+import SideMenu from '../side-menu'
 var that;
 var uploadPhoto = [];
 export default class RegisterStock extends React.Component {
@@ -15,17 +17,18 @@ export default class RegisterStock extends React.Component {
       typeStock: []
     };
     this.selectCountry = this.selectCountry.bind(this)
+    this.selectCity = this.selectCity.bind(this)
 
   }
   componentWillMount(){
-    fetch(_.globals.hostaddress+'/api/typestock',{method: 'POST'})
+    fetch(x.globals.hostaddress+'/api/typestock',{method: 'POST'})
     .then((response) => {
       return response.json()
     })
     .then((typeStock) => {
       this.setState({  typeStock: typeStock.data })
     })
-    fetch(_.globals.hostaddress+'/api/countries',{method: 'POST'})
+    fetch(x.globals.hostaddress+'/api/countries',{method: 'POST'})
     .then((response) => {
       return response.json()
     })
@@ -34,16 +37,27 @@ export default class RegisterStock extends React.Component {
     })
 
   }
-
+  componendDidUpdate () {
+  console.log('componendDidUpdate')
+}
   componentDidMount (){
-    var evt = document.createEvent('Event');
-    evt.initEvent('load', false, false);
-    window.dispatchEvent(evt);
-
+     myload()
+     $(window).keydown(function(event){
+        if(event.keyCode == 13) {
+          event.preventDefault();
+          geocodeAddress();
+          return false;
+        }
+      });
     this.setPhotoListener('photo1')
     this.setPhotoListener('photo2')
     this.setPhotoListener('photo3')
     this.setPhotoListener('photo4')
+    this.setPhotoListener('photo5')
+    $("#registerStockForm").validate();
+    //document.getElementById('selectCountry1').selectedIndex = "1";
+    this.selectCountry()
+init_map_register();
   }
   render() {
     that = this;
@@ -61,7 +75,7 @@ export default class RegisterStock extends React.Component {
     try {
       optionCities.push(<option key="citiesn" className="hide-me">Select City</option>);
       cities.forEach(function(city, index){
-        optionCities.push(<option key={'cities'+index} value={city.id_city} className="hide-me">{city.name}</option>);
+        optionCities.push(<option key={'cities'+index} value={city.id_city+","+city.name} className="hide-me">{city.name}</option>);
       })
     }catch(err){}
     var optionTypeStock = [];
@@ -77,7 +91,7 @@ export default class RegisterStock extends React.Component {
       <div id="content">
         <div className="content-holder">
           <h1><img src="./images/ico1.png" height="34" width="32" alt="image description" />Mis Espacios</h1>
-          <div action="#" className="space-form validate-form">
+          <form action="#" id="registerStockForm" className="space-form validate-form">
             <fieldset>
               <h2><span>Agregar Nuevo Espacio</span></h2>
               <div className="hold">
@@ -87,9 +101,9 @@ export default class RegisterStock extends React.Component {
               <div className="gray-holder">
                 <div className="row required-row">
                   <div className="label-holder">
-                    <label For="name">Nombre del Espacio Publicitario</label>
+                    <label htmlFor="name">Nombre de la valla</label>
                   </div>
-                  <input className="required" type="text" placeholder="Input" name="name" id="name" />
+                  <input className="required"  minLength="2" type="text" placeholder="Input" name="name" id="name" required />
                   <div className="question-holder">
                     <a href="#">[?]</a>
                     <div className="question-slide">
@@ -101,9 +115,11 @@ export default class RegisterStock extends React.Component {
                 </div>
                 <div className="row required-row">
                   <div className="label-holder">
-                    <label For="description">Descripción del Espacio</label>
+                    <label htmlFor="typeSpace">Tipo de Valla</label>
                   </div>
-                  <input className="required" type="text" placeholder="Input" name="description" id="description" />
+                  <select className="required-select" id="typeSpace" required>
+                    {optionTypeStock}
+                  </select>
                   <div className="question-holder">
                     <a href="#">[?]</a>
                     <div className="question-slide">
@@ -113,9 +129,23 @@ export default class RegisterStock extends React.Component {
                     </div>
                   </div>
                 </div>
-                <div className="row required-row">
+                <div style={{display: 'none'}} className="row required-row">
                   <div className="label-holder">
-                    <label For="select1">Pais</label>
+                    <label htmlFor="description">Descripción del Espacio</label>
+                  </div>
+                  <input maxLength="20" minLength="10" className="required" type="text" placeholder="Input" name="description" id="description" />
+                  <div className="question-holder">
+                    <a href="#">[?]</a>
+                    <div className="question-slide">
+                      <div className="slide-holder">
+                        <p>Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. Por scientie, musica. Li lingues differe solmen in li grammatica, li pronunciation e li. </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div style={{display: 'none'}}  className="row required-row">
+                  <div className="label-holder">
+                    <label htmlFor="select1">Pais</label>
                   </div>
                   <select className="required-select"  key={"sc1"} onChange={this.selectCountry} id="selectCountry1"   name="selectCountry1" required >
                     {optionCountries}
@@ -131,9 +161,9 @@ export default class RegisterStock extends React.Component {
                 </div>
                 <div className="row required-row">
                   <div className="label-holder">
-                    <label For="select2">Ciudad</label>
+                    <label htmlFor="select2">Ciudad</label>
                   </div>
-                  <select className="required-select" id="selectCity" name="selectCity">
+                  <select onChange={this.selectCity} className="required-select" id="selectCity1" name="selectCity1" required>
                     {optionCities}
                   </select>
                   <div className="question-holder">
@@ -147,9 +177,9 @@ export default class RegisterStock extends React.Component {
                 </div>
                 <div className="row required-row">
                   <div className="label-holder">
-                    <label For="address">Direcciôn del Espacio Publicitéгіо</label>
+                    <label htmlFor="princeDaily">Ргесіо рог Dia</label>
                   </div>
-                  <input className="required" type="text" placeholder="Input" name="address" id="address" />
+                  <input minLength="3" className="required" type="number" placeholder="Input Url" id="princeDaily" />
                   <div className="question-holder">
                     <a href="#">[?]</a>
                     <div className="question-slide">
@@ -161,25 +191,9 @@ export default class RegisterStock extends React.Component {
                 </div>
                 <div className="row required-row">
                   <div className="label-holder">
-                    <label For="googlemaps">Link googlemaps</label>
+                    <label htmlFor="productionPrice">Ргесіо рог Impresiôn</label>
                   </div>
-                  <input className="required" type="text" placeholder="Input Url" name="googlemaps" id="googlemaps" />
-                  <div className="question-holder">
-                    <a href="#">[?]</a>
-                    <div className="question-slide">
-                      <div className="slide-holder">
-                        <p>Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. Por scientie, musica. Li lingues differe solmen in li grammatica, li pronunciation e li. </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div id="file1" className="row required-row">
-                  <div className="label-holder">
-                    <label For="photo1">Foto 1</label>
-                  </div>
-                  <input align="right" className="required-select login-form" type="file" name="photo1" id="photo1" data-jcf='{"buttonText": "Adjuntar", "placeholderText": ""}' />
-                  <span id="photo1_fileInfo"></span>
-                  <img heigth="50px" id="photo1_previewPhoto" />
+                  <input  className="required" type="number" placeholder="Precio por impresión" id="productionPrice" />
                   <div className="question-holder">
                     <a href="#">[?]</a>
                     <div className="question-slide">
@@ -191,55 +205,9 @@ export default class RegisterStock extends React.Component {
                 </div>
                 <div className="row required-row">
                   <div className="label-holder">
-                    <label For="foto2">Foto 2</label>
+                    <label htmlFor="stockSize">Alto (cm)</label>
                   </div>
-                  <input align="right" className="required-select login-form" type="file" name="photo1" id="photo2" data-jcf='{"buttonText": "Adjuntar", "placeholderText": ""}' />
-                  <span id="photo2_fileInfo"></span>
-                  <img heigth="50px" id="photo2_previewPhoto" />            								<div className="question-holder">
-                    <a href="#">[?]</a>
-                    <div className="question-slide">
-                      <div className="slide-holder">
-                        <p>Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. Por scientie, musica. Li lingues differe solmen in li grammatica, li pronunciation e li. </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="row required-row">
-                  <div className="label-holder">
-                    <label For="foto3">Foto 3</label>
-                  </div>
-                  <input align="right" className="required-select login-form" type="file" name="photo1"  id="photo3" data-jcf='{"buttonText": "Adjuntar", "placeholderText": ""}' />
-                  <span id="photo3_fileInfo"></span>
-                  <img heigth="50px" id="photo3_previewPhoto" />          								<div className="question-holder">
-                    <a href="#">[?]</a>
-                    <div className="question-slide">
-                      <div className="slide-holder">
-                        <p>Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. Por scientie, musica. Li lingues differe solmen in li grammatica, li pronunciation e li. </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="row required-row">
-                  <div className="label-holder">
-                    <label For="photo4">Foto 4</label>
-                  </div>
-                  <input align="right" className="required-select login-form" type="file" name="photo1"  id="photo4" data-jcf='{"buttonText": "Adjuntar", "placeholderText": ""}' />
-                  <span id="photo4_fileInfo"></span>
-                  <img heigth="50px" id="photo4_previewPhoto" />
-                    <div className="question-holder">
-                    <a href="#">[?]</a>
-                    <div className="question-slide">
-                      <div className="slide-holder">
-                        <p>Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. Por scientie, musica. Li lingues differe solmen in li grammatica, li pronunciation e li. </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="row required-row">
-                  <div className="label-holder">
-                    <label For="priceMonthly">Рreсіо рог Mes</label>
-                  </div>
-                  <input className="required-number" type="number" placeholder="Input Number " name="priceMonthly" id="priceMonthly" />
+                  <input className="required" type="number" placeholder="Input" id="stockSize" required />
                   <div className="question-holder">
                     <a href="#">[?]</a>
                     <div className="question-slide">
@@ -251,9 +219,9 @@ export default class RegisterStock extends React.Component {
                 </div>
                 <div className="row required-row">
                   <div className="label-holder">
-                    <label For="princeDaily">Ргесіо рог Dia</label>
+                    <label htmlFor="stockSize">Ancho (cm)</label>
                   </div>
-                  <input className="required" type="number" placeholder="Input Url" id="princeDaily" />
+                  <input className="required" type="number" placeholder="Input" id="stockSize" required />
                   <div className="question-holder">
                     <a href="#">[?]</a>
                     <div className="question-slide">
@@ -265,9 +233,9 @@ export default class RegisterStock extends React.Component {
                 </div>
                 <div className="row required-row">
                   <div className="label-holder">
-                    <label For="productionPrice">Ргесіо рог Impresiôn</label>
+                    <label htmlFor="address">Dirección</label>
                   </div>
-                  <input className="required" type="number" placeholder="Precio por impresión" id="productionPrice" />
+                  <input minLength="10" className="required" type="text" placeholder="Input" name="address" id="address" required />
                   <div className="question-holder">
                     <a href="#">[?]</a>
                     <div className="question-slide">
@@ -278,9 +246,84 @@ export default class RegisterStock extends React.Component {
                   </div>
                 </div>
 
+
+
+
+
+
+                <div style={{display: "none"}} className="row required-row">
+                  <div className="label-holder">
+                    <label htmlFor="priceMonthly">Рreсіо рог Mes</label>
+                  </div>
+                  <input minLength="3" className="required-number" type="number" placeholder="Input Number " name="priceMonthly" id="priceMonthly" required />
+                  <div className="question-holder">
+                    <a href="#">[?]</a>
+                    <div className="question-slide">
+                      <div className="slide-holder">
+                        <p>Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. Por scientie, musica. Li lingues differe solmen in li grammatica, li pronunciation e li. </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+
+
+
+              </div>
+              <h3>2. Select photos for billboard</h3>
+              <div className="gray-holder">
+                <div style={{ display:'inline', width:'100%'}} id="uploadGallery" className="row required-row">
+                  <div className="image-container" id="image1">
+                    <label htmlFor="image-upload" id="image-label1">Choose File</label>
+                    <input type="file" name="photo1" id="photo1" />
+                    <span id="photo1_fileInfo"></span>
+                  </div>
+                  <div className="image-container" id="image2">
+                    <label htmlFor="image-upload" id="image-label2">Choose File</label>
+                    <input type="file" name="photo1" id="photo2" />
+                    <span id="photo2_fileInfo"></span>
+                  </div>
+                  <div className="image-container" id="image3">
+                    <label htmlFor="image-upload" id="image-label3">Choose File</label>
+                    <input type="file" name="photo1" id="photo3" />
+                    <span id="photo3_fileInfo"></span>
+                  </div>
+                  <div className="image-container" id="image4">
+                    <label htmlFor="image-upload" id="image-label4">Choose File</label>
+                    <input type="file" name="photo1" id="photo4" />
+                    <span id="photo4_fileInfo"></span>
+                  </div>
+                  <div className="image-container" id="image5">
+                    <label htmlFor="image-upload" id="image-label5">Choose File</label>
+                    <input type="file" name="photo1" id="photo5" />
+                    <span  id="photo5_fileInfo"></span>
+                  </div>
+                </div>
+              </div>
+              <h3>3. Seleccione ubicación Google Maps</h3>
+              <div className="gray-holder">
+                <div className="row required-row">
+                  <input type="text" id="mapsearch"  />
+                  <div id="detailmap" style={{height: "320px", width: "100%"}}></div>
+
+                  <input  minLength="5" className="required" type="hidden" placeholder="Input Url" name="googlemaps" id="googlemaps" required />
+                  <div className="question-holder">
+                    <a href="#">[?]</a>
+                    <div className="question-slide">
+                      <div className="slide-holder">
+                        <p>Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. Por scientie, musica. Li lingues differe solmen in li grammatica, li pronunciation e li. </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <h3>4. Información Técnica del Espacio:</h3>
+              <div className="gray-holder">
+
                 <div className="row required-row">
                   <div className="label-holder">
-                    <label For="visualImpact">Impacto visual por día</label>
+                    <label htmlFor="visualImpact">Impacto visual por día</label>
                   </div>
                   <input className="required" type="number" placeholder="Impacto visual por día" name="visualImpact" id="visualImpact" />
                   <div className="question-holder">
@@ -295,9 +338,9 @@ export default class RegisterStock extends React.Component {
 
                 <div className="row required-row">
                   <div className="label-holder">
-                    <label For="publicTarget">Estrato targets</label>
+                    <label htmlFor="publicTarget">Estrato targets</label>
                   </div>
-                  <select className="required-select" id="publicTarget" name="publicTarget">
+                  <select className="required-select" id="publicTarget" name="publicTarget" required>
                       <option value="1">1</option>
                       <option value="2">2</option>
                       <option value="3">3</option>
@@ -316,93 +359,31 @@ export default class RegisterStock extends React.Component {
                 </div>
 
 
-              </div>
-              <h3>2. Información Técnica del Espacio:</h3>
-              <div className="gray-holder">
-                <div className="row required-row">
-                  <div className="label-holder">
-                    <label For="stockSize">Tamaño Visual de Pufalicidad (cm)</label>
-                  </div>
-                  <input className="required" type="number" placeholder="Input" id="stockSize" />
-                  <div className="question-holder">
-                    <a href="#">[?]</a>
-                    <div className="question-slide">
-                      <div className="slide-holder">
-                        <p>Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. Por scientie, musica. Li lingues differe solmen in li grammatica, li pronunciation e li. </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="row required-row">
-                  <div className="label-holder">
-                    <label For="typeSpace">Tipo de Espscio Publicitario</label>
-                  </div>
-                  <select className="required-select" id="typeSpace">
-                    {optionTypeStock}
-                  </select>
-                  <div className="question-holder">
-                    <a href="#">[?]</a>
-                    <div className="question-slide">
-                      <div className="slide-holder">
-                        <p>Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. Por scientie, musica. Li lingues differe solmen in li grammatica, li pronunciation e li. </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
                 <div className="row">
                   <div className="label-holder">
-                    <label For="lightning">Iluminación Nocturna</label>
+                    <label htmlFor="lightning">Iluminación Nocturna</label>
                   </div>
-                  <input type="checkbox" id="lightning" />
+                  <input type="checkbox" id="lightning"  />
                 </div>
                 <div className="row">
                   <div className="label-holder">
-                    <label For="hotSpot">Hotspot</label>
+                    <label htmlFor="hotSpot">Hotspot</label>
                   </div>
                   <input type="checkbox" id="hotSpot" />
                 </div>
                 <div className="row">
                   <div className="label-holder">
-                    <label For="mainRoad">Main Road</label>
+                    <label htmlFor="mainRoad">Main Road</label>
                   </div>
                   <input type="checkbox" id="mainRoad" />
                 </div>
               </div>
               <input onClick={that.register} type="submit" value="Guardar" />
             </fieldset>
-          </div>
+          </form>
         </div>
       </div>
-      <aside id="sidebar">
-        <nav className="side-nav">
-          <ul>
-            <li><a href="#">Mis Ordenes<span className="number">3</span></a></li>
-            <li>
-              <a href="#">Mis Espacios</a>
-              <ul>
-                <li><a href="#">Espacios Indoor</a></li>
-                <li><a href="#">Espacios Outdoor</a></li>
-                <li><a href="#">Agregar Espacio</a></li>
-              </ul>
-            </li>
-            <li>
-              <a href="#">Reportes</a>
-              <ul>
-                <li><a href="#">Reportes Indoor</a></li>
-                <li><a href="#">Reportes Outdoor</a></li>
-              </ul>
-            </li>
-            <li>
-              <a href="#">Disponibilidad</a>
-              <ul>
-                <li><a href="#">Disponibilidad Indoor</a></li>
-                <li><a href="#">Disponibilidad Outdoor</a></li>
-              </ul>
-            </li>
-          </ul>
-        </nav>
-      </aside>
+        <SideMenu />;
     </main>;
 
   }
@@ -418,13 +399,16 @@ export default class RegisterStock extends React.Component {
           photoFiles.push(_photo)
       }
     }
+document.getElementById("selectCountry1").value = 'CO' //Solo Colombia en MVP
+ document.getElementById('description').value = 'No description' // Sin description en MVP
+
     var payload = JSON.stringify({
       in_user_token:that.state.session.v_user_token,
       in_id_stock: 0,
       in_name:  document.getElementById('name').value,
       in_description:  document.getElementById('description').value,
       in_id_country:  document.getElementById("selectCountry1").value,
-      in_id_city: document.getElementById("selectCity").value,
+      in_id_city: document.getElementById("selectCity1").value.split(',')[0],
       in_address:  document.getElementById('address').value,
       in_googlemaps:  document.getElementById('googlemaps').value,
       in_availability:  'S',
@@ -441,14 +425,13 @@ export default class RegisterStock extends React.Component {
       in_production_price:  parseInt(document.getElementById('productionPrice').value),
       in_ip_user_host: ''
     });
-//console.log(payload)
     if(!validar(payload)) {
       return;
     }
     console.log('register');
     console.log('onLoginClick');    var _token;
 
-    fetch(_.globals.hostaddress + '/api/register-stock', {
+    fetch(x.globals.hostaddress + '/api/register-stock', {
       method: 'POST',
       headers: {
         "Content-Type": "application/x-www-form-urlencoded"
@@ -467,7 +450,7 @@ export default class RegisterStock extends React.Component {
         $('#yesButton').text('Aceptar').click(function(e){
           console.log(e)
           $('#modalContainer').modal('hide');
-        if(session.success) window.location="http://adsigo.teraspace.co:8080"
+          if(session.success) window.location="http://adsigo.teraspace.co:8080"
         })
       }).modal({
         keyboard: false,
@@ -477,11 +460,19 @@ export default class RegisterStock extends React.Component {
 
     });
   }
+  selectCity () {
+    console.log( document.getElementById("selectCity1").value.split(',')[1])
+    var _context = this;
+
+    geocodeAddress();
+
+  }
   selectCountry (){
     var _context = this;
     var x = document.getElementById("selectCountry1").value;
-    var payload = JSON.stringify({in_country: x});
-    fetch( _.globals.hostaddress + '/api/cities' ,
+//Se quema CO para uso solo en Colombia sin restar.. El codigo queda para el futuro.
+    var payload = JSON.stringify({in_country: 'CO'});
+    fetch( x.globals.hostaddress + '/api/cities' ,
     {   method: 'POST',
       headers: {
         "Content-Type": "application/x-www-form-urlencoded"
@@ -497,12 +488,20 @@ export default class RegisterStock extends React.Component {
   setPhotoListener (htmlElement) {
 
     var idphoto = htmlElement.slice(-1);
+    $.uploadPreview({
+        input_field: "#"+htmlElement,   // Default: .image-upload
+        preview_box: "#image"+idphoto,  // Default: .image-preview
+        label_field: "#image-label"+idphoto,    // Default: .image-label
+        label_default: "Choose File",   // Default: Choose File
+        label_selected: "Change File",  // Default: Change File
+        no_label: false                 // Default: false
+      });
     $('#'+htmlElement).change(function() {
       console.log(this.value)
       var that = this
-      $('#'+htmlElement).simpleUpload( _.globals.hostaddress +'/api/photo/stock',{
-        allowedExts: ["jpg", "jpeg", "jpe", "jif", "jfif", "jfi", "png", "gif"],
-        allowedTypes: ["image/pjpeg", "image/jpeg", "image/png", "image/x-png", "image/gif", "image/x-gif"],
+      $('#'+htmlElement).simpleUpload( x.globals.hostaddress +'/api/photo/stock',{
+        allowedExts: ["jpg", "jpeg", "jpe", "png"],
+        allowedTypes: ["image/pjpeg", "image/jpeg", "image/png", "image/x-png"],
         maxFileSize: 5000000, //5MB in bytes
         fields : {
           idphoto: htmlElement
@@ -537,15 +536,15 @@ function validar (data){
     alert('Debe escribir un nombre conciso.')
     ok = false;
   } else
-  if(_data.in_description.length<=10){
-    alert('Debe escribir una descripción concisa.')
-    ok = false;
-  } else
-  if(_data.in_id_country.length>2){
-    alert('Debe seleccionar un país.')
-    ok = false;
-  }
-  else
+  // if(_data.in_description.length<=10){
+  //   alert('Debe escribir una descripción concisa.')
+  //   ok = false;
+  // } else
+  // if(_data.in_id_country.length>2){
+  //   alert('Debe seleccionar un país.')
+  //   ok = false;
+  // }
+  // else
   if(_data.in_id_city.length>6){
     alert('Debe seleccionar una ciudad.')
     ok = false;

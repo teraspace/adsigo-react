@@ -2,7 +2,7 @@ import React from 'react';
 import PanelConfiguracion from '../panel-configuracion'
 import Login from '../login'
 import _ from '../../server/ConstantsAPI'
-
+import x from '../../server/ConstantsSocket'
 var that;
 export default class Header extends React.Component {
   constructor(props) {
@@ -16,14 +16,14 @@ export default class Header extends React.Component {
   }
 
   componentWillMount() {
-    fetch(_.globals.hostaddress+'/api/typestock',{method: 'POST'})
+    fetch(x.globals.hostaddress+'/api/typestock',{method: 'POST'})
     .then((response) => {
       return response.json()
     })
     .then((typeStock) => {
       this.setState({  typeStock: typeStock.data })
     })
-    fetch(_.globals.hostaddress+'/api/pricerange',{method: 'POST'})
+    fetch(x.globals.hostaddress+'/api/pricerange',{method: 'POST'})
     .then((response) => {
       return response.json()
     })
@@ -32,7 +32,7 @@ export default class Header extends React.Component {
     })
 
     var payload = JSON.stringify({in_country: 'CO'});
-    fetch( _.globals.hostaddress + '/api/cities' ,
+    fetch( x.globals.hostaddress + '/api/cities' ,
     {   method: 'POST',
       headers: {
         "Content-Type": "application/x-www-form-urlencoded"
@@ -97,7 +97,6 @@ export default class Header extends React.Component {
 						</div>
 						<a href="#" className="btn-filter inner"><span>Filtro <span className="none">Avanzado</span></span></a>
 					</div>
-					<div className="help-desk"><a href="#">?</a></div>
           {modo}
 				</div>
 			</div>
@@ -162,6 +161,7 @@ export default class Header extends React.Component {
 loginResponse(response) {
   console.log('refresh');
   that.setState({session:response})
+     myload()
 }
 
 }

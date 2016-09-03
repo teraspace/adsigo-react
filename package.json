@@ -41,6 +41,8 @@
     "font-awesome": "^4.3.0",
     "gulp": "^3.9.1",
     "gulp-concat": "^2.6.0",
+    "jfum": "^1.0.3",
+    "jquery-file-upload-middleware": "^0.1.7",
     "multer": "^1.1.0",
     "normalize.css": "^3.0.3",
     "page": "^1.7.1",
@@ -48,6 +50,7 @@
     "react": "^15.1.0",
     "react-dom": "^15.1.0",
     "react-router": "^2.4.1",
-    "socketio": "^1.0.0"
+    "socketio": "^1.0.0",
+    "swig": "^1.4.2"
   }
 }

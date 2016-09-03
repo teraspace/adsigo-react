@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import _ from '../../server/ConstantsAPI'
+import x from '../../server/ConstantsSocket'
 
 class LandingDetail extends React.Component {
 
@@ -10,6 +11,9 @@ class LandingDetail extends React.Component {
     this.state = { detail: [] };
     this.reevent = this.reevent.bind(this)
     this.closeModal = this.closeModal.bind(this)
+    this.putDealing = this.putDealing.bind(this)
+    this.selectPrints = this.selectPrints.bind(this)
+
   }
   componentWillMount () {
 
@@ -18,7 +22,7 @@ class LandingDetail extends React.Component {
     console.log('componentDidMount')
     this.getAvaibility()
     this.reevent();
-
+       myload()
   }
   render(){
     var details = this.props.data
@@ -118,7 +122,7 @@ class LandingDetail extends React.Component {
                               </div>
                             </div>
 
-                            <form method="POST" action="http://advertspace.co/user/orders/addTo/cart/1" acceptCharset="UTF-8">
+                            <div>
                               <input name="_token" type="hidden" value="RJ8QcfDTvXk03N1HDa7fRlDpP75oLCqPHm3L1Xcb" />
                               <input type="hidden" name="_token" value="RJ8QcfDTvXk03N1HDa7fRlDpP75oLCqPHm3L1Xcb" id="token" />
                               <input type="hidden" value="1" id="idSpace" name="idSpace" />
@@ -127,19 +131,20 @@ class LandingDetail extends React.Component {
                                 <div className="gray-box amount-box">
                                   <div className="date-box2">
                                     <div className="js-date-open-close">
-                                      <input className="js-date-field multidate" type="text" placeholder="Date Range"  name="startDate" required="" id="dp1470988129361" />
+                                      <input className="js-date-field multidate" type="text" placeholder="Date Range"  name="startDate" required="" id="dateRange" />
                                       <i className="icon-keyboard-arrow-down"></i>
                                     </div>
 
                                   </div>
-                                  <select className="select-amount jcf-hidden" name="qtyPrint">
+                                  <select onChange={that.selectPrints} className="select-amount" id="qtyPrint" name="qtyPrint">
                                     <option className="hidden">Cantidad de Impresión(es)</option>
                                     <option>1</option>
                                     <option>2</option>
                                     <option>3</option>
                                     <option>4</option>
                                     <option>5</option>
-                                  </select><span className="jcf-select jcf-unselectable jcf-select-select-amount"><span className="jcf-select-text"><span className="jcf-option-hidden ">Cantidad de Impresión(es)</span></span><span className="jcf-select-opener"></span></span>
+                                  </select>
+
                                   <div className="tooltip-holder">
                                     <a href="#" className="open-tooltip">Qué son “Impresiones?”</a>
                                     <div className="tooltip-slide js-slide-hidden" style={{display: "none", opacity: "1"}}>
@@ -160,7 +165,7 @@ class LandingDetail extends React.Component {
                                     <dt>total (cop)</dt>
                                     <dd className="totalSpace">0</dd>
                                   </dl>
-                                  <a href="#" className="btn-buy">Comprar</a>
+                                  <a onClick={that.putDealing} className="btn-buy">Comprar</a>
 
                                   <div>
                                     <button type="submit" id="addOrder" className="btn-append"><span>+</span> Agregar a Orden</button>
@@ -177,7 +182,7 @@ class LandingDetail extends React.Component {
                                   </div>
                                 </div>
                               </div>
-                            </form>
+                            </div>
                           </div>
                           <div className="lightbox-content">
                             <span className="title">1. Información Comercial del SurfBoard:</span>
@@ -219,6 +224,11 @@ class LandingDetail extends React.Component {
                 </div>
 
               }
+              selectPrints (){
+                console.log('selectPrints')
+                var qtyPrint = document.getElementById('qtyPrint').value
+
+              }
               reevent(){
                 console.log('reevent')
                 initJssorGallery()
@@ -252,7 +262,7 @@ class LandingDetail extends React.Component {
                   in_id_stock :idstock
                 });
               console.log(payload)
-                fetch(_.globals.hostaddress+'/api/stock-availbility',{
+                fetch(x.globals.hostaddress+'/api/stock-availbility',{
                   method: 'POST',
                   headers: {
                     "Content-Type": "application/x-www-form-urlencoded"
@@ -264,6 +274,55 @@ class LandingDetail extends React.Component {
                 })
                 .then((availbility) => {
                   console.log(availbility)
+                })
+              }
+              putDealing(){
+                console.log('putDealing')
+                var details = this.props.data
+                var idstock = details.id_stock;
+
+                var token,iduser;
+                try {
+                  token=JSON.parse(localStorage.getItem('session')).v_user_token
+                    iduser=JSON.parse(localStorage.getItem('session')).id_user
+                }catch(err){
+                  token=''
+                }
+                var dates = document.getElementById('dateRange').value.split(',')
+                if(dates.length>0){
+                  var startDate = dates[0]
+                  var endDate = dates[1]
+
+                  } else {
+
+                  }
+                var qtyPrint = document.getElementById('qtyPrint').value
+                var payload = JSON.stringify({
+                    in_user_token: token,
+                     in_id_stock :details.id_stock,
+                     in_name :details.name,
+                     in_id_city :details.id_city,
+                     in_address:details.address,
+                     in_fk_id_user:iduser,
+                     in_daily_price :parseFloat(details.daily_price),
+                     in_production_price :parseFloat(details.production_price),
+                     in_number_of_arts :qtyPrint,
+                     in_date_start :startDate,
+                     in_date_end :endDate
+                });
+              console.log(payload)
+                fetch(x.globals.hostaddress+'/api/stock-dealings',{
+                  method: 'POST',
+                  headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                  },
+                  body: "params=" + payload
+                })
+                .then((response) => {
+                  return response.json()
+                })
+                .then((deal) => {
+                  console.log(deal)
                 })
               }
             }

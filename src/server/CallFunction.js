@@ -48,7 +48,7 @@ function prepareCallFunction(callFunction) {
                 // returning a promise that determines a successful transaction:
                 return this.batch([q1, q2]); // all of the queries are to be resolved;
             }).then(function(data) {
-              //  console.log(data)
+                console.log(data)
                 pgp.end()
                 fullfill(data);
             }).catch(function(error) {

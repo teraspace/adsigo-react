@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import Header from '../header'
 import _ from '../../server/ConstantsAPI';
+import x from '../../server/ConstantsSocket';
 import LandingGallery from '../landing-gallery'
 import LandingDetail from '../landing-detail';
 
@@ -78,17 +79,15 @@ console.log(selectTypestock)
       in_limit:that.state.step+6
     });
     console.log(payload)
-    fetch(_.globals.hostaddress+'/api/landing',{
+    fetch(x.globals.hostaddress+'/api/landing',{
       method: 'POST',
       headers: {
         "Content-Type": "application/x-www-form-urlencoded"
       },
       body: "params=" + payload
-    })
-    .then((response) => {
+    }).then((response) => {
       return response.json()
-    })
-    .then((billboards) => {
+    }).then((billboards) => {
       this.setState({ billboards: billboards.data })
     })
   }

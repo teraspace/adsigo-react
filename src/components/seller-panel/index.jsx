@@ -50,7 +50,8 @@ export default class SellerPanel extends React.Component {
           </li>
         </ul>
       </div>
-    </div>;
+    </div>
+
   }
   showPanel (){
     document.getElementById("nav-prop").classList.toggle("js-slide-hidden");

@@ -35,7 +35,7 @@ export default class SelectCountry extends React.Component {
         var _countries = this.state.countries.data;
         if (_countries != null)
         _countries.forEach(function(country,index){
-          optionCountries.push(<option key={'country'+index} value={country.id_iso}>{country.name}</option>)
+          optionCountries.push(<option key={'country'+index} value={country.id_iso+","+country.name}>{country.name}</option>)
           })
             return  <div id="landing-country" >
                 <div className="label-holder">
@@ -49,9 +49,10 @@ export default class SelectCountry extends React.Component {
     }
     selectCountry (){
       console.log('selectCountry')
-      var x = document.getElementById("selectCountry").value;
+      var x = document.getElementById("selectCountry").value.split(',');
       var session = {id_user:-1,first_name:"",last_name:"",user_photo:"",phone:"",address:"",email:"",id_country:x,id_city:null,fk_id_restriction:-1,v_user_token:""}
-      localStorage.setItem('country',x);
+      localStorage.setItem('country',x[0]);
+      localStorage.setItem('country_name',x[1]);
       location.reload()
     }
 }

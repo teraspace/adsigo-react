@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import _ from '../../server/ConstantsAPI';
+import x from '../../server/ConstantsSocket';
 import LandingDetail from '../landing-detail';
 
 class LandingGallery extends React.Component {
@@ -76,10 +77,11 @@ showDetail(data){
   var idstock = data.id_stock;
   var token;
   try {
-    if ('session' in that.state)
-    token=JSON.parse(localStorage.getItem('session'))
+    if ('session' in this.state)
+    token=JSON.parse(localStorage.getItem('session')).v_user_token
 
   }catch(err){
+console.error(err)
     token=''
   }
   var payload = JSON.stringify({
@@ -87,7 +89,7 @@ showDetail(data){
     in_id_stock :idstock
   });
 console.log(payload)
-  fetch(_.globals.hostaddress+'/api/stock-detail',{
+  fetch(x.globals.hostaddress+'/api/stock-detail',{
     method: 'POST',
     headers: {
       "Content-Type": "application/x-www-form-urlencoded"

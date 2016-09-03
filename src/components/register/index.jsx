@@ -2,6 +2,8 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import Header from '../header'
 import _ from '../../server/ConstantsAPI'
+import x from '../../server/ConstantsSocket';
+
 var that;
 var uploadPhoto;
 export default class Register extends React.Component {
@@ -15,13 +17,13 @@ export default class Register extends React.Component {
     this.selectCountry = this.selectCountry.bind(this)
   }
   componentWillMount(){
-    fetch(_.globals.hostaddress+'/api/countries',{method: 'POST'})
-      .then((response) => {
-        return response.json()
-      })
-      .then((countries) => {
-        this.setState({  countries: countries.data })
-      })
+    fetch(x.globals.hostaddress+'/api/countries',{method: 'POST'})
+    .then((response) => {
+      return response.json()
+    })
+    .then((countries) => {
+      this.setState({  countries: countries.data })
+    })
 
   }
   componentDidMount (){
@@ -30,24 +32,24 @@ export default class Register extends React.Component {
     window.dispatchEvent(evt);
 
     $('#iphoto').change(function() {
-      $('#iphoto').simpleUpload( _.globals.hostaddress +'/api/photo',{
-              allowedExts: ["jpg", "jpeg", "jpe", "jif", "jfif", "jfi", "png", "gif"],
-              allowedTypes: ["image/pjpeg", "image/jpeg", "image/png", "image/x-png", "image/gif", "image/x-gif"],
-              maxFileSize: 5000000, //5MB in bytes
-              success: function(data){
+      $('#iphoto').simpleUpload( x.globals.hostaddress +'/api/photo',{
+        allowedExts: ["jpg", "jpeg", "jpe", "jif", "jfif", "jfi", "png", "gif"],
+        allowedTypes: ["image/pjpeg", "image/jpeg", "image/png", "image/x-png", "image/gif", "image/x-gif"],
+        maxFileSize: 5000000, //5MB in bytes
+        success: function(data){
 
-                uploadPhoto = JSON.parse(data);
-                document.getElementById('fileInfo').innerHTML = uploadPhoto.data.path
-                document.getElementById("previewPhoto").src = _.globals.hostaddress+ "/"+uploadPhoto.data.path
-              },
-              error: function(error){
-                console.log(error)
-              }
+          uploadPhoto = JSON.parse(data);
+          document.getElementById('fileInfo').innerHTML = uploadPhoto.data.path
+          document.getElementById("previewPhoto").src = x.globals.hostaddress+ "/"+uploadPhoto.data.path
+        },
+        error: function(error){
+          console.log(error)
+        }
       } );
     });
   }
   render () {
-   that = this;
+    that = this;
     var optionCountries = [];
     var countries = this.state.countries;
     try {
@@ -113,24 +115,24 @@ export default class Register extends React.Component {
                   <input maxLength={20} className="required" type="text" placeholder="Numero de Identifiacion" id="identification" name="identification" required />
                 </div>
                 <div className="row required-row">
-                      <div className="label-holder">
-                        <label htmlFor="iphoto">Photo:</label>
-                      </div>
-                      <input  className="required-select login-form"  name="iphoto"  accept="image/*" type="file" placeholder="Photo" id="iphoto" />
-                      <span id="fileInfo"></span>
-                      <img  id="previewPhoto" />
+                  <div className="label-holder">
+                    <label htmlFor="iphoto">Photo:</label>
+                  </div>
+                  <input  className="required-select login-form"  name="iphoto"  accept="image/*" type="file" placeholder="Photo" id="iphoto" />
+                  <span id="fileInfo"></span>
+                  <img  id="previewPhoto" />
                 </div>
                 <div className="row required-row">
                   <div className="label-holder">
-                    <label htmlFor="firstName">First Name:</label>
+                    <label htmlFor="firstName">Name:</label>
                   </div>
-                  <input  maxLength={50} className="required" type="text" placeholder="Dolmen Visual S.A.S" id="firstName" name="firstName"  required />
+                  <input  maxLength={50} className="required" type="text"  id="nameuser" name="name"  required />
                 </div>
                 <div className="row required-row">
                   <div className="label-holder">
-                    <label htmlFor="lastNane">Last Name:</label>
+                    <label htmlFor="lastNane">Company Name:</label>
                   </div>
-                  <input maxLength={100}  className="required" type="text" placeholder="Dolmen Visual S.A.S" id="lastName" name="lastName"  />
+                  <input maxLength={100}  className="required" type="text"  id="namecompany" name="namecompany"  />
                 </div>
 
 
@@ -222,13 +224,15 @@ export default class Register extends React.Component {
     try {
       path = document.getElementById("iphoto").value
       fileName = JSON.stringify(uploadPhoto)
-      }catch(err){}
+    }catch(err){
+
+}
 
     var payload = JSON.stringify({
       in_user_token:'',
       in_identification: document.getElementById('identification').value,
-      in_first_name:  document.getElementById('firstName').value,
-      in_last_name:  document.getElementById('lastName').value,
+      in_name:  $('#nameuser').val(),
+      in_name_company: $('#namecompany').val(),
       in_user_photo:  fileName,
       in_phone:  document.getElementById('phone').value,
       in_address:  document.getElementById('address').value,
@@ -245,7 +249,7 @@ export default class Register extends React.Component {
     console.log('register');
     console.log('onLoginClick');    var _token;
 
-    fetch(_.globals.hostaddress + '/api/register', {
+    fetch(x.globals.hostaddress + '/api/register', {
       method: 'POST',
       headers: {
         "Content-Type": "application/x-www-form-urlencoded"
@@ -256,53 +260,53 @@ export default class Register extends React.Component {
     }).then((session) => {
       console.log(session);
       //localStorage.setItem('session',JSON.stringify(session.data));
-  if (!session.success && session.code=='API_MESSAGE'){
-    $('#modalContainer').on('show.bs.modal', function (e) {
-      $('#noButton').hide();
-      $('#modalTitle').text('Atención');
-      $('#modalBody').text(session.message);
-      $('#yesButton').text('Aceptar').click(function(e){
-                console.log(e)
-                $('#modalContainer').modal('hide');
-                window.location="http://adsigo.teraspace.co:8080"
-        })
-      }).modal({
-              keyboard: false,
-              backdrop: 'static'
-              });
-  } else if (session.success){
-      $('#modalContainer').on('show.bs.modal', function (e) {
-        $('#noButton').hide();
-        $('#modalTitle').text('Felicitaciones');
-        $('#modalBody').text('Binvenido a Adverspace');
-        $('#yesButton').text('Aceptar').click(function(e){
-                  console.log(e)
-                  $('#modalContainer').modal('hide');
-                  window.location="http://adsigo.teraspace.co:8080"
+      if (!session.success && session.code=='API_MESSAGE'){
+        $('#modalContainer').on('show.bs.modal', function (e) {
+          $('#noButton').hide();
+          $('#modalTitle').text('Atención');
+          $('#modalBody').text(session.message);
+          $('#yesButton').text('Aceptar').click(function(e){
+            console.log(e)
+            $('#modalContainer').modal('hide');
+            //  window.location="http://adsigo.teraspace.co:8080"
           })
         }).modal({
-                keyboard: false,
-                backdrop: 'static'
-                });
+          keyboard: false,
+          backdrop: 'static'
+        });
+      } else if (session.success){
+        $('#modalContainer').on('show.bs.modal', function (e) {
+          $('#noButton').hide();
+          $('#modalTitle').text('Felicitaciones');
+          $('#modalBody').text('Binvenido a Adverspace');
+          $('#yesButton').text('Aceptar').click(function(e){
+            console.log(e)
+            $('#modalContainer').modal('hide');
+            window.location="http://adsigo.teraspace.co:8080"
+          })
+        }).modal({
+          keyboard: false,
+          backdrop: 'static'
+        });
 
-}
+      }
     });
   }
   selectCountry (){
     var _context = this;
     var x = document.getElementById("selectCountry").value;
     var payload = JSON.stringify({in_country: x});
-    fetch( _.globals.hostaddress + '/api/cities' ,
-          {   method: 'POST',
-              headers: {
-                "Content-Type": "application/x-www-form-urlencoded"
-              },
-              body: "params=" + payload
-          }).then((response) => {
-            return response.json()
-          }).then((cities) => {
-            _context.setState({  cities: cities.data })
-          })
+    fetch( x.globals.hostaddress + '/api/cities' ,
+    {   method: 'POST',
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      body: "params=" + payload
+    }).then((response) => {
+      return response.json()
+    }).then((cities) => {
+      _context.setState({  cities: cities.data })
+    })
   }
 }
 function validar (data){
@@ -349,12 +353,12 @@ function validar (data){
   return ok
 }
 function chageIcon(domImg,srcImage)
-    {
-        var img = new Image();
-        img.onload = function()
-        {
-            // Load completed
-            domImg.src = this.src;
-        };
-        img.src = srcImage;
-    }
+{
+  var img = new Image();
+  img.onload = function()
+  {
+    // Load completed
+    domImg.src = this.src;
+  };
+  img.src = srcImage;
+}
