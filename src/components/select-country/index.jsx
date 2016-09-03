@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import Header from '../header'
 import _ from '../../server/ConstantsAPI';
+import x from '../../server/ConstantsSocket';
 import LandingGallery from '../landing-gallery'
 
 export default class SelectCountry extends React.Component {
@@ -18,7 +19,7 @@ export default class SelectCountry extends React.Component {
       $('body').addClass('page-center')
         $('#aplicacion').addClass('page-center')
         var that = this;
-        fetch(_.globals.hostaddress+'/api/countries',{method: 'POST',mode: 'cors'})
+        fetch(x.globals.hostaddress+'/api/countries',{method: 'POST',mode: 'cors'})
         .then((response) => {
           return response.json()
         })
