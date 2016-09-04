@@ -2666,6 +2666,7 @@ body > .jcf-select-drop {
       table-layout: fixed; } }
 
 #content {
+  margin-top: 50px;
   width: 100%;
   float: left;
   box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.16);

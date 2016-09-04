@@ -72,9 +72,9 @@ export default class MySells extends React.Component {
 
     return  <main id="main" className="register-stock" role="main">
       <Header />
-        <div id="content">
+        <div id="content" style={{height:'100% !important'}}>
           <div className="content-holder order-detail">
-    				<h1><img src="images/ico1.png" height="34" width="32" alt="image description" />Mis Espacios</h1>
+    				<h1><img src="images/ico1.png" height="34" width="32" alt="image description" />My Sells</h1>
     				<div className="shopping-sales-report">
     					<form action="#" className="sales-filter-form">
     						<fieldset>

@@ -6,6 +6,7 @@ import x from '../../server/ConstantsSocket';
 
 var that;
 var uploadPhoto;
+var hostaddress;
 export default class Register extends React.Component {
   constructor(props) {
     super(props);
@@ -15,9 +16,10 @@ export default class Register extends React.Component {
       cities: []
     };
     this.selectCountry = this.selectCountry.bind(this)
+    hostaddress = x.globals.hostaddress
   }
   componentWillMount(){
-    fetch(x.globals.hostaddress+'/api/countries',{method: 'POST'})
+    fetch(hostaddress+'/api/countries',{method: 'POST'})
     .then((response) => {
       return response.json()
     })
@@ -30,9 +32,17 @@ export default class Register extends React.Component {
     var evt = document.createEvent('Event');
     evt.initEvent('load', false, false);
     window.dispatchEvent(evt);
-
+      //this.setPhotoListener('iphoto')
+      $.uploadPreview({
+          input_field: '#iphoto',   // Default: .image-upload
+          preview_box: "#image"+1,  // Default: .image-preview
+          label_field: "#image-label"+1,    // Default: .image-label
+          label_default: "Choose File",   // Default: Choose File
+          label_selected: "Change File",  // Default: Change File
+          no_label: false                 // Default: false
+        });
     $('#iphoto').change(function() {
-      $('#iphoto').simpleUpload( x.globals.hostaddress +'/api/photo',{
+      $('#iphoto').simpleUpload(hostaddress+'/api/photo',{
         allowedExts: ["jpg", "jpeg", "jpe", "jif", "jfif", "jfi", "png", "gif"],
         allowedTypes: ["image/pjpeg", "image/jpeg", "image/png", "image/x-png", "image/gif", "image/x-gif"],
         maxFileSize: 5000000, //5MB in bytes
@@ -40,13 +50,14 @@ export default class Register extends React.Component {
 
           uploadPhoto = JSON.parse(data);
           document.getElementById('fileInfo').innerHTML = uploadPhoto.data.path
-          document.getElementById("previewPhoto").src = x.globals.hostaddress+ "/"+uploadPhoto.data.path
+          //document.getElementById("previewPhoto").src = x.globals.hostaddress+ "/"+uploadPhoto.data.path
         },
         error: function(error){
           console.log(error)
         }
       } );
     });
+
   }
   render () {
     that = this;
@@ -115,12 +126,12 @@ export default class Register extends React.Component {
                   <input maxLength={20} className="required" type="text" placeholder="Numero de Identifiacion" id="identification" name="identification" required />
                 </div>
                 <div className="row required-row">
-                  <div className="label-holder">
-                    <label htmlFor="iphoto">Photo:</label>
+                  <div style={{marginLeft:'170px'}} className="image-container" id="image1">
+                    <label htmlFor="image-upload" id="image-label1">Choose File</label>
+                    <input type="file" name="iphoto" id="iphoto" />
+                    <span id="fileInfo"></span>
                   </div>
-                  <input  className="required-select login-form"  name="iphoto"  accept="image/*" type="file" placeholder="Photo" id="iphoto" />
-                  <span id="fileInfo"></span>
-                  <img  id="previewPhoto" />
+
                 </div>
                 <div className="row required-row">
                   <div className="label-holder">
@@ -249,7 +260,7 @@ export default class Register extends React.Component {
     console.log('register');
     console.log('onLoginClick');    var _token;
 
-    fetch(x.globals.hostaddress + '/api/register', {
+    fetch(hostaddress + '/api/register', {
       method: 'POST',
       headers: {
         "Content-Type": "application/x-www-form-urlencoded"
@@ -296,7 +307,7 @@ export default class Register extends React.Component {
     var _context = this;
     var x = document.getElementById("selectCountry").value;
     var payload = JSON.stringify({in_country: x});
-    fetch( x.globals.hostaddress + '/api/cities' ,
+    fetch(hostaddress+'/api/cities' ,
     {   method: 'POST',
       headers: {
         "Content-Type": "application/x-www-form-urlencoded"
@@ -307,6 +318,40 @@ export default class Register extends React.Component {
     }).then((cities) => {
       _context.setState({  cities: cities.data })
     })
+  }
+  setPhotoListener (htmlElement) {
+
+    var idphoto = htmlElement.slice(-1);
+    $.uploadPreview({
+        input_field: "#"+htmlElement,   // Default: .image-upload
+        preview_box: "#image"+idphoto,  // Default: .image-preview
+        label_field: "#image-label"+idphoto,    // Default: .image-label
+        label_default: "Choose File",   // Default: Choose File
+        label_selected: "Change File",  // Default: Change File
+        no_label: false                 // Default: false
+      });
+    $('#'+htmlElement).change(function() {
+      console.log(this.value)
+      var that = this
+      $('#'+htmlElement).simpleUpload(hostaddress+'/api/photo/stock',{
+        allowedExts: ["jpg", "jpeg", "jpe", "png"],
+        allowedTypes: ["image/pjpeg", "image/jpeg", "image/png", "image/x-png"],
+        maxFileSize: 5000000, //5MB in bytes
+        fields : {
+          idphoto: htmlElement
+        },
+        success: function(data){
+
+          var originalname = JSON.parse(data).data.originalname
+          uploadPhoto [idphoto] = JSON.stringify(data);
+          document.getElementById(htmlElement+'_fileInfo').innerHTML = data
+          $('#file'+idphoto+'>span>span:first-child').text(originalname)
+        },
+        error: function(error){
+          console.log(error)
+        }
+      } );
+    });
   }
 }
 function validar (data){

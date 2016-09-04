@@ -40,13 +40,19 @@ setInterval(function() {
 if (process.argv.length > 0) {}
 //Ruta estandar router ReactJS
 app.get('/*', function(req,res){
-  console.log(req.path)
+  var fileArr = req.path.split('/')
+  var file=""
+
   if(req.path=='/')
     res.sendFile(path.join(__dirname, '../../build/')+'index.html')
   else if((req.path).toString().includes('.'))
     res.sendFile(path.join(__dirname, '../../build')+req.path)
-  else
+  else {
+    console.log('asdasdasdsasadssadas')
+
     res.sendFile(path.join(__dirname, '../../build/')+'index.html')
+
+}
 
 //  process.exit()
 })
@@ -433,7 +439,7 @@ function callFunction(procedureCall) {
       clearTimeout(timeout);
       fullfill([JSON.stringify(Response), target]);
       reject([JSON.stringify(Response), target]);
-    }, 5000);
+    }, 9000);
 
     n.on('message', (m) => {
       var Response = require('./model/Response');
@@ -456,7 +462,7 @@ function callFunction(procedureCall) {
       success = testResponse.app[1] === 't' ? true : false;
       Response.success =success
       if (!success) {
-        Response.data = "";
+        Response.data = [];
         Response.message = testResponse.app.split(',')[1];
         Response.code = "API_MESSAGE";
       } else if (success){

@@ -22,8 +22,12 @@ export default class SideMenu extends React.Component {
             <nav className="side-nav">
               <ul>
                 <li><a href="#">My Sells<span style={{display:'none'}} className="number">3</span></a></li>
-                <li><a href="#">My Billboards</a></li>
+                <li><a href="/my-billboards">My Billboards</a></li>
+                  <ul>
+                    <li><a href="/register-stock">Add New Billboard</a></li>
+                  </ul>
                 <li><a href="#">My Profile</a></li>
+                  <li><a href="#">My Availibility</a></li>
               </ul>
             </nav>
           </aside>;

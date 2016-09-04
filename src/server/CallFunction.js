@@ -1,8 +1,7 @@
 process.send = process.send || function() {};
 process.on('message', (m) => {
-    console.log('m' + m.statement.metodo);
     prepareCallFunction(JSON.parse(m.statement)).then(function(result, err) {
-        console.log('prepareCallFunction(callFunction: fn(procedureCall: string))');
+      //  console.log('prepareCallFunction(callFunction: fn(procedureCall: string))');
         process.send({
             response: result
         });
@@ -40,7 +39,7 @@ function prepareCallFunction(callFunction) {
                     arrayArgumentos.push(eval('Parametros.' + progarg));
                 });
                 cadenaArgumentos = cadenaArgumentos + ')';
-                console.log("SELECT " + callFunction.metodo + cadenaArgumentos, arrayArgumentos);
+                //console.log("SELECT " + callFunction.metodo + cadenaArgumentos, arrayArgumentos);
 
                 var q1 = t.one("SELECT " + callFunction.metodo + cadenaArgumentos + " as app", arrayArgumentos);
                 var q2 = t.many('FETCH ALL FROM mycursor');
@@ -48,11 +47,12 @@ function prepareCallFunction(callFunction) {
                 // returning a promise that determines a successful transaction:
                 return this.batch([q1, q2]); // all of the queries are to be resolved;
             }).then(function(data) {
-                console.log(data)
+              //  console.log(data)
                 pgp.end()
                 fullfill(data);
             }).catch(function(error) {
                 console.log('error5');  console.log(error)
+                fullfill([ {app: 'f,Error general' } ]);
                 reject(error);
 
             });
@@ -61,6 +61,8 @@ function prepareCallFunction(callFunction) {
         }).catch(function(error) {
             console.log(error)
             console.log('error6');
+            fullfill([ {app: 'f,Error general' } ]);
+
         });
         // find the user from id;
     });

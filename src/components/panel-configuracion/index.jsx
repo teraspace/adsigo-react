@@ -42,7 +42,7 @@ export default class PanelConfiguracion extends React.Component {
         <div className="holder">
           <ul className="sub-list">
             <li><a href="/my-sells">Mis Ventas</a></li>
-            <li><a href="#">Mis Espacios</a></li>
+            <li><a href="/my-billboards">Mis Espacios</a></li>
             <li><a href="#">Reportes</a></li>
             <li><a href="#">Disponibilidad</a></li>
             <li><a href="#">Perfil</a></li>

@@ -8,7 +8,12 @@ class LandingDetail extends React.Component {
 
   constructor(props) {
     super(props)
-    this.state = { detail: [] };
+    this.state = {
+      detail: [],
+      numberDays: 0,
+      productionTotal: 0,
+      productionSpace: 0
+    };
     this.reevent = this.reevent.bind(this)
     this.closeModal = this.closeModal.bind(this)
     this.putDealing = this.putDealing.bind(this)
@@ -154,16 +159,16 @@ class LandingDetail extends React.Component {
                                     </div>
                                   </div>
                                   <h3><span>Resumen del Pedido</span></h3>
-                                  <span className="result-holder"><span className="result day-number">0</span> días de publicidad + <span className="result amount-number">0</span> impresión(es)</span>
+                                  <span className="result-holder"><span className="result day-number">{that.state.numberDays}</span> días de publicidad + <span className="result amount-number">0</span> impresión(es)</span>
                                   <dl className="count-holder">
                                     <dt>Publicidad:</dt>
-                                    <dd className="productionSpace">0</dd>
+                                    <dd className="productionSpacex">{that.state.productionSpace}</dd>
                                     <dt><span>+</span>Impresión(es):</dt>
-                                    <dd className="productionPrint">0</dd>
+                                    <dd className="productionPrint">{that.state.productionTotal}</dd>
                                   </dl>
                                   <dl className="sum-holder">
                                     <dt>total (cop)</dt>
-                                    <dd className="totalSpace">0</dd>
+                                    <dd className="totalSpace">{that.state.productionSpace+that.state.productionTotal}</dd>
                                   </dl>
                                   <a onClick={that.putDealing} className="btn-buy">Comprar</a>
 
@@ -227,20 +232,49 @@ class LandingDetail extends React.Component {
               selectPrints (){
                 console.log('selectPrints')
                 var qtyPrint = document.getElementById('qtyPrint').value
-
+                var numberDays = this.state.numberDays
+                var productionPrice = this.props.data.production_price
+                var dailyPrice = this.props.data.daily_price
+                this.setState( {
+                                  productionTotal : (parseFloat(qtyPrint) * parseFloat(productionPrice)),
+                                  productionSpace : parseFloat(dailyPrice)*parseFloat(numberDays)
+                                } )
+                console.log(dailyPrice*numberDays)
               }
               reevent(){
                 console.log('reevent')
+                var that = this;
                 initJssorGallery()
                 var today = new Date();
                 var y = today.getFullYear();
+                $('.multidate').click(function(){
+                  $('.multidate').val('')
+                  $('.multidate').datepicker('show')
+$('.multidate').multiDatesPicker('resetDates', 'disabled');
+                })
                 $('.multidate').multiDatesPicker({
-
+                  dateFormat: 'dd/mm/yy',
+                  minDate: 0,
                   maxPicks: 2,
                 	numberOfMonths: [3,4],
-                	defaultDate: '1/1/'+y
+                  defaultDate: '1/1/'+y,
+                  onSelect: function() {
+                      $(this).data('datepicker').inline = true;
+                      if($('.multidate').val().includes(',')){
+                        var startDate = $('.multidate').val().split(',')[0].trim()
+                        var endDate = $('.multidate').val().split(',')[1].trim()
+                        startDate = startDate.split('/')
+                        startDate = new Date(startDate[1]+'/'+startDate[0]+'/'+startDate[2])
+                        endDate = endDate.split('/')
+                        endDate = new Date(endDate[1]+'/'+endDate[0]+'/'+endDate[2])
+                        console.log(days_between(startDate,endDate))
+                        that.setState({numberDays : days_between(startDate,endDate) })
+                        $(this).data('datepicker').inline = false;
+                      }
+                  }
+
+
                 });
-              //  $('.multidate').multiDatesPicker();
                 init_map();
               }
               closeModal(){
@@ -278,6 +312,7 @@ class LandingDetail extends React.Component {
               }
               putDealing(){
                 console.log('putDealing')
+                var that = this
                 var details = this.props.data
                 var idstock = details.id_stock;
 
@@ -289,9 +324,12 @@ class LandingDetail extends React.Component {
                   token=''
                 }
                 var dates = document.getElementById('dateRange').value.split(',')
-                if(dates.length>0){
-                  var startDate = dates[0]
-                  var endDate = dates[1]
+                if(dates.length>0 ){
+                  var startDate = dates[0].split('/')
+                  var endDate = dates[1].split('/')
+                  console.log(startDate)
+                  startDate = startDate[2] + '-' + parseInt(startDate[1]) +'-'+ parseInt(startDate[0])
+                  endDate = endDate[2] + '-' + parseInt(endDate[1]) +'-'+ parseInt(endDate[0])
 
                   } else {
 
@@ -322,9 +360,28 @@ class LandingDetail extends React.Component {
                   return response.json()
                 })
                 .then((deal) => {
-                  console.log(deal)
+
+                  if(deal.success && deal.code=='API_SUCCESS' && deal.id>0){
+                      console.log(deal)
+                      openMessage('Deal sent successfully to publisher')
+                  }
+                  that.closeModal()
                 })
               }
             }
+            function days_between(date1, date2) {
 
+                // The number of milliseconds in one day
+                var ONE_DAY = 1000 * 60 * 60 * 24
+
+                // Convert both dates to milliseconds
+                var date1_ms = date1.getTime()
+                var date2_ms = date2.getTime()
+                // Calculate the difference in milliseconds
+                var difference_ms = Math.abs(date1_ms - date2_ms)
+
+                // Convert back to days and return
+                return Math.round(difference_ms/ONE_DAY)
+
+            }
             export default LandingDetail

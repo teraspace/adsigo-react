@@ -7,6 +7,7 @@ import x from '../../server/ConstantsSocket';
 import SideMenu from '../side-menu'
 var that;
 var uploadPhoto = [];
+var hostaddress = "";
 export default class RegisterStock extends React.Component {
   constructor(props) {
     super(props);
@@ -18,17 +19,18 @@ export default class RegisterStock extends React.Component {
     };
     this.selectCountry = this.selectCountry.bind(this)
     this.selectCity = this.selectCity.bind(this)
-
+    this.loadStockSelected = this.loadStockSelected.bind(this)
+    hostaddress = x.globals.hostaddress;
   }
   componentWillMount(){
-    fetch(x.globals.hostaddress+'/api/typestock',{method: 'POST'})
+    fetch(hostaddress+'/api/typestock',{method: 'POST'})
     .then((response) => {
       return response.json()
     })
     .then((typeStock) => {
       this.setState({  typeStock: typeStock.data })
     })
-    fetch(x.globals.hostaddress+'/api/countries',{method: 'POST'})
+    fetch(hostaddress+'/api/countries',{method: 'POST'})
     .then((response) => {
       return response.json()
     })
@@ -41,6 +43,7 @@ export default class RegisterStock extends React.Component {
   console.log('componendDidUpdate')
 }
   componentDidMount (){
+    console.log(this.props.billboard)
      myload()
      $(window).keydown(function(event){
         if(event.keyCode == 13) {
@@ -57,12 +60,34 @@ export default class RegisterStock extends React.Component {
     $("#registerStockForm").validate();
     //document.getElementById('selectCountry1').selectedIndex = "1";
     this.selectCountry()
-init_map_register();
+
+    this.loadStockSelected()
+    var editStock = getBillboardSelected()
+    var imagePath = "";
+    console.log((editStock))
+    if(editStock!=null && typeof(editStock)=='object'){
+      imagePath = "images/stock/user_" + editStock.fk_id_user + "/stock_" + editStock.id_stock  + "/"
+      this.refreshReview(imagePath,editStock)
+    }
+    localStorage.removeItem('selBillboard')
+
+    init_map_register()
   }
   render() {
     that = this;
     var optionCountries = [];
     var countries = this.state.countries;
+    var editStock = getBillboardSelected()
+    var _alto =""
+    var _ancho =""
+    if (editStock==null){
+      editStock = {}
+    }else {
+      try {
+      _alto = editStock.size.split('x')[0]
+      _ancho = editStock.size.split('x')[1]
+      }catch(err){}
+      }
     try {
       optionCountries.push(<option key="countriesn" className="hide-me">Select Country</option>);
       countries.forEach(function(country, index){
@@ -93,7 +118,7 @@ init_map_register();
           <h1><img src="./images/ico1.png" height="34" width="32" alt="image description" />Mis Espacios</h1>
           <form action="#" id="registerStockForm" className="space-form validate-form">
             <fieldset>
-              <h2><span>Agregar Nuevo Espacio</span></h2>
+              <h2><span>Add New Billboard</span></h2>
               <div className="hold">
                 <h3>1. Información Comercial del Espacio:</h3>
                 <a href="#" className="link">Muchos Espacios? Déjanos agregarlos por tí!</a>
@@ -103,7 +128,7 @@ init_map_register();
                   <div className="label-holder">
                     <label htmlFor="name">Nombre de la valla</label>
                   </div>
-                  <input className="required"  minLength="2" type="text" placeholder="Input" name="name" id="name" required />
+                  <input className="required" defaultValue={editStock.name}  minLength="2" type="text" placeholder="Input" name="name" id="name" required />
                   <div className="question-holder">
                     <a href="#">[?]</a>
                     <div className="question-slide">
@@ -117,7 +142,7 @@ init_map_register();
                   <div className="label-holder">
                     <label htmlFor="typeSpace">Tipo de Valla</label>
                   </div>
-                  <select className="required-select" id="typeSpace" required>
+                  <select defaultValue={editStock.fk_id_type_stock}  className="required-select" id="typeSpace" required>
                     {optionTypeStock}
                   </select>
                   <div className="question-holder">
@@ -133,7 +158,7 @@ init_map_register();
                   <div className="label-holder">
                     <label htmlFor="description">Descripción del Espacio</label>
                   </div>
-                  <input maxLength="20" minLength="10" className="required" type="text" placeholder="Input" name="description" id="description" />
+                  <input defaultValue={editStock.description} maxLength="20" minLength="10" className="required" type="text" placeholder="Input" name="description" id="description" />
                   <div className="question-holder">
                     <a href="#">[?]</a>
                     <div className="question-slide">
@@ -147,7 +172,7 @@ init_map_register();
                   <div className="label-holder">
                     <label htmlFor="select1">Pais</label>
                   </div>
-                  <select className="required-select"  key={"sc1"} onChange={this.selectCountry} id="selectCountry1"   name="selectCountry1" required >
+                  <select defaultValue={editStock.id_country} className="required-select"  key={"sc1"} onChange={this.selectCountry} id="selectCountry1"   name="selectCountry1" required >
                     {optionCountries}
                   </select>
                   <div className="question-holder">
@@ -163,7 +188,7 @@ init_map_register();
                   <div className="label-holder">
                     <label htmlFor="select2">Ciudad</label>
                   </div>
-                  <select onChange={this.selectCity} className="required-select" id="selectCity1" name="selectCity1" required>
+                  <select defaultValue={editStock.ciudad}  onChange={this.selectCity} className="required-select" id="selectCity1" name="selectCity1" required>
                     {optionCities}
                   </select>
                   <div className="question-holder">
@@ -179,7 +204,7 @@ init_map_register();
                   <div className="label-holder">
                     <label htmlFor="princeDaily">Ргесіо рог Dia</label>
                   </div>
-                  <input minLength="3" className="required" type="number" placeholder="Input Url" id="princeDaily" />
+                  <input defaultValue={parseFloat(editStock.daily_price)}  minLength="3" className="required" type="number" placeholder="Input Url" id="princeDaily" />
                   <div className="question-holder">
                     <a href="#">[?]</a>
                     <div className="question-slide">
@@ -191,9 +216,9 @@ init_map_register();
                 </div>
                 <div className="row required-row">
                   <div className="label-holder">
-                    <label htmlFor="productionPrice">Ргесіо рог Impresiôn</label>
+                    <label htmlFor="productionPrice">Ргесіо рог Impresión</label>
                   </div>
-                  <input  className="required" type="number" placeholder="Precio por impresión" id="productionPrice" />
+                  <input defaultValue={parseFloat(editStock.production_price)} className="required" type="number" placeholder="Precio por impresión" id="productionPrice" />
                   <div className="question-holder">
                     <a href="#">[?]</a>
                     <div className="question-slide">
@@ -205,9 +230,9 @@ init_map_register();
                 </div>
                 <div className="row required-row">
                   <div className="label-holder">
-                    <label htmlFor="stockSize">Alto (cm)</label>
+                    <label htmlFor="stockSizeH">Alto (cm)</label>
                   </div>
-                  <input className="required" type="number" placeholder="Input" id="stockSize" required />
+                  <input  defaultValue={_alto}   className="required" type="number" placeholder="Input" id="stockSizeH" required />
                   <div className="question-holder">
                     <a href="#">[?]</a>
                     <div className="question-slide">
@@ -219,9 +244,9 @@ init_map_register();
                 </div>
                 <div className="row required-row">
                   <div className="label-holder">
-                    <label htmlFor="stockSize">Ancho (cm)</label>
+                    <label htmlFor="stockSizeW">Ancho (cm)</label>
                   </div>
-                  <input className="required" type="number" placeholder="Input" id="stockSize" required />
+                  <input defaultValue={_ancho} className="required" type="number" placeholder="Input" id="stockSizeW" required />
                   <div className="question-holder">
                     <a href="#">[?]</a>
                     <div className="question-slide">
@@ -235,7 +260,7 @@ init_map_register();
                   <div className="label-holder">
                     <label htmlFor="address">Dirección</label>
                   </div>
-                  <input minLength="10" className="required" type="text" placeholder="Input" name="address" id="address" required />
+                  <input defaultValue={(editStock.address)}   minLength="10" className="required" type="text" placeholder="Input" name="address" id="address" required />
                   <div className="question-holder">
                     <a href="#">[?]</a>
                     <div className="question-slide">
@@ -245,17 +270,11 @@ init_map_register();
                     </div>
                   </div>
                 </div>
-
-
-
-
-
-
                 <div style={{display: "none"}} className="row required-row">
                   <div className="label-holder">
                     <label htmlFor="priceMonthly">Рreсіо рог Mes</label>
                   </div>
-                  <input minLength="3" className="required-number" type="number" placeholder="Input Number " name="priceMonthly" id="priceMonthly" required />
+                  <input defaultValue={parseFloat(editStock.daily_price * 30)}  minLength="3" className="required-number" type="number" placeholder="Input Number " name="priceMonthly" id="priceMonthly" required />
                   <div className="question-holder">
                     <a href="#">[?]</a>
                     <div className="question-slide">
@@ -265,11 +284,6 @@ init_map_register();
                     </div>
                   </div>
                 </div>
-
-
-
-
-
               </div>
               <h3>2. Select photos for billboard</h3>
               <div className="gray-holder">
@@ -307,7 +321,7 @@ init_map_register();
                   <input type="text" id="mapsearch"  />
                   <div id="detailmap" style={{height: "320px", width: "100%"}}></div>
 
-                  <input  minLength="5" className="required" type="hidden" placeholder="Input Url" name="googlemaps" id="googlemaps" required />
+                  <input defaultValue={(editStock.googlemaps )}  minLength="5" className="required" type="hidden" placeholder="Input Url" name="googlemaps" id="googlemaps" required />
                   <div className="question-holder">
                     <a href="#">[?]</a>
                     <div className="question-slide">
@@ -325,7 +339,7 @@ init_map_register();
                   <div className="label-holder">
                     <label htmlFor="visualImpact">Impacto visual por día</label>
                   </div>
-                  <input className="required" type="number" placeholder="Impacto visual por día" name="visualImpact" id="visualImpact" />
+                  <input defaultValue={(editStock.impact )}  className="required" type="number" placeholder="Impacto visual por día" name="visualImpact" id="visualImpact" />
                   <div className="question-holder">
                     <a href="#">[?]</a>
                     <div className="question-slide">
@@ -340,7 +354,7 @@ init_map_register();
                   <div className="label-holder">
                     <label htmlFor="publicTarget">Estrato targets</label>
                   </div>
-                  <select className="required-select" id="publicTarget" name="publicTarget" required>
+                  <select  defaultValue={(editStock.target)}   className="required-select" id="publicTarget" name="publicTarget" required>
                       <option value="1">1</option>
                       <option value="2">2</option>
                       <option value="3">3</option>
@@ -363,19 +377,19 @@ init_map_register();
                   <div className="label-holder">
                     <label htmlFor="lightning">Iluminación Nocturna</label>
                   </div>
-                  <input type="checkbox" id="lightning"  />
+                  <input defaultChecked={(editStock.lighting == 'S' ? true : false)} type="checkbox" id="lightning"  />
                 </div>
                 <div className="row">
                   <div className="label-holder">
                     <label htmlFor="hotSpot">Hotspot</label>
                   </div>
-                  <input type="checkbox" id="hotSpot" />
+                  <input defaultChecked={(editStock.hotspot== 'S' ? true : false)}  type="checkbox" id="hotSpot" />
                 </div>
                 <div className="row">
                   <div className="label-holder">
                     <label htmlFor="mainRoad">Main Road</label>
                   </div>
-                  <input type="checkbox" id="mainRoad" />
+                  <input  defaultChecked={(editStock.main_road== 'S' ? true : false)}  type="checkbox" id="mainRoad" />
                 </div>
               </div>
               <input onClick={that.register} type="submit" value="Guardar" />
@@ -390,29 +404,32 @@ init_map_register();
 
   register() {
     console.log('register')
-
+    var editStock = getBillboardSelected()
     var path,fileName = [], photoFiles = [], count=4,_photo;
-
+    var id_stock = 0;
+    if(editStock!=null)
+    if ('id_stock' in editStock) id_stock = editStock.id_stock
+    else id_stock=0;
     for (var i=1;i<=count;i++){
       _photo = document.getElementById(String('photo' + i + '_fileInfo')).innerHTML
       if(_photo.toString().length>10){
           photoFiles.push(_photo)
       }
     }
-document.getElementById("selectCountry1").value = 'CO' //Solo Colombia en MVP
- document.getElementById('description').value = 'No description' // Sin description en MVP
+      document.getElementById("selectCountry1").value = 'CO' //Solo Colombia en MVP
+      document.getElementById('description').value = 'No description' // Sin description en MVP
 
     var payload = JSON.stringify({
       in_user_token:that.state.session.v_user_token,
-      in_id_stock: 0,
+      in_id_stock: id_stock,
       in_name:  document.getElementById('name').value,
       in_description:  document.getElementById('description').value,
-      in_id_country:  document.getElementById("selectCountry1").value,
+      in_id_country:  'CO',
       in_id_city: document.getElementById("selectCity1").value.split(',')[0],
       in_address:  document.getElementById('address').value,
       in_googlemaps:  document.getElementById('googlemaps').value,
       in_availability:  'S',
-      in_size:  (document.getElementById('stockSize').value),
+      in_size:  (document.getElementById('stockSizeH').value +'x'+document.getElementById('stockSizeW').value),
       in_target:   parseInt(document.getElementById("publicTarget").value),
       in_impact: parseInt(document.getElementById("visualImpact").value),
       in_lighting:  document.getElementById('lightning').checked == true ? 'S' : 'N',
@@ -425,13 +442,14 @@ document.getElementById("selectCountry1").value = 'CO' //Solo Colombia en MVP
       in_production_price:  parseInt(document.getElementById('productionPrice').value),
       in_ip_user_host: ''
     });
+    console.log(payload)
     if(!validar(payload)) {
       return;
     }
     console.log('register');
     console.log('onLoginClick');    var _token;
 
-    fetch(x.globals.hostaddress + '/api/register-stock', {
+    fetch(hostaddress+'/api/register-stock', {
       method: 'POST',
       headers: {
         "Content-Type": "application/x-www-form-urlencoded"
@@ -440,22 +458,13 @@ document.getElementById("selectCountry1").value = 'CO' //Solo Colombia en MVP
     }).then((response) => {
       return response.json();
     }).then((session) => {
-    //  console.log(session);
+     console.log(session);
       //localStorage.setItem('session',JSON.stringify(session.data));
+      if (session.success && session.code=='API_SUCCESS'){
+        localStorage.removeItem('selBillboard')
+        openMessage(session.message, function(){window.location="/"})
+      }
 
-      $('#modalContainer').on('show.bs.modal', function (e) {
-        $('#noButton').hide();
-        $('#modalTitle').text('Felicitaciones');
-        $('#modalBody').text(session.message);
-        $('#yesButton').text('Aceptar').click(function(e){
-          console.log(e)
-          $('#modalContainer').modal('hide');
-          if(session.success) window.location="http://adsigo.teraspace.co:8080"
-        })
-      }).modal({
-        keyboard: false,
-        backdrop: 'static'
-      });
 
 
     });
@@ -472,7 +481,7 @@ document.getElementById("selectCountry1").value = 'CO' //Solo Colombia en MVP
     var x = document.getElementById("selectCountry1").value;
 //Se quema CO para uso solo en Colombia sin restar.. El codigo queda para el futuro.
     var payload = JSON.stringify({in_country: 'CO'});
-    fetch( x.globals.hostaddress + '/api/cities' ,
+    fetch(hostaddress+'/api/cities' ,
     {   method: 'POST',
       headers: {
         "Content-Type": "application/x-www-form-urlencoded"
@@ -519,7 +528,32 @@ document.getElementById("selectCountry1").value = 'CO' //Solo Colombia en MVP
       } );
     });
   }
+  refreshReview(imagePath,editStock){
+    console.log('imagePath')
+    var image1 = imagePath+editStock.first_photo
+    var image2 = imagePath+editStock.second_photo
+    var image3 = imagePath+editStock.third_photo
+    var image4 = imagePath+editStock.four_photo
+    var image5 = imagePath+editStock.five_photo
+    this.loadPreview('image1',image1)
+    this.loadPreview('image2',image2)
+    this.loadPreview('image3',image3)
+    this.loadPreview('image4',image4)
+    this.loadPreview('image5',image5)
+}
+  loadPreview (htmlElement,image){
+    console.log(image)
+    console.log(htmlElement)
+    $('#'+htmlElement).css("background-image", "url("+image+")");
 
+    $('#'+htmlElement).css("background-size", "cover");
+    $('#'+htmlElement).css("background-position", "center center");
+  }
+  loadStockSelected (){
+    if(_editStock!=""){
+
+    }
+  }
 }
 function validar (data){
   var _data = JSON.parse(data);
@@ -528,10 +562,10 @@ function validar (data){
     alert('Debe estar logueado')
     ok = false;
   } else
-  if(_data.in_id_stock!=0){
-    alert('Este formulario solo es para inserción.')
-    ok = false;
-  } else
+  // if(_data.in_id_stock!=0){
+  //   alert('Este formulario solo es para inserción.')
+  //   ok = false;
+  // } else
   if(_data.in_name.length<=5){
     alert('Debe escribir un nombre conciso.')
     ok = false;
@@ -558,11 +592,12 @@ function validar (data){
     alert('Escriba la url de ubicación geografica.')
     ok = false;
   } else
-  if(_data.in_user_photos.length<=0){
-    alert('Debe seleccionar al menos una foto')
-    ok = false;
-  } else
+  // if(_data.in_user_photos.length<=0){
+  //   alert('Debe seleccionar al menos una foto')
+  //   ok = false;
+  // } else
   if(isNaN(_data.in_daily_price) || _data.in_daily_price<=0 ){
+    console.log(_data.in_daily_price)
     alert('Debe escribir el tamaño.')
     ok = false;
   } else
@@ -570,7 +605,7 @@ function validar (data){
     alert('Debe estar disponible por defecto..')
     ok = false;
   } else
-  if(isNaN(_data.in_size) || _data.in_size<=0 ){
+  if( _data.in_size.length<3  ){
     alert('Debe escribir el tamaño.')
     ok = false;
   } else
