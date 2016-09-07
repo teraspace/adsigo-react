@@ -74,7 +74,7 @@ class Landing extends React.Component {
       in_id_price_range :selectPrice,
       in_id_country :'CO',
       in_id_city :null,
-      in_offset:that.state.step,
+      in_offset:0,
       in_limit:that.state.step+6
     });
     //console.log(payload)
