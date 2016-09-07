@@ -7,6 +7,7 @@ import LandingGallery from '../landing-gallery'
 import LandingDetail from '../landing-detail';
 var landingGallery = [];
 var loading = false;
+var qty = 0;
 class Landing extends React.Component {
 
   constructor(props) {
@@ -104,21 +105,28 @@ class Landing extends React.Component {
   }
   render() {
 var footerApp = []
-    footerApp.push(<footer key={"footer1"} id="footer">
-                    <a href="#" className="btn-help"><span>Need Help</span> <i className="icon-help-circle"></i></a>
-                  </footer>)
+
+
     if (this.state.billboards.length > 0) {
       landingGallery = []
 
       var billboards = this.state.billboards;
-      footerApp = []
+
       billboards.forEach(function(billboard, index){
         landingGallery.push(
           <LandingGallery key={'item'+index} data={billboard} />
         )
       })
-      footerApp.push(<p className="text-center">Cargando Landing...</p>)
+    //  footerApp.push(<p className="text-center">Cargando Landing...</p>)
     }
+    if(qty!=this.state.billboards.length){
+      footerApp.push(<p className="text-center">Cargando Landing...</p>)
+    } else {
+      footerApp.push(<footer key={"footer1"} id="footer">
+                      <a href="#" className="btn-help"><span>Need Help</span> <i className="icon-help-circle"></i></a>
+                    </footer>)
+    }
+    qty=this.state.billboards.length
     return (
       <div id="landing">  <Header />
       <div className="ajax-holder inner ">
