@@ -5,7 +5,8 @@ import _ from '../../server/ConstantsAPI';
 import x from '../../server/ConstantsSocket';
 import LandingGallery from '../landing-gallery'
 import LandingDetail from '../landing-detail';
-
+var landingGallery = [];
+var loading = false;
 class Landing extends React.Component {
 
   constructor(props) {
@@ -17,15 +18,11 @@ class Landing extends React.Component {
     }
   }
 
-  componentWillMount() {
-    console.log('componentWillMount');
+  componentDidMount(){
     this.loadLanding ()
   }
-  componentDidMount(){
-
-  }
   componentDidUpdate() {
-    console.log('componentDidUpdate')
+    //console.log('componentDidUpdate')
     var that = this;
     var evt = document.createEvent('Event');
     evt.initEvent('load', false, false);
@@ -40,7 +37,9 @@ class Landing extends React.Component {
       }
     });
     $('#filtrar').click( function(){
-      console.log('filtrar')
+      //console.log('filtrar')
+      that.state.step = 0;
+      landingGallery = []
       that.loadLanding ()
     })
   }
@@ -59,7 +58,7 @@ class Landing extends React.Component {
 
     selectPrice = $('#selectPrice').val();
     selectTypestock = $('#selectTypestock').val();
-console.log(selectTypestock)
+    //console.log(selectTypestock)
     try {
       if ('session' in that.state)
       token=that.state.session.v_user_token
@@ -75,31 +74,50 @@ console.log(selectTypestock)
       in_id_price_range :selectPrice,
       in_id_country :'CO',
       in_id_city :null,
-      in_offset:0,
+      in_offset:that.state.step,
       in_limit:that.state.step+6
     });
-    console.log(payload)
+    //console.log(payload)
+    if(!loading){
+      loading = true;
     fetch(x.globals.hostaddress+'/api/landing',{
       method: 'POST',
       headers: {
         "Content-Type": "application/x-www-form-urlencoded"
       },
       body: "params=" + payload
-    }).then((response) => {
+    }) .catch((err) => {
+      console.log(err)
+      setTimeout(() => {
+        loading = false;
+        that.loadLanding()
+      },1000)
+    })
+    .then((response) => {
       return response.json()
     }).then((billboards) => {
+      loading = false;
+      //console.log(billboards)
       this.setState({ billboards: billboards.data })
     })
   }
+  }
   render() {
+var footerApp = []
+    footerApp.push(<footer key={"footer1"} id="footer">
+                    <a href="#" className="btn-help"><span>Need Help</span> <i className="icon-help-circle"></i></a>
+                  </footer>)
     if (this.state.billboards.length > 0) {
-      var landingGallery = []
+      landingGallery = []
+
       var billboards = this.state.billboards;
+      footerApp = []
       billboards.forEach(function(billboard, index){
         landingGallery.push(
           <LandingGallery key={'item'+index} data={billboard} />
         )
       })
+      footerApp.push(<p className="text-center">Cargando Landing...</p>)
     }
     return (
       <div id="landing">  <Header />
@@ -110,7 +128,7 @@ console.log(selectTypestock)
 
         </ul>
       </div>
-      <p className="text-center">Cargando Landing...</p>
+        {footerApp}
     </div>
   )
 

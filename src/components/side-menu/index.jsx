@@ -17,14 +17,14 @@ export default class SideMenu extends React.Component {
 
   render() {
 
-
+    var that = this;
     return <aside id="sidebar">
             <nav className="side-nav">
               <ul>
                 <li><a href="#">My Sells<span style={{display:'none'}} className="number">3</span></a></li>
                 <li><a href="/my-billboards">My Billboards</a></li>
                   <ul>
-                    <li><a href="/register-stock">Add New Billboard</a></li>
+                    <li><a onClick={that.newBillboard}>Add New Billboard</a></li>
                   </ul>
                 <li><a href="#">My Profile</a></li>
                   <li><a href="#">My Availibility</a></li>
@@ -33,5 +33,8 @@ export default class SideMenu extends React.Component {
           </aside>;
   }
 
-
+ newBillboard(){
+  localStorage.removeItem('selBillboard');
+  window.location="/register-stock"
+}
 };

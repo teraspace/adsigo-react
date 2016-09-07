@@ -1591,7 +1591,6 @@ function initDatepicker() {
 		var holder = jQuery(this);
 		var dateFrom = holder.find('.date-from');
 		var dateTo = holder.find('.date-to');
-
 		var lightBox = holder.closest('.lightbox');
 		var numberDays = lightBox.find('.day-number');
 		var flagFrom = false;
@@ -1947,8 +1946,9 @@ function initOpenClose() {
 			jQuery(document).on('click touchstart', function(e) {
 				var target = jQuery(e.target);
 				if (self.holder.hasClass(self.options.activeClass) && !target.is(self.holder) && !target.closest(self.holder).length && !target.is('.ui-icon')) {
-					self.hideSlide();
-				}
+					//self.hideSlide();
+					console.log('click')
+		}
 			});
 		}
 	});
@@ -4600,6 +4600,7 @@ jQuery.onFontResize = (function($) {
 			// just redraw fake element (setTimeout handles click that might be prevented)
 			var self = this;
 			this.savedEventObject = e;
+console.log('onRealClick')
 			setTimeout(function() {
 				self.refresh();
 			}, 0);

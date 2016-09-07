@@ -41,13 +41,13 @@ export default class PanelConfiguracion extends React.Component {
       <div className="nav-drop inner js-slide-hidden">
         <div className="holder">
           <ul className="sub-list">
-            <li><a href="/my-sells">Mis Ventas</a></li>
-            <li><a href="/my-billboards">Mis Espacios</a></li>
-            <li><a href="#">Reportes</a></li>
-            <li><a href="#">Disponibilidad</a></li>
-            <li><a href="#">Perfil</a></li>
+            <li><a href="/my-sells">My Sells</a></li>
+            <li><a href="/my-billboards">My Billboards</a></li>
+            <li><a href="#">Reports</a></li>
+            <li><a href="#">Availvality</a></li>
+            <li><a href="#">Profile</a></li>
             <li><a href="#">Help Center</a></li>
-            <li><a onClick={this.logOut} href="#">Cerrar Sesion</a></li>
+            <li><a onClick={this.logOut} href="#">Logout</a></li>
           </ul>
         </div>
       </div>

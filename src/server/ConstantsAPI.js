@@ -7,7 +7,12 @@
  *	Declaración de constantes que documenta lo Procedimientos Almacenados de la API
  */
 var _ = {};
-
+_.app_get_sales_dealings = {
+  in_user_token :'',
+  in_creation_date:'',
+  in_date_start:'',
+  in_date_end:''
+}
 _.app_get_user_stock = {
   in_user_token:'',
   in_fk_id_user:0

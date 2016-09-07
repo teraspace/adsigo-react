@@ -25,7 +25,7 @@ export default class Login extends React.Component {
         <span className="burger">
           <span>                    </span>
         </span>
-        <span  className="text">Iniciar Sesión</span>
+        <span  className="text">Login</span>
       </a>
       <a href="#" className="user-photo menu-open">
         <img src="../img/ico-menu.png" height="51" width="51" alt="image description" />
@@ -39,9 +39,9 @@ export default class Login extends React.Component {
             <input id="password" name="password" type="password" placeholder="Password" required />
           </div>
           <input type="submit" className="btn" value="Login" onClick={that.login} />
-          <a href="/register" className="btn btn-green">Nuevo? Regístrate!</a>
+          <a href="/register" className="btn btn-green">New? Sign In!</a>
           <div className="recover-link">
-            <a href="http://www.advertspace.co/password/email">Recuperar Contraseña.</a>
+            <a href="http://www.advertspace.co/password/email">Recover Password.</a>
           </div>
         </div>
       </div>
@@ -82,7 +82,7 @@ export default class Login extends React.Component {
         return;
       }
       localStorage.setItem('session',JSON.stringify(session.data[0]));
-    localStorage.setItem('country',session.data[0].id_country);
+      localStorage.setItem('country',session.data[0].id_country);
       that.props.loginResponse(session);
 
     });

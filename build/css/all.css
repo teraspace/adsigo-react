@@ -2626,7 +2626,8 @@ body > .jcf-select-drop {
   position: relative;
   overflow: hidden;
   background-color: #ffffff;
-  color: #ecf0f1; }
+  color: #ecf0f1;
+  z-index: 12; }
   .image-container span {
     display: none; }
   .image-container input {
@@ -2637,7 +2638,7 @@ body > .jcf-select-drop {
     z-index: 10; }
   .image-container label {
     position: absolute;
-    z-index: 5;
+    z-index: 0;
     opacity: 0.8;
     cursor: pointer;
     background-color: #bdc3c7;

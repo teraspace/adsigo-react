@@ -18,11 +18,12 @@ import x from '../server/ConstantsSocket';
 var Home;
 var country = localStorage.getItem('country')
 if(country==null){
-  Home = SelectCountry;
+  Home = Landing;
 } else {
   Home = Landing;
 }
-
+localStorage.setItem('country','CO')
+localStorage.setItem('country_name','COLOMBIA')
 var routes = [
   ['#', AdsigoApp],
   ['/', Home],

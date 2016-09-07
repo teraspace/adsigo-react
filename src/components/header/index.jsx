@@ -13,24 +13,18 @@ export default class Header extends React.Component {
       priceRange:[],
       cities: []
     };
+
   }
 
-  componentWillMount() {
-    fetch(x.globals.hostaddress+'/api/typestock',{method: 'POST'})
-    .then((response) => {
-      return response.json()
-    })
-    .then((typeStock) => {
-      this.setState({  typeStock: typeStock.data })
-    })
-    fetch(x.globals.hostaddress+'/api/pricerange',{method: 'POST'})
-    .then((response) => {
-      return response.json()
-    })
-    .then((priceRange) => {
-      this.setState({  priceRange: priceRange.data })
-    })
+  componentDidMount() {
+    this.loadPriceRange()
+    this.loadTypeStock()
+    this.loadCities()
 
+
+
+  }
+  loadCities(){
     var payload = JSON.stringify({in_country: 'CO'});
     fetch( x.globals.hostaddress + '/api/cities' ,
     {   method: 'POST',
@@ -38,13 +32,49 @@ export default class Header extends React.Component {
         "Content-Type": "application/x-www-form-urlencoded"
       },
       body: "params=" + payload
-    }).then((response) => {
+    })     .catch((err) => {
+      console.log(err)
+      setTimeout(() => {
+        that.locaCities()
+      },1000)
+    })
+    .then((response) => {
       return response.json()
     }).then((cities) => {
-      this.setState({  cities: cities.data })
+      that.setState({  cities: cities.data })
     })
-
-  }
+}
+  loadTypeStock(){
+    var that = this
+    fetch(x.globals.hostaddress+'/api/typestock',{method: 'POST'})
+    .then((response) => {
+      return response.json()
+      })      .catch((err) => {
+        console.log(err)
+        setTimeout(() => {
+          that.loadTypeStock()
+        },1000)
+      })
+    .then((typeStock) => {
+      that.setState({  typeStock: typeStock.data })
+    })
+}
+ loadPriceRange(){
+    var that = this
+   fetch(x.globals.hostaddress+'/api/pricerange',{method: 'POST'})
+   .then((response) => {
+     return response.json()
+   })
+   .catch((err) => {
+     console.log(err)
+     setTimeout(() => {
+       that.loadPriceRange()
+     },1000)
+   })
+   .then((priceRange) => {
+     that.setState({  priceRange: priceRange.data })
+   })
+}
   componendDidMount (){
     console.log('componentWillMount');
 
@@ -60,7 +90,7 @@ export default class Header extends React.Component {
     }
     var typeStock = this.state.typeStock
     var typeStockOptions = []
-    typeStockOptions.push(<option key={'ts0'}  value={0} data-sort="symbol">Formato</option>)
+    typeStockOptions.push(<option key={'ts0'}  value={0} data-sort="symbol">Format</option>)
     typeStock.forEach(function(ts,index){
       typeStockOptions.push(<option key={'ts'+(index+1)}  value={parseInt(ts.id_type_stock)} data-sort="symbol">{ts.name}</option>)
     })
@@ -73,7 +103,7 @@ export default class Header extends React.Component {
 
     var cities = this.state.cities
     var cityOptions = []
-    cityOptions.push(<option key={'city0'}  value={0} data-sort="symbol">Ciudad</option>)
+    cityOptions.push(<option key={'city0'}  value={0} data-sort="symbol">City</option>)
     cities.forEach(function(city,index){
       cityOptions.push(<option key={'city'+(index+1)}  value={parseInt(city.fk_country_id_iso)} data-sort="symbol">{city.name}</option>)
     })
@@ -88,14 +118,14 @@ export default class Header extends React.Component {
 								<div className="box">
 									<form action="#" className="search-form">
 										<fieldset>
-											<input type="search" placeholder="Ciudad, Región, Tipo de Medio" />
+											<input type="search" placeholder="City, District, Billboard type" />
 											<button type="submit"><i className="icon-search"></i></button>
 										</fieldset>
 									</form>
 								</div>
 							</div>
 						</div>
-						<a href="#" className="btn-filter inner"><span>Filtro <span className="none">Avanzado</span></span></a>
+						<a href="#" className="btn-filter inner"><span>Advanced <span className="none">Filter</span></span></a>
 					</div>
           {modo}
 				</div>
@@ -111,12 +141,12 @@ export default class Header extends React.Component {
 						<div className="date-box inner">
 							<div className="js-date-open-close">
 								<div className="date-holder">
-									<input  className="js-date-field date-from" type="text" placeholder="Fecha Inicio"  name="fromdate" id="fromdate" />
+									<input  className="js-date-field date-from" type="text" placeholder="Start date"  name="fromdate" id="fromdate" />
 								</div>
 							</div>
 							<div className="js-date-open-close">
 								<div className="date-holder">
-									<input className="js-date-field date-to" type="text" placeholder="Fecha Final"  name="todate" id="todate" />
+									<input className="js-date-field date-to" type="text" placeholder="End date"  name="todate" id="todate" />
 								</div>
 							</div>
 						</div>
@@ -144,16 +174,16 @@ export default class Header extends React.Component {
 					</li>
 				</ul>
 				<div className="filter-right">
-					<label htmlFor="select">Ordernar por:</label>
+					<label htmlFor="select">Order by:</label>
 					<select id="select" className="sorting-select">
-						<option data-sort="symbol">Relevancia</option>
+						<option data-sort="symbol">Relevance</option>
 						<option data-sort="symbol">A - Z</option>
 						<option data-sort="symbol" data-ascending="false">Z - A</option>
 						<option data-sort="number">0 - 9</option>
 						<option data-sort="number" data-ascending="false">9 - 0</option>
 					</select>
 				</div>
-				<button id="filtrar" className="button">Aplicar Filtros</button>
+				<button id="filtrar" className="button">Aply filter</button>
 			</fieldset>
 		</div>
 	</header>

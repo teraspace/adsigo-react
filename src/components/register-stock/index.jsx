@@ -23,35 +23,54 @@ export default class RegisterStock extends React.Component {
     hostaddress = x.globals.hostaddress;
   }
   componentWillMount(){
-    fetch(hostaddress+'/api/typestock',{method: 'POST'})
-    .then((response) => {
-      return response.json()
-    })
-    .then((typeStock) => {
-      this.setState({  typeStock: typeStock.data })
-    })
+    this.loadTypeStock()
+    this.loadCountries()
+
+  }
+
+  loadCountries(){
+    var that = this;
     fetch(hostaddress+'/api/countries',{method: 'POST'})
     .then((response) => {
       return response.json()
+    })
+    .catch((err) => {
+      console.log(err)
+      setTimeout(() => {
+        that.loadCountries()
+      },1000)
     })
     .then((countries) => {
       this.setState({  countries: countries.data })
     })
 
   }
-  componendDidUpdate () {
-  console.log('componendDidUpdate')
-}
+  loadTypeStock (){
+    var that = this
+    fetch(hostaddress+'/api/typestock',{method: 'POST'})
+    .then((response) => {
+      return response.json()
+    }).catch((err) => {
+      var that = that;
+      console.log(err)
+      setTimeout(() => {
+        that.loadTypeStock()
+      },1000)
+    }).then((typeStock) => {
+      this.setState({  typeStock: typeStock.data })
+    })
+
+  }
   componentDidMount (){
     console.log(this.props.billboard)
-     myload()
-     $(window).keydown(function(event){
-        if(event.keyCode == 13) {
-          event.preventDefault();
-          geocodeAddress();
-          return false;
-        }
-      });
+    myload()
+    $(window).keydown(function(event){
+      if(event.keyCode == 13) {
+        event.preventDefault();
+        geocodeAddress();
+        return false;
+      }
+    });
     this.setPhotoListener('photo1')
     this.setPhotoListener('photo2')
     this.setPhotoListener('photo3')
@@ -74,6 +93,7 @@ export default class RegisterStock extends React.Component {
     init_map_register()
   }
   render() {
+    var title = "My Billboards"
     that = this;
     var optionCountries = [];
     var countries = this.state.countries;
@@ -83,11 +103,12 @@ export default class RegisterStock extends React.Component {
     if (editStock==null){
       editStock = {}
     }else {
+      title = "Edit Billboard"
       try {
-      _alto = editStock.size.split('x')[0]
-      _ancho = editStock.size.split('x')[1]
+        _alto = editStock.size.split('x')[0]
+        _ancho = editStock.size.split('x')[1]
       }catch(err){}
-      }
+    }
     try {
       optionCountries.push(<option key="countriesn" className="hide-me">Select Country</option>);
       countries.forEach(function(country, index){
@@ -115,174 +136,93 @@ export default class RegisterStock extends React.Component {
       <Header />
       <div id="content">
         <div className="content-holder">
-          <h1><img src="./images/ico1.png" height="34" width="32" alt="image description" />Mis Espacios</h1>
+          <h1><img src="./images/ico1.png" height="34" width="32" alt="image description" />{title}</h1>
           <form action="#" id="registerStockForm" className="space-form validate-form">
             <fieldset>
-              <h2><span>Add New Billboard</span></h2>
               <div className="hold">
-                <h3>1. Información Comercial del Espacio:</h3>
-                <a href="#" className="link">Muchos Espacios? Déjanos agregarlos por tí!</a>
+                <h3>1. Billboard's commercial info:</h3>
+                <a href="#" className="link">Many billboards? Let us add them by you.!</a>
               </div>
               <div className="gray-holder">
                 <div className="row required-row">
                   <div className="label-holder">
-                    <label htmlFor="name">Nombre de la valla</label>
+                    <label htmlFor="name">Billboard name</label>
                   </div>
-                  <input className="required" defaultValue={editStock.name}  minLength="2" type="text" placeholder="Input" name="name" id="name" required />
-                  <div className="question-holder">
-                    <a href="#">[?]</a>
-                    <div className="question-slide">
-                      <div className="slide-holder">
-                        <p>Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. Por scientie, musica. Li lingues differe solmen in li grammatica, li pronunciation e li. </p>
-                      </div>
-                    </div>
-                  </div>
+                  <input className="required" defaultValue={editStock.name}  minLength="2" type="text" placeholder="" name="name" id="name" required />
                 </div>
                 <div className="row required-row">
                   <div className="label-holder">
-                    <label htmlFor="typeSpace">Tipo de Valla</label>
+                    <label htmlFor="typeSpace">Billboard type</label>
                   </div>
                   <select defaultValue={editStock.fk_id_type_stock}  className="required-select" id="typeSpace" required>
                     {optionTypeStock}
                   </select>
-                  <div className="question-holder">
-                    <a href="#">[?]</a>
-                    <div className="question-slide">
-                      <div className="slide-holder">
-                        <p>Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. Por scientie, musica. Li lingues differe solmen in li grammatica, li pronunciation e li. </p>
-                      </div>
-                    </div>
-                  </div>
                 </div>
                 <div style={{display: 'none'}} className="row required-row">
                   <div className="label-holder">
-                    <label htmlFor="description">Descripción del Espacio</label>
+                    <label htmlFor="description">Billboard's description</label>
                   </div>
-                  <input defaultValue={editStock.description} maxLength="20" minLength="10" className="required" type="text" placeholder="Input" name="description" id="description" />
-                  <div className="question-holder">
-                    <a href="#">[?]</a>
-                    <div className="question-slide">
-                      <div className="slide-holder">
-                        <p>Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. Por scientie, musica. Li lingues differe solmen in li grammatica, li pronunciation e li. </p>
-                      </div>
-                    </div>
-                  </div>
+                  <input defaultValue={editStock.description} maxLength="20" minLength="10" className="required" type="text" placeholder="" name="description" id="description" />
                 </div>
-                <div style={{display: 'none'}}  className="row required-row">
+                <div className="row required-row">
                   <div className="label-holder">
-                    <label htmlFor="select1">Pais</label>
+                    <label htmlFor="select1">Country</label>
                   </div>
                   <select defaultValue={editStock.id_country} className="required-select"  key={"sc1"} onChange={this.selectCountry} id="selectCountry1"   name="selectCountry1" required >
                     {optionCountries}
                   </select>
-                  <div className="question-holder">
-                    <a href="#">[?]</a>
-                    <div className="question-slide">
-                      <div className="slide-holder">
-                        <p>Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. Por scientie, musica. Li lingues differe solmen in li grammatica, li pronunciation e li. </p>
-                      </div>
-                    </div>
-                  </div>
+
                 </div>
                 <div className="row required-row">
                   <div className="label-holder">
-                    <label htmlFor="select2">Ciudad</label>
+                    <label htmlFor="select2">City</label>
                   </div>
                   <select defaultValue={editStock.ciudad}  onChange={this.selectCity} className="required-select" id="selectCity1" name="selectCity1" required>
                     {optionCities}
                   </select>
-                  <div className="question-holder">
-                    <a href="#">[?]</a>
-                    <div className="question-slide">
-                      <div className="slide-holder">
-                        <p>Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. Por scientie, musica. Li lingues differe solmen in li grammatica, li pronunciation e li. </p>
-                      </div>
-                    </div>
-                  </div>
+
                 </div>
                 <div className="row required-row">
                   <div className="label-holder">
-                    <label htmlFor="princeDaily">Ргесіо рог Dia</label>
+                    <label htmlFor="princeDaily">Ргесe per dayt</label>
                   </div>
-                  <input defaultValue={parseFloat(editStock.daily_price)}  minLength="3" className="required" type="number" placeholder="Input Url" id="princeDaily" />
-                  <div className="question-holder">
-                    <a href="#">[?]</a>
-                    <div className="question-slide">
-                      <div className="slide-holder">
-                        <p>Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. Por scientie, musica. Li lingues differe solmen in li grammatica, li pronunciation e li. </p>
-                      </div>
-                    </div>
-                  </div>
+                  <input defaultValue={parseFloat(editStock.daily_price)}  minLength="3" className="required" type="number" placeholder="" id="princeDaily" />
+
                 </div>
                 <div className="row required-row">
                   <div className="label-holder">
-                    <label htmlFor="productionPrice">Ргесіо рог Impresión</label>
+                    <label htmlFor="productionPrice">Production price</label>
                   </div>
-                  <input defaultValue={parseFloat(editStock.production_price)} className="required" type="number" placeholder="Precio por impresión" id="productionPrice" />
-                  <div className="question-holder">
-                    <a href="#">[?]</a>
-                    <div className="question-slide">
-                      <div className="slide-holder">
-                        <p>Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. Por scientie, musica. Li lingues differe solmen in li grammatica, li pronunciation e li. </p>
-                      </div>
-                    </div>
-                  </div>
+                  <input defaultValue={parseFloat(editStock.production_price)} className="required" type="number" placeholder="" id="productionPrice" />
+
                 </div>
                 <div className="row required-row">
                   <div className="label-holder">
-                    <label htmlFor="stockSizeH">Alto (cm)</label>
+                    <label htmlFor="stockSizeH">Heigth (cm)</label>
                   </div>
-                  <input  defaultValue={_alto}   className="required" type="number" placeholder="Input" id="stockSizeH" required />
-                  <div className="question-holder">
-                    <a href="#">[?]</a>
-                    <div className="question-slide">
-                      <div className="slide-holder">
-                        <p>Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. Por scientie, musica. Li lingues differe solmen in li grammatica, li pronunciation e li. </p>
-                      </div>
-                    </div>
-                  </div>
+                  <input  defaultValue={_alto}   className="required" type="number" placeholder="" id="stockSizeH" required />
+
                 </div>
                 <div className="row required-row">
                   <div className="label-holder">
-                    <label htmlFor="stockSizeW">Ancho (cm)</label>
+                    <label htmlFor="stockSizeW">Write (cm)</label>
                   </div>
-                  <input defaultValue={_ancho} className="required" type="number" placeholder="Input" id="stockSizeW" required />
-                  <div className="question-holder">
-                    <a href="#">[?]</a>
-                    <div className="question-slide">
-                      <div className="slide-holder">
-                        <p>Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. Por scientie, musica. Li lingues differe solmen in li grammatica, li pronunciation e li. </p>
-                      </div>
-                    </div>
-                  </div>
+                  <input defaultValue={_ancho} className="required" type="number" placeholder="" id="stockSizeW" required />
+
                 </div>
                 <div className="row required-row">
                   <div className="label-holder">
-                    <label htmlFor="address">Dirección</label>
+                    <label htmlFor="address">Address</label>
                   </div>
-                  <input defaultValue={(editStock.address)}   minLength="10" className="required" type="text" placeholder="Input" name="address" id="address" required />
-                  <div className="question-holder">
-                    <a href="#">[?]</a>
-                    <div className="question-slide">
-                      <div className="slide-holder">
-                        <p>Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. Por scientie, musica. Li lingues differe solmen in li grammatica, li pronunciation e li. </p>
-                      </div>
-                    </div>
-                  </div>
+                  <input defaultValue={(editStock.address)}   minLength="10" className="required" type="text" placeholder="" name="address" id="address" required />
+
                 </div>
                 <div style={{display: "none"}} className="row required-row">
                   <div className="label-holder">
-                    <label htmlFor="priceMonthly">Рreсіо рог Mes</label>
+                    <label htmlFor="priceMonthly">Monthly price</label>
                   </div>
-                  <input defaultValue={parseFloat(editStock.daily_price * 30)}  minLength="3" className="required-number" type="number" placeholder="Input Number " name="priceMonthly" id="priceMonthly" required />
-                  <div className="question-holder">
-                    <a href="#">[?]</a>
-                    <div className="question-slide">
-                      <div className="slide-holder">
-                        <p>Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. Por scientie, musica. Li lingues differe solmen in li grammatica, li pronunciation e li. </p>
-                      </div>
-                    </div>
-                  </div>
+                  <input defaultValue={parseFloat(editStock.daily_price * 30)}  minLength="3" className="required-number" type="number" placeholder="" name="priceMonthly" id="priceMonthly" required />
+
                 </div>
               </div>
               <h3>2. Select photos for billboard</h3>
@@ -315,61 +255,38 @@ export default class RegisterStock extends React.Component {
                   </div>
                 </div>
               </div>
-              <h3>3. Seleccione ubicación Google Maps</h3>
+              <h3>3. Select Google Maps location</h3>
               <div className="gray-holder">
                 <div className="row required-row">
                   <input type="text" id="mapsearch"  />
                   <div id="detailmap" style={{height: "320px", width: "100%"}}></div>
 
-                  <input defaultValue={(editStock.googlemaps )}  minLength="5" className="required" type="hidden" placeholder="Input Url" name="googlemaps" id="googlemaps" required />
-                  <div className="question-holder">
-                    <a href="#">[?]</a>
-                    <div className="question-slide">
-                      <div className="slide-holder">
-                        <p>Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. Por scientie, musica. Li lingues differe solmen in li grammatica, li pronunciation e li. </p>
-                      </div>
-                    </div>
-                  </div>
+                  <input defaultValue={(editStock.googlemaps )}  minLength="5" className="required" type="hidden" placeholder="" name="googlemaps" id="googlemaps" required />
                 </div>
               </div>
-              <h3>4. Información Técnica del Espacio:</h3>
-              <div className="gray-holder">
+              <div style={{display: 'none'}} className="gray-holder">
+                <h3>4. Billboard's technical information:</h3>
 
                 <div className="row required-row">
                   <div className="label-holder">
-                    <label htmlFor="visualImpact">Impacto visual por día</label>
+                    <label htmlFor="visualImpact">Visual impact per day</label>
                   </div>
-                  <input defaultValue={(editStock.impact )}  className="required" type="number" placeholder="Impacto visual por día" name="visualImpact" id="visualImpact" />
-                  <div className="question-holder">
-                    <a href="#">[?]</a>
-                    <div className="question-slide">
-                      <div className="slide-holder">
-                        <p>Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. Por scientie, musica. Li lingues differe solmen in li grammatica, li pronunciation e li. </p>
-                      </div>
-                    </div>
-                  </div>
+                  <input defaultValue={0}  className="required" type="number" placeholder="" name="visualImpact" id="visualImpact" />
                 </div>
 
                 <div className="row required-row">
                   <div className="label-holder">
-                    <label htmlFor="publicTarget">Estrato targets</label>
+                    <label htmlFor="publicTarget">Public targets</label>
                   </div>
                   <select  defaultValue={(editStock.target)}   className="required-select" id="publicTarget" name="publicTarget" required>
-                      <option value="1">1</option>
-                      <option value="2">2</option>
-                      <option value="3">3</option>
-                      <option value="4">4</option>
-                      <option value="5">5</option>
-                      <option value="6">6</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
                   </select>
-                  <div className="question-holder">
-                    <a href="#">[?]</a>
-                    <div className="question-slide">
-                      <div className="slide-holder">
-                        <p>Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. Por scientie, musica. Li lingues differe solmen in li grammatica, li pronunciation e li. </p>
-                      </div>
-                    </div>
-                  </div>
+
                 </div>
 
 
@@ -397,7 +314,7 @@ export default class RegisterStock extends React.Component {
           </form>
         </div>
       </div>
-        <SideMenu />;
+      <SideMenu />;
     </main>;
 
   }
@@ -413,25 +330,25 @@ export default class RegisterStock extends React.Component {
     for (var i=1;i<=count;i++){
       _photo = document.getElementById(String('photo' + i + '_fileInfo')).innerHTML
       if(_photo.toString().length>10){
-          photoFiles.push(_photo)
+        photoFiles.push(_photo)
       }
     }
-      document.getElementById("selectCountry1").value = 'CO' //Solo Colombia en MVP
-      document.getElementById('description').value = 'No description' // Sin description en MVP
+    document.getElementById("selectCountry1").value = 'CO' //Solo Colombia en MVP
+    document.getElementById('description').value = 'No description' // Sin description en MVP
 
     var payload = JSON.stringify({
       in_user_token:that.state.session.v_user_token,
       in_id_stock: id_stock,
       in_name:  document.getElementById('name').value,
       in_description:  document.getElementById('description').value,
-      in_id_country:  'CO',
+      in_id_country:  document.getElementById("selectCountry1").value,
       in_id_city: document.getElementById("selectCity1").value.split(',')[0],
       in_address:  document.getElementById('address').value,
       in_googlemaps:  document.getElementById('googlemaps').value,
       in_availability:  'S',
       in_size:  (document.getElementById('stockSizeH').value +'x'+document.getElementById('stockSizeW').value),
       in_target:   parseInt(document.getElementById("publicTarget").value),
-      in_impact: parseInt(document.getElementById("visualImpact").value),
+      in_impact: parseInt(-1),
       in_lighting:  document.getElementById('lightning').checked == true ? 'S' : 'N',
       in_hotspot:  document.getElementById('hotSpot').checked == true ? 'S' : 'N',
       in_main_road: document.getElementById('mainRoad').checked == true ? 'S' : 'N',
@@ -458,7 +375,7 @@ export default class RegisterStock extends React.Component {
     }).then((response) => {
       return response.json();
     }).then((session) => {
-     console.log(session);
+      console.log(session);
       //localStorage.setItem('session',JSON.stringify(session.data));
       if (session.success && session.code=='API_SUCCESS'){
         localStorage.removeItem('selBillboard')
@@ -479,7 +396,7 @@ export default class RegisterStock extends React.Component {
   selectCountry (){
     var _context = this;
     var x = document.getElementById("selectCountry1").value;
-//Se quema CO para uso solo en Colombia sin restar.. El codigo queda para el futuro.
+    //Se quema CO para uso solo en Colombia sin restar.. El codigo queda para el futuro.
     var payload = JSON.stringify({in_country: 'CO'});
     fetch(hostaddress+'/api/cities' ,
     {   method: 'POST',
@@ -487,6 +404,11 @@ export default class RegisterStock extends React.Component {
         "Content-Type": "application/x-www-form-urlencoded"
       },
       body: "params=" + payload
+    }).catch((err) => {
+      console.log(err)
+      setTimeout(() => {
+        that.selectCountry()
+      },1000)
     }).then((response) => {
       return response.json()
     }).then((cities) => {
@@ -498,13 +420,13 @@ export default class RegisterStock extends React.Component {
 
     var idphoto = htmlElement.slice(-1);
     $.uploadPreview({
-        input_field: "#"+htmlElement,   // Default: .image-upload
-        preview_box: "#image"+idphoto,  // Default: .image-preview
-        label_field: "#image-label"+idphoto,    // Default: .image-label
-        label_default: "Choose File",   // Default: Choose File
-        label_selected: "Change File",  // Default: Change File
-        no_label: false                 // Default: false
-      });
+      input_field: "#"+htmlElement,   // Default: .image-upload
+      preview_box: "#image"+idphoto,  // Default: .image-preview
+      label_field: "#image-label"+idphoto,    // Default: .image-label
+      label_default: "Choose File",   // Default: Choose File
+      label_selected: "Change File",  // Default: Change File
+      no_label: false                 // Default: false
+    });
     $('#'+htmlElement).change(function() {
       console.log(this.value)
       var that = this
@@ -540,7 +462,7 @@ export default class RegisterStock extends React.Component {
     this.loadPreview('image3',image3)
     this.loadPreview('image4',image4)
     this.loadPreview('image5',image5)
-}
+  }
   loadPreview (htmlElement,image){
     console.log(image)
     console.log(htmlElement)
@@ -559,7 +481,7 @@ function validar (data){
   var _data = JSON.parse(data);
   var ok = true;
   if(_data.in_user_token.length<=5){
-    alert('Debe estar logueado')
+    alert('You must to be logged')
     ok = false;
   } else
   // if(_data.in_id_stock!=0){
@@ -567,29 +489,29 @@ function validar (data){
   //   ok = false;
   // } else
   if(_data.in_name.length<=5){
-    alert('Debe escribir un nombre conciso.')
+    alert('You must write a name.')
     ok = false;
   } else
   // if(_data.in_description.length<=10){
   //   alert('Debe escribir una descripción concisa.')
   //   ok = false;
   // } else
-  // if(_data.in_id_country.length>2){
-  //   alert('Debe seleccionar un país.')
-  //   ok = false;
-  // }
-  // else
+  if(_data.in_id_country.length>2){
+    alert('You must select the location country.')
+    ok = false;
+  }
+  else
   if(_data.in_id_city.length>6){
-    alert('Debe seleccionar una ciudad.')
+    alert('You must select location city.')
     ok = false;
   }
   else
   if(_data.in_address.length<=10){
-    alert('Escriba la direccion')
+    alert('You must write address')
     ok = false;
   }  else
   if(_data.in_googlemaps<=5){
-    alert('Escriba la url de ubicación geografica.')
+    alert('You must select google maps localtion.')
     ok = false;
   } else
   // if(_data.in_user_photos.length<=0){
@@ -598,38 +520,38 @@ function validar (data){
   // } else
   if(isNaN(_data.in_daily_price) || _data.in_daily_price<=0 ){
     console.log(_data.in_daily_price)
-    alert('Debe escribir el tamaño.')
+    alert('Yoy must write size..')
     ok = false;
   } else
   if(_data.in_availability<1 || _data.in_availability!='S'){
-    alert('Debe estar disponible por defecto..')
+    alert('You must to be avaible..')
     ok = false;
   } else
   if( _data.in_size.length<3  ){
-    alert('Debe escribir el tamaño.')
+    alert('You must write the size')
     ok = false;
   } else
   if(_data.in_target<1 || _data.in_target<=0){
-    alert('Debe seleccionar public Target.')
+    alert('You must write target.')
     ok = false;
   } else
-  if(_data.in_impact<1 || isNaN(_data.in_impact)){
-    alert('Debe escribir el impacto')
-    ok = false;
-  } else
-  if(isNaN(_data.in_production_price) || _data.in_production_price<=0 ){
-    alert('Debe escribir precio de impresion.')
-    ok = false;
+  // if(_data.in_impact<1 || isNaN(_data.in_impact)){
+    //   alert('Debe escribir el impacto')
+    //   ok = false;
+    // } else
+    if(isNaN(_data.in_production_price) || _data.in_production_price<=0 ){
+      alert('You must write production price.')
+      ok = false;
+    }
+    return ok
   }
-  return ok
-}
-function chageIcon(domImg,srcImage)
-{
-  var img = new Image();
-  img.onload = function()
+  function chageIcon(domImg,srcImage)
   {
-    // Load completed
-    domImg.src = this.src;
-  };
-  img.src = srcImage;
-}
+    var img = new Image();
+    img.onload = function()
+    {
+      // Load completed
+      domImg.src = this.src;
+    };
+    img.src = srcImage;
+  }

@@ -250,7 +250,7 @@ class LandingDetail extends React.Component {
                 $('.multidate').click(function(){
                   $('.multidate').val('')
                   $('.multidate').datepicker('show')
-$('.multidate').multiDatesPicker('resetDates', 'disabled');
+                  $('.multidate').multiDatesPicker('resetDates', 'disabled');
                 })
                 $('.multidate').multiDatesPicker({
                   dateFormat: 'dd/mm/yy',

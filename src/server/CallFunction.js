@@ -43,7 +43,7 @@ function prepareCallFunction(callFunction) {
 
                 var q1 = t.one("SELECT " + callFunction.metodo + cadenaArgumentos + " as app", arrayArgumentos);
                 var q2 = t.many('FETCH ALL FROM mycursor');
-
+                console.log("SELECT " + callFunction.metodo + cadenaArgumentos + " as app", arrayArgumentos)
                 // returning a promise that determines a successful transaction:
                 return this.batch([q1, q2]); // all of the queries are to be resolved;
             }).then(function(data) {

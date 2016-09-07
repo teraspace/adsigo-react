@@ -39,10 +39,12 @@ export default class MyBillboards extends React.Component {
         "Content-Type": "application/x-www-form-urlencoded"
       },
       body: "params=" + payload
-    }).then((response) => {
+    })
+
+    .then((response) => {
       return response.json()
     }).then((billboards) => {
-      this.setState({ billboards: billboards.data })
+      that.setState({ billboards: billboards.data })
     })
 
   }
@@ -60,13 +62,13 @@ export default class MyBillboards extends React.Component {
     billboards.forEach(function(billboard,index){
       listaBillboards.push(
                     <tr key={"fila"+index}>
-      								<td key={"col1"} data-label="# de Espaclo"><span>{billboard.id_stock}</span></td>
-      								<td key={"col2"} data-label="Nombre de Espaclo"><span>{billboard.name}</span></td>
-      								<td key={"col3"} data-label="Cludad"><span>{billboard.ciudad}</span></td>
-      								<td key={"col4"} data-label="Dirección"><span>{billboard.address}</span></td>
-      								<td key={"col5"} data-label="Preclo por Día"><span>{billboard.daily_price}</span></td>
-      								<td key={"col6"} data-label="Preclo por Impreslón"><span>{billboard.production_price}</span></td>
-      								<td key={"col7"} data-label="Tamaño Vlsual"><span>{billboard.size}</span></td>
+      								<td key={"col1"} data-label="# Billboard"><span>{billboard.id_stock}</span></td>
+      								<td key={"col2"} data-label="Name"><span>{billboard.name}</span></td>
+      								<td key={"col3"} data-label="City"><span>{billboard.ciudad}</span></td>
+      								<td key={"col4"} data-label="Address"><span>{billboard.address}</span></td>
+      								<td key={"col5"} data-label="Price per day"><span>{billboard.daily_price}</span></td>
+      								<td key={"col6"} data-label="Production price"><span>{billboard.production_price}</span></td>
+      								<td key={"col7"} data-label="Visual size"><span>{billboard.size}</span></td>
       								<td key={"col8"} data-label="View / Edit Billboard"><strong><a href="#" className="ico-box"><i className="icon-eye1"></i></a><a key={"edit"+index} id={"edit"+index} onClick={that.editBillboard.bind(that,billboard)} href="#" className="ico-box"><i  className="icon-pencil"></i></a></strong></td>
       							</tr>)
     })
@@ -86,7 +88,7 @@ export default class MyBillboards extends React.Component {
                     </a>
     							</div>
     							<div className="search-box">
-    								<span className="title-text">Buscar:</span>
+    								<span className="title-text">Search:</span>
     								<span className="input-wrap">
     									<input type="search" />
     									<button type="submit"><i className="icon-search"></i></button>
@@ -107,23 +109,22 @@ export default class MyBillboards extends React.Component {
     						</colgroup>
     						<thead>
     							<tr>
-    								<th># de Espaclo</th>
-    								<th>Nombre de Espaclo</th>
-    								<th>Cludad</th>
-    								<th>Dirección</th>
-    								<th>Preclo por Mes Día</th>
-    								<th>Preclo por Impreslón</th>
-    								<th>Tamaño Vlsual</th>
-    								<th>Ver / Edltar Espaclo</th>
+    								<th># Billboard</th>
+    								<th>Name</th>
+    								<th>City</th>
+    								<th>Address</th>
+    								<th>Price per day</th>
+    								<th>Production price</th>
+    								<th>Visual size</th>
+    								<th>View / Edit Billboard</th>
     							</tr>
     						</thead>
     						<tbody>
-
                   {listaBillboards}
     						</tbody>
     					</table>
     					<div className="link-holder">
-    						<a href="#" className="right">Siguiente Página &gt;&gt;</a>
+    						<a href="#" className="right">Next Page &gt;&gt;</a>
     					</div>
     				</div>
     			</div>
