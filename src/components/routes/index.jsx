@@ -13,6 +13,7 @@ export default class Routes extends React.Component {
 
         navigate = function(url) {
             return function() {
+                console.log(url)
                 page(url);
             };
         };
@@ -24,7 +25,6 @@ export default class Routes extends React.Component {
         this.props.routes.forEach(function(route) {
             var url = route[0];
             var Component = route[1];
-
             page(url, function(ctx) {
                 self.setState({
                     component: <Component params={ctx.params} querystring={ctx.querystring} />

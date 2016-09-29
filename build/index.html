@@ -51,8 +51,12 @@
   <script type="text/javascript" src="js/jquery-ui.multidatespicker.js"></script>
 
   <script type="text/javascript" src="js/jssor.js"></script>
+  <script type="text/javascript" src="js/jssor.slider.min1.js"></script>
   <script type="text/javascript" src="js/jssor.slider.min.js"></script>
+
   <script type="text/javascript" src="js/jquery.main.js"></script>
+  <script type="text/javascript" src="js/jquery.main2.js"></script>
+
   <script src="http://simpleupload.michaelcbrook.com/js/simpleUpload/simpleUpload.min.js" type="text/javascript"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
   <script src="/js/jquery.jscroll.js"></script>
@@ -84,11 +88,14 @@
     ].join(''));
     infoWindow.open(map, marker);
   }
-  function init_map(){
+  function init_map(coords){
+console.log(coords)
     console.log('init_map')
+    if(coords==undefined) coords = "(11.004270439295391,-74.80891249049068)"
+    coords =  coords.replace('(','').replace(')','').split(',');
     var myOptions = {
       zoom:16,
-      center:new google.maps.LatLng(11.004270439295391,-74.80891249049068),
+      center:new google.maps.LatLng(coords[0],coords[1]),
       mapTypeId: google.maps.MapTypeId.ROADMAP
     };
     map = new google.maps.Map(document.getElementById('detailmap'), myOptions);

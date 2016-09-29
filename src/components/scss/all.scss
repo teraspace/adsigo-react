@@ -37,8 +37,10 @@ $mq-breakpoints: (
 @import "components/filter-content";
 @import "components/fancybox";
 @import "components/datepicker";
+@import "vendors/slick";
 
 @import "layout/header";
 @import "layout/content";
 @import "layout/footer";
 @import "layout/main";
+@import "layout/view-billboard";
