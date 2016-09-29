@@ -92,7 +92,7 @@ return (
 showDetail(data){
   var idstock = data.id_stock;
 
-  window.open('/billboard-detail?'+idstock,'_blank');
+  //window.open('/billboard-detail?'+idstock,'_blank');
   window.open('/billboard-detail?'+idstock);
 return;
   var token;
