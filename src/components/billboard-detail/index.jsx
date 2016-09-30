@@ -133,7 +133,7 @@ class LandingDetail extends React.Component {
                             </table>
                             <div className="btn-holder">
                               <input onClick={that.putDealing}  type="submit"  className="btn" defaultValue="REQUEST BILLBOARD" />
-                              <input id="addOrder" className="btn-append" defaultValue="Add to watchlist" />
+                              <input id="addOrder" className="btn" defaultValue="Add to watchlist" />
                             </div>
                           </div>
                         </div>
