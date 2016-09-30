@@ -94,9 +94,8 @@ $("#registerUserForm").validate();
                 </div>
                 <div className="row required-row">
                   <div style={{marginLeft:'170px'}} className="image-container" id="image1">
-                    <input type="file" name="iphoto" id="iphoto" />
-                      <label htmlFor="image-upload" id="image-label1">Choose File</label>
-
+                    <label htmlFor="image-upload" id="image-label1">Choose File</label>
+                    <input type="file" name="iphoto" id="iphoto" />                  
                     <span id="fileInfo"></span>
                   </div>
 
