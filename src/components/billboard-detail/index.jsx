@@ -106,7 +106,7 @@ class LandingDetail extends React.Component {
 
                             </div>
                             <select onChange={that.selectPrints} className="select-amount" id="qtyPrint" name="qtyPrint">
-                              <option className="hidden">Cantidad de Impresión(es)</option>
+                              <option className="hidden">Production quantity</option>
                               <option>1</option>
                               <option>2</option>
                               <option>3</option>
