@@ -7,6 +7,9 @@
  *	Declaración de constantes que documenta lo Procedimientos Almacenados de la API
  */
 var _ = {};
+_.app_restore_password = {
+  in_mail: ''
+}
 _.app_get_sales_dealings = {
   in_user_token :'',
   in_creation_date:'',

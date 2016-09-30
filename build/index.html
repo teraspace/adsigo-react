@@ -16,10 +16,7 @@
   <link rel="stylesheet" href="//blueimp.github.io/Gallery/css/blueimp-gallery.min.css">
   <link rel="stylesheet" href="css/jquery.fileupload.css">
   <link rel="stylesheet" href="css/jquery.fileupload-ui.css">
-  <!-- CSS adjustments for browsers with JavaScript disabled -->
-  <noscript><link rel="stylesheet" href="css/jquery.fileupload-noscript.css"></noscript>
-  <noscript><link rel="stylesheet" href="css/jquery.fileupload-ui-noscript.css"></noscript>
-  <!-- <link rel="stylesheet" href="css/index.css" > -->
+
 </head>
 
 <body  >
@@ -89,17 +86,18 @@
     infoWindow.open(map, marker);
   }
   function init_map(coords){
-console.log(coords)
+
     console.log('init_map')
     if(coords==undefined) coords = "(11.004270439295391,-74.80891249049068)"
     coords =  coords.replace('(','').replace(')','').split(',');
     var myOptions = {
       zoom:16,
-      center:new google.maps.LatLng(coords[0],coords[1]),
+      center:new google.maps.LatLng(parseFloat(coords[0]),parseFloat(coords[1])),
       mapTypeId: google.maps.MapTypeId.ROADMAP
     };
+console.log(coords)
     map = new google.maps.Map(document.getElementById('detailmap'), myOptions);
-    marker = new google.maps.Marker({map: map,position: new google.maps.LatLng(11.004270439295391,-74.80891249049068)});
+    marker = new google.maps.Marker({map: map,position: new google.maps.LatLng(parseFloat(coords[0]),parseFloat(coords[1]) ) });
     infowindow = new google.maps.InfoWindow({content:'<strong>Adsigo</strong><br>Barranquilla, Colombia<br>'});
     google.maps.event.addListener(marker, 'click', function(){
       infowindow.open(map,marker);

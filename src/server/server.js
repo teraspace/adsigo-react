@@ -86,6 +86,24 @@ app.post('/api/get-dealings', function(req, res) {
   })
 });
 //Crea el método de inicio de sesión.
+app.post('/api/restore-password', function(req, res) {
+  var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+  console.log(req.body)
+  var p = JSON.parse(req.body.params);
+  //  p.in_ip_user_host = ip;
+  _.app_restore_password = p;
+  var procedureCall = apiUtil.getJsonquery(_.app_restore_password);
+  //Se invoca el promice local para llamada al Procedimiento almacenado.
+  callFunction(procedureCall).then(function(response) {
+    //Se procesa la respuesta que se envia al cliente.
+    try {
+      res.send(response[0]); //Se envia la respuesta al request.
+    } catch (err) {
+      console.log('error1');
+    }
+  })
+});
+//Crea el método de inicio de sesión.
 app.post('/api/get-stock', function(req, res) {
   var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
   var p = JSON.parse(req.body.params);
@@ -222,7 +240,7 @@ app.post('/api/register-stock', function(req, res) {
 
     photos[index] = JSON.parse(photo).data
     filesExtensions[index] = String(photos[index].originalname).slice(-4)
-    p[photoParams[index]] = String(photos[index].originalname);
+    p[photoParams[index]] = String(photos[index].originalname.replace(' ','_'));
   })
   //console.log(filesExtensions)
 
@@ -252,7 +270,7 @@ app.post('/api/register-stock', function(req, res) {
         console.log(photo)
       //  if (fs.existsSync(dir))
         try {
-          fs.rename(__dirname+ "/" + photo.path, dir +'/' + photo.originalname  )
+          fs.rename(__dirname+ "/" + photo.path, dir +'/' + photo.originalname.replace(' ','_')  )
         } catch(err){
           photosok = false;
         }

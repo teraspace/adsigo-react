@@ -16,7 +16,6 @@
   overflow: hidden;
   background-color: #ffffff;
   color: #ecf0f1;
-    z-index: 12;
 span {
 	display: none;
 }
@@ -25,11 +24,9 @@ span {
     font-size: 200px;
     position: absolute;
     opacity: 0;
-    z-index: 10;
   }
   label {
     position: absolute;
-    z-index:0;
     opacity: 0.8;
     cursor: pointer;
     background-color: #bdc3c7;

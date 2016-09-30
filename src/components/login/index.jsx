@@ -41,7 +41,7 @@ export default class Login extends React.Component {
           <input type="submit" className="btn" value="Login" onClick={that.login} />
           <a href="/register" className="btn btn-green">New? Sign In!</a>
           <div className="recover-link">
-            <a href="http://www.advertspace.co/password/email">Recover Password.</a>
+            <a href="/recover-password">Recover Password.</a>
           </div>
         </div>
       </div>

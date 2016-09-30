@@ -90,7 +90,7 @@ export default class RegisterStock extends React.Component {
     }
     localStorage.removeItem('selBillboard')
 
-    init_map_register()
+  //  init_map_register()
   }
   render() {
     var title = "My Billboards"
@@ -184,7 +184,7 @@ export default class RegisterStock extends React.Component {
                 </div>
                 <div className="row required-row">
                   <div className="label-holder">
-                    <label htmlFor="princeDaily">Ргесe per dayt</label>
+                    <label htmlFor="princeDaily">Price per day</label>
                   </div>
                   <input defaultValue={parseFloat(editStock.daily_price)}  minLength="3" className="required" type="number" placeholder="" id="princeDaily" />
 
@@ -417,7 +417,6 @@ export default class RegisterStock extends React.Component {
   }
 
   setPhotoListener (htmlElement) {
-
     var idphoto = htmlElement.slice(-1);
     $.uploadPreview({
       input_field: "#"+htmlElement,   // Default: .image-upload

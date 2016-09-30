@@ -25,6 +25,7 @@ function prepareCallFunction(callFunction) {
             db.tx(function(t) {
                 // t = this;
                 var progargs = data.proargnames;
+console.log(progargs)
                 var cadenaArgumentos = '(';
                 var separator = '';
                 var arrayArgumentos = [];
@@ -51,8 +52,17 @@ function prepareCallFunction(callFunction) {
                 pgp.end()
                 fullfill(data);
             }).catch(function(error) {
-                console.log('error5');  console.log(error)
-                fullfill([ {app: 'f,Error general' } ]);
+                console.log('error5');  console.log(error[0].result)
+                var msgerror = 'Error general';
+                var success = 't';
+                try {
+                  msgerror = JSON.stringify(error[0].result).split(',')[1].replace('\\','')
+                  console.log(msgerror)
+                }catch(error){
+                  console.log(error)
+                  success='f'
+                }
+                fullfill([ {app: success+','+msgerror } ]);
                 reject(error);
 
             });

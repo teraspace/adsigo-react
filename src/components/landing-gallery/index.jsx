@@ -12,47 +12,47 @@ class LandingGallery extends React.Component {
   }
 
   render() {
-  var that = this;
-  var propietary = "";
-  var productionPrice = 0;
+    var that = this;
+    var propietary = "";
+    var productionPrice = 0;
 
-  if (this.props.data) {
-    console.log(this.props.data)
-    var first_photo,second_photo,third_photo,fourth_photo = null;
-    var path_photo = "images/stock/user_"+this.props.data.fk_id_user+"/stock_"+this.props.data.id_stock+"/"
-    var photo_gallery = []
-    first_photo = path_photo + this.props.data.first_photo
-    second_photo = path_photo + this.props.data.second_photo
-    third_photo = path_photo + this.props.data.third_photo
-    fourth_photo = path_photo + this.props.data.fourth_photo
+    if (this.props.data) {
+      console.log(this.props.data)
+      var first_photo,second_photo,third_photo,fourth_photo = null;
+      var path_photo = "images/stock/user_"+this.props.data.fk_id_user+"/stock_"+this.props.data.id_stock+"/"
+      var photo_gallery = []
+      first_photo = path_photo + this.props.data.first_photo
+      second_photo = path_photo + this.props.data.second_photo
+      third_photo = path_photo + this.props.data.third_photo
+      fourth_photo = path_photo + this.props.data.fourth_photo
 
-  if(this.props.data.first_photo!=""){
-    photo_gallery.push(                  <div  key={"photo1"} className="slide" style={{height:'307px', position: 'absolute', left: '390px',  width: '390px'}}>
-    <img  style={{height:'307px'}} src={first_photo} height="307" width="402" alt="image description" />
-  </div>)
-  }
-  if(this.props.data.second_photo!=""){
-    photo_gallery.push(                   <div key={"photo2"} className="slide" style={{position: 'absolute', left: '780px', width: '390px'}}>
-    <img style={{height:'307px'}}  src={second_photo} height="307" width="402" alt="image description" />
-  </div>)
+      if(this.props.data.first_photo!=""){
+        photo_gallery.push(                  <div  key={"photo1"} className="slide" style={{height:'307px', position: 'absolute', left: '390px',  width: '390px'}}>
+        <img  style={{height:'307px'}} src={first_photo} height="307" width="402" alt="image description" />
+      </div>)
+    }
+    if(this.props.data.second_photo!=""){
+      photo_gallery.push(                   <div key={"photo2"} className="slide" style={{position: 'absolute', left: '780px', width: '390px'}}>
+      <img style={{height:'307px'}}  src={second_photo} height="307" width="402" alt="image description" />
+    </div>)
   } else {
     photo_gallery.push(                   <div key={"photo2"} className="slide" style={{position: 'absolute', left: '780px', width: '390px'}}>
     <img style={{height:'307px'}}  src={first_photo} height="307" width="402" alt="image description" />
   </div>)
-  }
-  if(this.props.data.third_photo!=""){
-    photo_gallery.push(         <div key={"photo3"} className="slide" style={{position: 'absolute', left: '0px', width: '390px'}}>
-    <img style={{height:'307px'}}  src={third_photo} height="307" width="402" alt="image description" />
-  </div>)
-  }
-  if(this.props.data.fourth_photo!=""){
-    photo_gallery.push(         <div key={"photo4"} className="slide" style={{position: 'absolute', left: '0px', width: '390px'}}>
-    <img style={{height:'307px'}}  src={fourth_photo} height="307" width="402" alt="image description" />
-  </div>)
-  }
-  if (this.props.data.production_price){
-    productionPrice = this.props.data.production_price
-  }
+}
+if(this.props.data.third_photo!=""){
+  photo_gallery.push(         <div key={"photo3"} className="slide" style={{position: 'absolute', left: '0px', width: '390px'}}>
+  <img style={{height:'307px'}}  src={third_photo} height="307" width="402" alt="image description" />
+</div>)
+}
+if(this.props.data.fourth_photo!=""){
+  photo_gallery.push(         <div key={"photo4"} className="slide" style={{position: 'absolute', left: '0px', width: '390px'}}>
+  <img style={{height:'307px'}}  src={fourth_photo} height="307" width="402" alt="image description" />
+</div>)
+}
+if (this.props.data.production_price){
+  productionPrice = this.props.data.production_price
+}
 // name_company
 // name_user
 if (this.props.data.name_company){
@@ -94,21 +94,21 @@ showDetail(data){
 
   //window.open('/billboard-detail?'+idstock,'_blank');
   window.open('/billboard-detail?'+idstock);
-return;
+  return;
   var token;
   try {
     if ('session' in this.state)
     token=JSON.parse(localStorage.getItem('session')).v_user_token
 
   }catch(err){
-console.error(err)
+    console.error(err)
     token=''
   }
   var payload = JSON.stringify({
     in_user_token :token,
     in_id_stock :idstock
   });
-console.log(payload)
+  console.log(payload)
   fetch(x.globals.hostaddress+'/api/stock-detail',{
     method: 'POST',
     headers: {

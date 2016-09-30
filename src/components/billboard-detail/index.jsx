@@ -34,7 +34,7 @@ class LandingDetail extends React.Component {
     console.log(this.props.querystring)
     var details = this.state.details
     console.log(details)
-    if(details==undefined) return <span>error</span>
+    if(details==undefined) return <span>Cargando...</span>
     var that = this
     if (details!={}) {
       var first_photo,second_photo,third_photo,fourth_photo = null
@@ -57,42 +57,42 @@ class LandingDetail extends React.Component {
           <div key={"photo2"} className="img-holder">
             <img data-u="image" src={second_photo}  />
           </div>)
-      } else {
+        } else {
           photo_gallery.push(
-          <div key={"photo2"} className="img-holder">
+            <div key={"photo2"} className="img-holder">
               <img data-u="image" src={third_photo}  / >
               </div>)
-      }
-      if(details.third_photo!=""){
-        photo_gallery.push(
-          <div key={"photo3"} className="img-holder">
-            <img data-u="image" src={third_photo}   / >
-          </div>)
-      }
-      if(details.fourth_photo!=""){
-        photo_gallery.push(
-        <div key={"photo3"} className="img-holder">
-          <img data-u="image" src={fourth_photo}  / >
-        </div>)
-      }
-      return  <main id="main" className="billboard-detail" role="main">
-                <Header />
-                  <div className="container-box small">
-                    <div className="product-section">
-                      <div className="product-block">
-                        <div className="slider">
-                          <div className="slider-for">
-                            {photo_gallery}
-                          </div>
-                          <div className="slider-nav">
-                            {photo_gallery}
-                          </div>
-                        </div>
-                        <div className="form-block">
-                          <h1>{details.name+ " "} <br />
-                            {details.address}</h1>
-                          <span className="text">
-                            By <a href="#">{details.nombre_propietario} </a> <br />{details.in_out} - Size: {details.size}<br /> {details.id_city}, {details.id_country} <br />{details.address} &nbsp;<a href="#">View on map</a>
+            }
+            if(details.third_photo!=""){
+              photo_gallery.push(
+                <div key={"photo3"} className="img-holder">
+                  <img data-u="image" src={third_photo}   / >
+                  </div>)
+                }
+                if(details.fourth_photo!=""){
+                  photo_gallery.push(
+                    <div key={"photo4"} className="img-holder">
+                      <img data-u="image" src={fourth_photo}  / >
+                      </div>)
+                    }
+                    return  <main id="main" className="billboard-detail" role="main">
+                      <Header />
+                      <div className="container-box small">
+                        <div className="product-section">
+                          <div className="product-block">
+                            <div className="slider">
+                              <div className="slider-for">
+                                {photo_gallery}
+                              </div>
+                              <div className="slider-nav">
+                                {photo_gallery}
+                              </div>
+                            </div>
+                            <div className="form-block">
+                              <h1>{details.name+ " "} <br />
+                              {details.address}</h1>
+                            <span className="text">
+                              By <a href="#">{details.nombre_propietario} </a> <br />{details.in_out} - Size: {details.size}<br /> {details.id_city}, {details.id_country} <br />{details.address} &nbsp;<a href="#">View on map</a>
                           </span>
                           <div className="pricing">
                             <span className="title">Price per day</span>
@@ -144,25 +144,25 @@ class LandingDetail extends React.Component {
                     </div>
                     <div className="article">
                       <h2>ABOUT THE BILLBOARD</h2>
-                        <dl>
-                          <dt>City:</dt>
-                          <dd>{details.id_city}</dd>
-                          <dt>Address:</dt>
-                          <dd>{details.address}</dd>
-                          <dt>Space type:</dt>
-                          <dd>{details.fk_id_type_stock}</dd>
-                          <dt>Billoboard's visual size (cm):</dt>
-                          <dd>{details.size}</dd>
-                          <dt>Billboard type:</dt>
-                          <dd>{details.in_out}</dd>
-                        </dl>
-                      </div>
+                      <dl>
+                        <dt>City:</dt>
+                        <dd>{details.id_city}</dd>
+                        <dt>Address:</dt>
+                        <dd>{details.address}</dd>
+                        <dt>Space type:</dt>
+                        <dd>{details.in_out}</dd>
+                        <dt>Billoboard's visual size (cm):</dt>
+                        <dd>{details.size}</dd>
+                        <dt>Billboard type:</dt>
+                        <dd>{details.in_out}</dd>
+                      </dl>
+                    </div>
                     <div className="article" style={{display: 'none'}}>
                       <h2>technical information</h2>
                       <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth. Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided.</p>
                     </div>
                   </div>
-              </main>
+                </main>
 
 
 
@@ -175,9 +175,9 @@ class LandingDetail extends React.Component {
                 var productionPrice = details.production_price
                 var dailyPrice = details.daily_price
                 this.setState( {
-                                  productionTotal : (parseFloat(qtyPrint) * parseFloat(productionPrice)),
-                                  productionSpace : parseFloat(dailyPrice)*parseFloat(numberDays)
-                                } )
+                  productionTotal : (parseFloat(qtyPrint) * parseFloat(productionPrice)),
+                  productionSpace : parseFloat(dailyPrice)*parseFloat(numberDays)
+                } )
                 console.log(dailyPrice*numberDays)
               }
               reevent(){
@@ -195,26 +195,26 @@ class LandingDetail extends React.Component {
                   dateFormat: 'dd/mm/yy',
                   minDate: 0,
                   maxPicks: 2,
-                	numberOfMonths: [3,4],
+                  numberOfMonths: [3,4],
                   defaultDate: '1/1/'+y,
                   onSelect: function() {
-                      $(this).data('datepicker').inline = true;
-                      if($('.multidate').val().includes(',')){
-                        var startDate = $('.multidate').val().split(',')[0].trim()
-                        var endDate = $('.multidate').val().split(',')[1].trim()
-                        startDate = startDate.split('/')
-                        startDate = new Date(startDate[1]+'/'+startDate[0]+'/'+startDate[2])
-                        endDate = endDate.split('/')
-                        endDate = new Date(endDate[1]+'/'+endDate[0]+'/'+endDate[2])
-                        console.log(days_between(startDate,endDate))
-                        that.setState({numberDays : days_between(startDate,endDate) })
-                        $(this).data('datepicker').inline = false;
-                      }
+                    $(this).data('datepicker').inline = true;
+                    if($('.multidate').val().includes(',')){
+                      var startDate = $('.multidate').val().split(',')[0].trim()
+                      var endDate = $('.multidate').val().split(',')[1].trim()
+                      startDate = startDate.split('/')
+                      startDate = new Date(startDate[1]+'/'+startDate[0]+'/'+startDate[2])
+                      endDate = endDate.split('/')
+                      endDate = new Date(endDate[1]+'/'+endDate[0]+'/'+endDate[2])
+                      console.log(days_between(startDate,endDate))
+                      that.setState({numberDays : days_between(startDate,endDate) })
+                      $(this).data('datepicker').inline = false;
+                    }
                   }
 
 
                 });
-              //  init_map();
+                //  init_map();
               }
               closeModal(){
                 console.log('closeModal')
@@ -234,7 +234,7 @@ class LandingDetail extends React.Component {
                   in_user_token :token,
                   in_id_stock :idstock
                 });
-              console.log(payload)
+                console.log(payload)
                 fetch(x.globals.hostaddress+'/api/stock-availbility',{
                   method: 'POST',
                   headers: {
@@ -258,7 +258,7 @@ class LandingDetail extends React.Component {
                 var token,iduser;
                 try {
                   token=JSON.parse(localStorage.getItem('session')).v_user_token
-                    iduser=JSON.parse(localStorage.getItem('session')).id_user
+                  iduser=JSON.parse(localStorage.getItem('session')).id_user
                 }catch(err){
                   token=''
                 }
@@ -271,25 +271,25 @@ class LandingDetail extends React.Component {
                   startDate = startDate[2] + '-' + parseInt(startDate[1]) +'-'+ parseInt(startDate[0])
                   endDate = endDate[2] + '-' + parseInt(endDate[1]) +'-'+ parseInt(endDate[0])
 
-                  } else {
-                    openMessage('Please select your date range and try again!')
-                    return;
-                  }
+                } else {
+                  openMessage('Please select your date range and try again!')
+                  return;
+                }
                 var qtyPrint = document.getElementById('qtyPrint').value
                 var payload = JSON.stringify({
-                    in_user_token: token,
-                     in_id_stock :details.id_stock,
-                     in_name :details.name,
-                     in_id_city :details.id_city,
-                     in_address:details.address,
-                     in_fk_id_user:iduser,
-                     in_daily_price :parseFloat(details.daily_price),
-                     in_production_price :parseFloat(details.production_price),
-                     in_number_of_arts :qtyPrint,
-                     in_date_start :startDate,
-                     in_date_end :endDate
+                  in_user_token: token,
+                  in_id_stock :details.id_stock,
+                  in_name :details.name,
+                  in_id_city :details.id_city,
+                  in_address:details.address,
+                  in_fk_id_user:iduser,
+                  in_daily_price :parseFloat(details.daily_price),
+                  in_production_price :parseFloat(details.production_price),
+                  in_number_of_arts :qtyPrint,
+                  in_date_start :startDate,
+                  in_date_end :endDate
                 });
-              console.log(payload)
+                console.log(payload)
                 fetch(x.globals.hostaddress+'/api/stock-dealings',{
                   method: 'POST',
                   headers: {
@@ -303,69 +303,69 @@ class LandingDetail extends React.Component {
                 .then((deal) => {
                   console.log(deal)
                   if(deal.success && deal.code=='API_SUCCESS' && deal.id>0){
-                      console.log(deal)
-                      openMessage('Deal sent successfully to publisher')
+                    console.log(deal)
+                    openMessage('Deal sent successfully to publisher')
                   }
                   that.closeModal()
                 })
               }
 
-  showDetail(){
-    var that = this;
-console.log('showDetail')
-    var idstock = this.props.querystring;
-    var token;
-    try {
-      if ('session' in this.state)
-      token=JSON.parse(localStorage.getItem('session')).v_user_token
+              showDetail(){
+                var that = this;
+                console.log('showDetail')
+                var idstock = this.props.querystring;
+                var token;
+                try {
+                  if ('session' in this.state)
+                  token=JSON.parse(localStorage.getItem('session')).v_user_token
 
-    }catch(err){
-      console.error(err)
-      token=''
-    }
-    var payload = JSON.stringify({
-      in_user_token :token,
-      in_id_stock :idstock
-    });
-    console.log(payload)
-    fetch(x.globals.hostaddress+'/api/stock-detail',{
-      method: 'POST',
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded"
-      },
-      body: "params=" + payload
-    })
-    .then((response) => {
-      return response.json()
-    })
-    .then((details) => {
-      console.log(details)
+                }catch(err){
+                  console.error(err)
+                  token=''
+                }
+                var payload = JSON.stringify({
+                  in_user_token :token,
+                  in_id_stock :idstock
+                });
+                console.log(payload)
+                fetch(x.globals.hostaddress+'/api/stock-detail',{
+                  method: 'POST',
+                  headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                  },
+                  body: "params=" + payload
+                })
+                .then((response) => {
+                  return response.json()
+                })
+                .then((details) => {
+                  console.log(details)
 
-      that.setState({details: details.data[0]})
-      setTimeout(function(){
-        myload2()
-        that.reevent();
-        init_map(details.data[0].googlemaps);
-      },800)
+                  that.setState({details: details.data[0]})
+                  setTimeout(function(){
+                    myload2()
+                    that.reevent();
+                    init_map(details.data[0].googlemaps);
+                  },800)
 
-      that.getAvaibility()
+                  that.getAvaibility()
 
-    })
-  }
-}
-  function days_between(date1, date2) {
+                })
+              }
+            }
+            function days_between(date1, date2) {
 
-      // The number of milliseconds in one day
-      var ONE_DAY = 1000 * 60 * 60 * 24
+              // The number of milliseconds in one day
+              var ONE_DAY = 1000 * 60 * 60 * 24
 
-      // Convert both dates to milliseconds
-      var date1_ms = date1.getTime()
-      var date2_ms = date2.getTime()
-      // Calculate the difference in milliseconds
-      var difference_ms = Math.abs(date1_ms - date2_ms)
+              // Convert both dates to milliseconds
+              var date1_ms = date1.getTime()
+              var date2_ms = date2.getTime()
+              // Calculate the difference in milliseconds
+              var difference_ms = Math.abs(date1_ms - date2_ms)
 
-      // Convert back to days and return
-      return Math.round(difference_ms/ONE_DAY)
+              // Convert back to days and return
+              return Math.round(difference_ms/ONE_DAY)
 
-  }
-export default LandingDetail
+            }
+            export default LandingDetail
