@@ -106,7 +106,7 @@ class LandingDetail extends React.Component {
 
                             </div>
                             <select onChange={that.selectPrints} className="select-amount" id="qtyPrint" name="qtyPrint">
-                              <option className="hidden">Cantidad de ImpresiÃ³n(es)</option>
+                              <option className="hidden">Cantidad de Impresión(es)</option>
                               <option>1</option>
                               <option>2</option>
                               <option>3</option>
@@ -133,7 +133,7 @@ class LandingDetail extends React.Component {
                             </table>
                             <div className="btn-holder">
                               <input onClick={that.putDealing}  type="submit"  className="btn" defaultValue="REQUEST BILLBOARD" />
-                              <input id="addOrder" className="btn-append" defaultValue="Agregar a Orden" />
+                              <input id="addOrder" className="btn-append" defaultValue="Add to watchlist" />
                             </div>
                           </div>
                         </div>
