@@ -16,7 +16,7 @@ function reload2() {
 	initFixedScrollBlock2();
 	initMobileNav2();
 	initAnchors2();
-	initCycleCarousel2();
+	//initCycleCarousel2();
 	initSlickSlider2();
 }
 
