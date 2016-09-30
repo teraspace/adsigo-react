@@ -90,7 +90,7 @@ export default class RegisterStock extends React.Component {
     }
     localStorage.removeItem('selBillboard')
 
-  //  init_map_register()
+    init_map_register()
   }
   render() {
     var title = "My Billboards"
@@ -292,7 +292,7 @@ export default class RegisterStock extends React.Component {
 
                 <div className="row">
                   <div className="label-holder">
-                    <label htmlFor="lightning">IluminaciÃ³n Nocturna</label>
+                    <label htmlFor="lightning">Iluminación Nocturna</label>
                   </div>
                   <input defaultChecked={(editStock.lighting == 'S' ? true : false)} type="checkbox" id="lightning"  />
                 </div>
@@ -484,7 +484,7 @@ function validar (data){
     ok = false;
   } else
   // if(_data.in_id_stock!=0){
-  //   alert('Este formulario solo es para inserciÃ³n.')
+  //   alert('Este formulario solo es para inserción.')
   //   ok = false;
   // } else
   if(_data.in_name.length<=5){
@@ -492,7 +492,7 @@ function validar (data){
     ok = false;
   } else
   // if(_data.in_description.length<=10){
-  //   alert('Debe escribir una descripciÃ³n concisa.')
+  //   alert('Debe escribir una descripción concisa.')
   //   ok = false;
   // } else
   if(_data.in_id_country.length>2){
