@@ -240,7 +240,7 @@ app.post('/api/register-stock', function(req, res) {
 
     photos[index] = JSON.parse(photo).data
     filesExtensions[index] = String(photos[index].originalname).slice(-4)
-    p[photoParams[index]] = String(photos[index].originalname.replace(' ','_'));
+    p[photoParams[index]] = String(photos[index].originalname.replace(/\s+/g, '_').toLowerCase());
   })
   //console.log(filesExtensions)
 
@@ -270,7 +270,7 @@ app.post('/api/register-stock', function(req, res) {
         console.log(photo)
       //  if (fs.existsSync(dir))
         try {
-          fs.rename(__dirname+ "/" + photo.path, dir +'/' + photo.originalname.replace(' ','_')  )
+          fs.rename(__dirname+ "/" + photo.path, dir +'/' + photo.originalname.replace(/\s+/g, '_').toLowerCase() )
         } catch(err){
           photosok = false;
         }
