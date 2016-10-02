@@ -8,6 +8,7 @@ import SideMenu from '../side-menu'
 var that;
 var uploadPhoto = [];
 var hostaddress = "";
+  var editStock = {}
 export default class RegisterStock extends React.Component {
   constructor(props) {
     super(props);
@@ -15,6 +16,7 @@ export default class RegisterStock extends React.Component {
       session: JSON.parse(localStorage.getItem('session')),
       countries: [],
       cities: [],
+      editStock : {},
       typeStock: []
     };
     this.selectCountry = this.selectCountry.bind(this)
@@ -23,6 +25,9 @@ export default class RegisterStock extends React.Component {
     hostaddress = x.globals.hostaddress;
   }
   componentWillMount(){
+    editStock = getBillboardSelected()
+    localStorage.removeItem('selBillboard')
+console.log((editStock))
     this.loadTypeStock()
     this.loadCountries()
 
@@ -81,14 +86,14 @@ export default class RegisterStock extends React.Component {
     this.selectCountry()
 
     this.loadStockSelected()
-    var editStock = getBillboardSelected()
+
     var imagePath = "";
-    console.log((editStock))
+
     if(editStock!=null && typeof(editStock)=='object'){
       imagePath = "images/stock/user_" + editStock.fk_id_user + "/stock_" + editStock.id_stock  + "/"
       this.refreshReview(imagePath,editStock)
     }
-    localStorage.removeItem('selBillboard')
+
 
     init_map_register()
   }
@@ -97,7 +102,7 @@ export default class RegisterStock extends React.Component {
     that = this;
     var optionCountries = [];
     var countries = this.state.countries;
-    var editStock = getBillboardSelected()
+
     var _alto =""
     var _ancho =""
     if (editStock==null){
@@ -292,7 +297,7 @@ export default class RegisterStock extends React.Component {
 
                 <div className="row">
                   <div className="label-holder">
-                    <label htmlFor="lightning">Iluminación Nocturna</label>
+                    <label htmlFor="lightning">Iluminaciï¿½n Nocturna</label>
                   </div>
                   <input defaultChecked={(editStock.lighting == 'S' ? true : false)} type="checkbox" id="lightning"  />
                 </div>
@@ -321,9 +326,9 @@ export default class RegisterStock extends React.Component {
 
   register() {
     console.log('register')
-    var editStock = getBillboardSelected()
     var path,fileName = [], photoFiles = [], count=4,_photo;
     var id_stock = 0;
+    console.log(editStock)
     if(editStock!=null)
     if ('id_stock' in editStock) id_stock = editStock.id_stock
     else id_stock=0;
@@ -484,7 +489,7 @@ function validar (data){
     ok = false;
   } else
   // if(_data.in_id_stock!=0){
-  //   alert('Este formulario solo es para inserción.')
+  //   alert('Este formulario solo es para inserciï¿½n.')
   //   ok = false;
   // } else
   if(_data.in_name.length<=5){
@@ -492,7 +497,7 @@ function validar (data){
     ok = false;
   } else
   // if(_data.in_description.length<=10){
-  //   alert('Debe escribir una descripción concisa.')
+  //   alert('Debe escribir una descripciï¿½n concisa.')
   //   ok = false;
   // } else
   if(_data.in_id_country.length>2){

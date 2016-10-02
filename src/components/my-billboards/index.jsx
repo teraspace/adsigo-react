@@ -15,7 +15,7 @@ export default class MyBillboards extends React.Component {
       session: JSON.parse(localStorage.getItem('session')),
       billboards: []
     };
-  //  this.editBillboard = this.editBillboard.bind(this)
+    this.editBillboard = this.editBillboard.bind(this)
 
   }
   componentWillMount(){
@@ -138,7 +138,7 @@ export default class MyBillboards extends React.Component {
     console.log('editBillboard')
     setBillboardSelected(billboard)
   //  localStorage.setItem('id_stock',billboard.id_stock);
-    window.location='/register-stock'
+
 
   }
 

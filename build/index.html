@@ -195,6 +195,7 @@ console.log(coords)
   function setBillboardSelected(e){
     _editStock = e;
     localStorage.setItem('selBillboard',JSON.stringify(e));
+  window.location='/register-stock'
   }
   function getBillboardSelected(){
     return   JSON.parse(localStorage.getItem('selBillboard'));
