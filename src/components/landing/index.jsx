@@ -23,11 +23,9 @@ class Landing extends React.Component {
     this.loadLanding ()
   }
   componentDidUpdate() {
-    //console.log('componentDidUpdate')
+    console.log('componentDidUpdate')
     var that = this;
-    var evt = document.createEvent('Event');
-    evt.initEvent('load', false, false);
-    window.dispatchEvent(evt);
+
     var win = $(window);
     win.scroll(function() {
       // End of the document reached?
@@ -43,7 +41,9 @@ class Landing extends React.Component {
       landingGallery = []
       that.loadLanding ()
     })
+    myload();
   }
+  
   loadLanding (){
     var that = this;
     var token,selectPrice,selectTypestock, fromdate, todate='';

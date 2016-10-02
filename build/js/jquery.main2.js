@@ -16,7 +16,7 @@ function reload2() {
 	initFixedScrollBlock2();
 	initMobileNav2();
 	initAnchors2();
-	initCycleCarousel2();
+	//initCycleCarousel2();
 	initSlickSlider2();
 }
 
@@ -1949,7 +1949,7 @@ function initOpenClose2() {
 			jQuery(document).on('click touchstart', function(e) {
 				var target = jQuery(e.target);
 				if (self.holder.hasClass(self.options.activeClass) && !target.is(self.holder) && !target.closest(self.holder).length && !target.is('.ui-icon')) {
-					self.hideSlide();
+					//self.hideSlide();
 				}
 			});
 		}

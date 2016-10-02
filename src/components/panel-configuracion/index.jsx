@@ -12,7 +12,9 @@ export default class PanelConfiguracion extends React.Component {
   componentWillMount() {
     console.log('componentWillMount');
   }
-
+  componentDidMount() {
+    myload();
+  }
   render() {
     var user_photo,name;
     if(this.state.session!=null){

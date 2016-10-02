@@ -270,7 +270,11 @@ app.post('/api/register-stock', function(req, res) {
         console.log(photo)
       //  if (fs.existsSync(dir))
         try {
+<<<<<<< HEAD
           fs.rename(__dirname+ "/" + photo.path, dir +'/' + photo.originalname.replace(/\s+/g, '_') )
+=======
+          fs.rename(__dirname+ "/" + photo.path, dir +'/' + photo.originalname.replace(/\s+/g, '_').toLowerCase() )
+>>>>>>> b359f90644caed28ea2ccaba4d9eb941d65d09bc
         } catch(err){
           photosok = false;
         }
