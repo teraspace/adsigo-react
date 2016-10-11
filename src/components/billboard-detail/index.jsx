@@ -81,9 +81,7 @@ class LandingDetail extends React.Component {
                               <div className="slider-for">
                                 {photo_gallery}
                               </div>
-                              <div className="slider-nav">
-                                {photo_gallery}
-                              </div>
+
                             </div>
                             <div className="form-block">
                               <h1>{details.name+ " "} <br />
