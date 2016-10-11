@@ -23,9 +23,10 @@ class LandingDetail extends React.Component {
     this.showDetail = this.showDetail.bind(this)
   }
   componentWillMount () {
-  this.getAvaibility()
+  
     console.log('loading?????')
     this.showDetail()
+     this.getAvaibility()
   }
   componentDidMount () {
     console.log('componentDidMount')
@@ -259,7 +260,7 @@ console.log(that.state.availbility)
                   this.setState({availbility: _avaibility})
                   setTimeout(function(){
                     //myload2()
-                    that.reevent();
+                    //that.reevent();
                     //init_map(details.data[0].googlemaps);
                   },800)
                 })
