@@ -256,6 +256,11 @@ console.log(that.state.availbility)
                     return;
                   }
                   this.setState({availbility: _avaibility})
+                  setTimeout(function(){
+                    myload2()
+                    that.reevent();
+                    //init_map(details.data[0].googlemaps);
+                  },800)
                 })
               }
               putDealing(){
