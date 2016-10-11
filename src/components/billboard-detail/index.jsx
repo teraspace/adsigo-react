@@ -198,6 +198,8 @@ console.log(that.state.availbility)
                   maxPicks: 2,
                   numberOfMonths: [3,4],
                   defaultDate: '1/1/'+y,
+                  addDisabledDates: that.state.availbility.length > 0 ? that.state.availbility : null  ,
+
                   onSelect: function() {
                     $(this).data('datepicker').inline = true;
                     if($('.multidate').val().includes(',')){
@@ -258,9 +260,7 @@ console.log(that.state.availbility)
                   }
                   this.setState({availbility: _avaibility})
                   setTimeout(function(){
-                    //myload2()
-                    //that.reevent();
-                    //init_map(details.data[0].googlemaps);
+                    initJssorGallery2()
                   },800)
                 })
               }
