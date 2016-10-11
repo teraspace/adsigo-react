@@ -65,7 +65,28 @@
 
   </script>
   <script type="text/javascript" src="http://opoloo.github.io/jquery_upload_preview/assets/js/jquery.uploadPreview.js"></script>
-
+  <script type="text/javascript">
+  String.prototype.formatMoney = function(){
+    var n = parseFloat(this),
+      c = isNaN(c = Math.abs(c)) ? 2 : c,
+      d = d == undefined ? "." : d,
+      t = t == undefined ? "," : t,
+      s = n < 0 ? "$ -" : "$ ",
+      i = String(parseInt(n = Math.abs(Number(n) || 0).toFixed(c))),
+      j = (j = i.length) > 3 ? j % 3 : 0;
+     return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
+    };
+  Number.prototype.formatMoney = function(){
+    var n = parseFloat(this),
+      c = isNaN(c = Math.abs(c)) ? 2 : c,
+      d = d == undefined ? "." : d,
+      t = t == undefined ? "," : t,
+      s = n < 0 ? "$ -" : "$ ",
+      i = String(parseInt(n = Math.abs(Number(n) || 0).toFixed(c))),
+      j = (j = i.length) > 3 ? j % 3 : 0;
+     return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
+    };
+  </script>
   <script type='text/javascript'>
   var marker;
   var map = null;
@@ -104,14 +125,21 @@ console.log(coords)
     });
     infowindow.open(map,marker);
   }
-  function init_map_register(){
+  function init_map_register(coords){
     console.log('init_map_register')
-    if (google==null)return;
+try {
+  if (google==null)return;
+}catch (err){
+return;
+}
 
+    console.log('init_map')
+    if(coords==undefined) coords = "(11.004270439295391,-74.80891249049068)"
+    coords =  coords.replace('(','').replace(')','').split(',');
 
      map = new google.maps.Map(document.getElementById('detailmap'), {
       zoom: 13,
-      center: {lat: 59.325, lng: 18.070}
+      center: { lat: parseFloat(coords[0]), lng: parseFloat(coords[1]) }
     });
 
     infoWindow = new google.maps.InfoWindow();
@@ -120,7 +148,7 @@ console.log(coords)
       map: map,
       draggable: true,
       animation: google.maps.Animation.DROP,
-      position: {lat: 59.327, lng: 18.067}
+      position: { lat: parseFloat(coords[0]), lng: parseFloat(coords[1]) }
     });
     /*marker.addListener('click', toggleBounce);*/
 
@@ -138,7 +166,7 @@ console.log(coords)
       map.setZoom(15);
       openInfoWindow(marker);
     });
-    geocodeAddress();
+    //geocodeAddress();
 
   }
   function geocodeAddress() {

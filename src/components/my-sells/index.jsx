@@ -97,7 +97,7 @@ export default class MySells extends React.Component {
           <td key={"col2"} data-label="Billboard's name"><span>{dealing.name}</span></td>
           <td key={"col3"} data-label="Start Date"><span>{dealing.date_start}</span></td>
           <td key={"col4"} data-label="End Date"><span>{dealing.date_end}</span></td>
-          <td key={"col5"} data-label="Total Due"><span>{dealing.total_value}</span></td>
+          <td key={"col5"} data-label="Total Due"><span>{dealing.total_value.formatMoney()}</span></td>
           <td key={"col6"} data-label="Dealing state"><span>{dealing.dealing_accepted}</span></td>
           <td key={"col7"} data-label="Actions"><span><strong><a href="inc/modal/modal02.html" className="ico-box btn-review fancybox.ajax"><i className="icon-eye1"></i></a><a href="inc/modal/modal03.html" className="ico-box btn-review fancybox.ajax"><i className="icon-thumb"></i></a><a href="#" className="ico-box"><i className="icon-picture"></i></a><a href="#" className="ico-box"><i className="icon-camera"></i></a></strong></span></td>
         </tr>)

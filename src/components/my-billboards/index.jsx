@@ -66,8 +66,8 @@ export default class MyBillboards extends React.Component {
       								<td key={"col2"} data-label="Name"><span>{billboard.name}</span></td>
       								<td key={"col3"} data-label="City"><span>{billboard.ciudad}</span></td>
       								<td key={"col4"} data-label="Address"><span>{billboard.address}</span></td>
-      								<td key={"col5"} data-label="Price per day"><span>{billboard.daily_price}</span></td>
-      								<td key={"col6"} data-label="Production price"><span>{billboard.production_price}</span></td>
+      								<td key={"col5"} data-label="Price per day"><span>{billboard.daily_price.formatMoney()}</span></td>
+      								<td key={"col6"} data-label="Production price"><span>{billboard.production_price.formatMoney()}</span></td>
       								<td key={"col7"} data-label="Visual size"><span>{billboard.size}</span></td>
       								<td key={"col8"} data-label="View / Edit Billboard"><strong><a href="#" className="ico-box"><i className="icon-eye1"></i></a><a key={"edit"+index} id={"edit"+index} onClick={that.editBillboard.bind(that,billboard)} href="#" className="ico-box"><i  className="icon-pencil"></i></a></strong></td>
       							</tr>)

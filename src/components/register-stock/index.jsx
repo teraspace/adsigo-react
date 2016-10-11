@@ -95,7 +95,8 @@ console.log((editStock))
     }
 
 
-    init_map_register()
+    //init_map_register()
+    init_map_register(editStock.googlemaps);
   }
   render() {
     var title = "My Billboards"
@@ -210,7 +211,7 @@ console.log((editStock))
                 </div>
                 <div className="row required-row">
                   <div className="label-holder">
-                    <label htmlFor="stockSizeW">Write (cm)</label>
+                    <label htmlFor="stockSizeW">Width (cm)</label>
                   </div>
                   <input defaultValue={_ancho} className="required" type="number" placeholder="" id="stockSizeW" required />
 

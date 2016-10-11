@@ -13,7 +13,8 @@ class LandingDetail extends React.Component {
       detail: {},
       numberDays: 0,
       productionTotal: 0,
-      productionSpace: 0
+      productionSpace: 0,
+      availbility: []
     };
     this.reevent = this.reevent.bind(this)
     this.closeModal = this.closeModal.bind(this)
@@ -22,6 +23,7 @@ class LandingDetail extends React.Component {
     this.showDetail = this.showDetail.bind(this)
   }
   componentWillMount () {
+  this.getAvaibility()
     console.log('loading?????')
     this.showDetail()
   }
@@ -33,7 +35,6 @@ class LandingDetail extends React.Component {
   render(){
     console.log(this.props.querystring)
     var details = this.state.details
-    console.log(details)
     if(details==undefined) return <span>Cargando...</span>
     var that = this
     if (details!={}) {
@@ -57,12 +58,7 @@ class LandingDetail extends React.Component {
           <div key={"photo2"} className="img-holder">
             <img data-u="image" src={second_photo}  />
           </div>)
-        } else {
-          photo_gallery.push(
-            <div key={"photo2"} className="img-holder">
-              <img data-u="image" src={third_photo}  / >
-              </div>)
-            }
+        }
             if(details.third_photo!=""){
               photo_gallery.push(
                 <div key={"photo3"} className="img-holder">
@@ -92,11 +88,11 @@ class LandingDetail extends React.Component {
                               <h1>{details.name+ " "} <br />
                               {details.address}</h1>
                             <span className="text">
-                              By <a href="#">{details.nombre_propietario} </a> <br />{details.in_out} - Size: {details.size}<br /> {details.id_city}, {details.id_country} <br />{details.address} &nbsp;<a href="#">View on map</a>
+                              By <a href="#">{details.nombre_propietario} </a> <br /> Billboard type: {details.in_out} <br />  Size: {details.size}<br /> {details.city_name}, {details.country_name} <br />{details.address} &nbsp;<a href="#">View on map</a>
                           </span>
                           <div className="pricing">
                             <span className="title">Price per day</span>
-                            <span className="price">{details.daily_price}</span>
+                            <span className="price">{(details.daily_price.formatMoney())}</span>
                           </div>
                           <div className="selectdate-form">
                             <div className="row date-box2">
@@ -117,23 +113,23 @@ class LandingDetail extends React.Component {
                               <tbody>
                                 <tr>
                                   <td>{that.state.numberDays} Days of Billboard:</td>
-                                  <td>{that.state.productionSpace}</td>
+                                  <td>{that.state.productionSpace.formatMoney()}</td>
                                 </tr>
                                 <tr>
                                   <td>Print &amp; Installation</td>
-                                  <td>{that.state.productionTotal}</td>
+                                  <td>{that.state.productionTotal.formatMoney()}</td>
                                 </tr>
                               </tbody>
                               <tfoot>
                                 <tr>
                                   <td>Total:</td>
-                                  <td>{that.state.productionSpace+that.state.productionTotal}</td>
+                                  <td>{(that.state.productionSpace+that.state.productionTotal).formatMoney()}</td>
                                 </tr>
                               </tfoot>
                             </table>
                             <div className="btn-holder">
                               <input onClick={that.putDealing}  type="submit"  className="btn" defaultValue="REQUEST BILLBOARD" />
-                              <input id="addOrder" className="btn" defaultValue="Add to watchlist" />
+                              <input id="addOrder" className="btn" defaultValue="Contact Seller" />
                             </div>
                           </div>
                         </div>
@@ -142,11 +138,11 @@ class LandingDetail extends React.Component {
                         <img src="images/view-billboard/map-placeholder.jpg" alt="image description" />
                       </div>
                     </div>
-                    <div className="article">
+                    <div className="article" style={{display:'none'}}>
                       <h2>ABOUT THE BILLBOARD</h2>
                       <dl>
                         <dt>City:</dt>
-                        <dd>{details.id_city}</dd>
+                        <dd>{details.city_name}</dd>
                         <dt>Address:</dt>
                         <dd>{details.address}</dd>
                         <dt>Space type:</dt>
@@ -191,12 +187,14 @@ class LandingDetail extends React.Component {
                   $('.multidate').datepicker('show')
                   $('.multidate').multiDatesPicker('resetDates', 'disabled');
                 })
+console.log(that.state.availbility)
                 $('.multidate').multiDatesPicker({
                   dateFormat: 'dd/mm/yy',
                   minDate: 0,
                   maxPicks: 2,
                   numberOfMonths: [3,4],
                   defaultDate: '1/1/'+y,
+                  addDisabledDates: that.state.availbility,
                   onSelect: function() {
                     $(this).data('datepicker').inline = true;
                     if($('.multidate').val().includes(',')){
@@ -222,7 +220,7 @@ class LandingDetail extends React.Component {
               }
               getAvaibility(){
                 var details = this.state.details
-                var idstock = details.id_stock;
+                var idstock = this.props.querystring
                 var token;
                 try {
                   token=JSON.parse(localStorage.getItem('session')).v_user_token
@@ -246,7 +244,15 @@ class LandingDetail extends React.Component {
                   return response.json()
                 })
                 .then((availbility) => {
-                  console.log(availbility)
+                  var _avaibility;
+                  try {
+                    _avaibility =  availbility.data[0].cursor.split(',')
+                    _avaibility.pop()
+                    _avaibility.reverse()
+                  } catch(err){
+                    return;
+                  }
+                  this.setState({availbility: _avaibility})
                 })
               }
               putDealing(){
@@ -348,7 +354,7 @@ class LandingDetail extends React.Component {
                     init_map(details.data[0].googlemaps);
                   },800)
 
-                  that.getAvaibility()
+
 
                 })
               }

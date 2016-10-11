@@ -8,7 +8,21 @@ var source = require('vinyl-source-stream');
 var nib = require('nib');
 var minify = require('gulp-minify-css');
 var nodemon = require('nodemon');
+var livereload = require('gulp-livereload');
+var lazypipe = require('lazypipe');
+var rename = require('gulp-rename');
+var uglify = require('gulp-uglify');
+var plumber = require('gulp-plumber');
+var tap = require('gulp-tap');
 
+var paths = {
+    input: '../components/**/*',
+    output: 'dist/',
+    scripts: {
+        input: 'src/js/*',
+        output:'../../build/js'
+    }
+}
 gulp.task('start', function() {
     nodemon({
         script: './server.js',
@@ -38,14 +52,28 @@ gulp.task('sass:watch', function() {
     gulp.watch('../components/scss/*.scss', ['sass']);
 });
 gulp.task('build', function() {
+
     browserify({
         entries: '../components/index.jsx',
         extensions: ['.jsx'],
         debug: true
-    }).transform(babelify).bundle().pipe(source('bundle.js')).pipe(gulp.dest('../../build/js'));
+    })
+    .transform(babelify)
+    .bundle()
+    .pipe(source('bundle.js'))
+    .pipe(gulp.dest('../../build/js')).on('end', function() {
+        livereload.reload()
+      })
+;
 });
 gulp.task('watch', function() {
-    gulp.watch('../components/**/*.jsx', ['build']);
+  livereload.listen();
+    gulp.watch('../components/**/*.jsx', ['build']).on('change', function(){
+      console.log('reloading')
+      livereload.listen();
+    });
     gulp.watch(['../components/**/*.scss'], ['sass']);
 });
+
+
 gulp.task('default', ['start', 'watch']);

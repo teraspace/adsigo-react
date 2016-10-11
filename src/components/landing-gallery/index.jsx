@@ -80,7 +80,7 @@ return (
     </div>
     <div className="info-box height same-height-left" style={{height: '73px'}}>
       <div className="address-holder">
-        <address>{this.props.data.name}<br/>{ productionPrice + " production price"}<br/>{this.props.data.address}</address>
+        <address>{this.props.data.name}<br/>{ productionPrice+ " per production price"}<br/>{this.props.data.address}</address>
       </div>
     </div>
   </li>
