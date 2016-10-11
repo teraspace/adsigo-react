@@ -135,10 +135,10 @@ class LandingDetail extends React.Component {
                         </div>
                       </div>
                       <div id="detailmap" className="map-holder"  style={{height: "346px"}}>
-             <input type="text" id="mapsearch"  />
-                  <div id="detailmap" style={{height: "320px", width: "100%"}}></div>
+                         <input type="text" id="mapsearch"  />
+                        <div id="detailmap" style={{height: "320px", width: "100%"}}></div>
 
-                  <input defaultValue={""}  minLength="5" className="required" type="hidden" placeholder="" name="googlemaps" id="googlemaps" required />                      </div>
+                        <input defaultValue={""}  minLength="5" className="required" type="hidden" placeholder="" name="googlemaps" id="googlemaps" required />                      </div>
                     </div>
                     <div className="article" style={{display:'none'}}>
                       <h2>ABOUT THE BILLBOARD</h2>
@@ -258,7 +258,7 @@ console.log(that.state.availbility)
                   }
                   this.setState({availbility: _avaibility})
                   setTimeout(function(){
-                    myload2()
+                    //myload2()
                     that.reevent();
                     //init_map(details.data[0].googlemaps);
                   },800)
