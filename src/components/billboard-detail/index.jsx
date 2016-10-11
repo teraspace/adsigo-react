@@ -182,7 +182,6 @@ class LandingDetail extends React.Component {
               reevent(){
                 console.log('reevent')
                 var that = this;
-                //initJssorGallery2()
                 var today = new Date();
                 var y = today.getFullYear();
                 $('.multidate').click(function(){
@@ -190,9 +189,9 @@ class LandingDetail extends React.Component {
                   $('.multidate').datepicker('show')
                   $('.multidate').multiDatesPicker('resetDates', 'disabled');
                 })
-console.log(that.state.availbility)
 
                 $('.multidate').multiDatesPicker({
+                
                   dateFormat: 'dd/mm/yy',
                   minDate: 0,
                   maxPicks: 2,
@@ -259,9 +258,6 @@ console.log(that.state.availbility)
                     return;
                   }
                   this.setState({availbility: _avaibility})
-                  setTimeout(function(){
-                    initJssorGallery2()
-                  },800)
                 })
               }
               putDealing(){
