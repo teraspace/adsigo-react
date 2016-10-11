@@ -225,6 +225,7 @@ console.log(that.state.availbility)
                 var details = this.state.details
                 var idstock = this.props.querystring
                 var token;
+                var that = this
                 try {
                   token=JSON.parse(localStorage.getItem('session')).v_user_token
 
