@@ -190,13 +190,14 @@ class LandingDetail extends React.Component {
                   $('.multidate').multiDatesPicker('resetDates', 'disabled');
                 })
 console.log(that.state.availbility)
+
                 $('.multidate').multiDatesPicker({
                   dateFormat: 'dd/mm/yy',
                   minDate: 0,
                   maxPicks: 2,
                   numberOfMonths: [3,4],
                   defaultDate: '1/1/'+y,
-                  addDisabledDates: that.state.availbility,
+                  addDisabledDates: that.state.availbility.length > 0 ? that.state.availbility : null  ,
                   onSelect: function() {
                     $(this).data('datepicker').inline = true;
                     if($('.multidate').val().includes(',')){
