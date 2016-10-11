@@ -138,7 +138,7 @@ class LandingDetail extends React.Component {
              <input type="text" id="mapsearch"  />
                   <div id="detailmap" style={{height: "320px", width: "100%"}}></div>
 
-                  <input defaultValue={(editStock.googlemaps )}  minLength="5" className="required" type="hidden" placeholder="" name="googlemaps" id="googlemaps" required />                      </div>
+                  <input defaultValue={""}  minLength="5" className="required" type="hidden" placeholder="" name="googlemaps" id="googlemaps" required />                      </div>
                     </div>
                     <div className="article" style={{display:'none'}}>
                       <h2>ABOUT THE BILLBOARD</h2>
