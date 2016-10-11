@@ -46,10 +46,10 @@ function initSlickSlider2() {
 		asNavFor: '.slider-nav'
 	});
 	$('.slider-nav').slick({
-		slidesToShow: 3,
+		slidesToShow: 5,
 		slidesToScroll: 1,
 		asNavFor: '.slider-for',
-		dots: true,
+		dots: false,
 		centerMode: true,
 		focusOnSelect: true
 	});
