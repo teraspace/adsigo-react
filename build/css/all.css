@@ -2685,6 +2685,14 @@ _ .slick-slider {
   .top-holder.inner .search-holder {
     margin: 5px 0 5px 8px; } }
 
+.event {
+  opacity: 1 !important; }
+
+.event span {
+  background-color: #1a75d1 !important;
+  background-image: none !important;
+  color: #ffffff !important; }
+
 #sidebar {
   margin-top: 50px !important; }
 

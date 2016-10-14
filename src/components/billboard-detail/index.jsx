@@ -23,10 +23,9 @@ class LandingDetail extends React.Component {
     this.showDetail = this.showDetail.bind(this)
   }
   componentWillMount () {
-  
+  this.getAvaibility()
     console.log('loading?????')
     this.showDetail()
-     this.getAvaibility()
   }
   componentDidMount () {
     console.log('componentDidMount')
@@ -81,9 +80,9 @@ class LandingDetail extends React.Component {
                               <div className="slider-for">
                                 {photo_gallery}
                               </div>
-                             <div className="slider-nav">
--                                {photo_gallery}
--                              </div>
+                              <div className="slider-nav">
+                                {photo_gallery}
+                              </div>
                             </div>
                             <div className="form-block">
                               <h1>{details.name+ " "} <br />
@@ -136,10 +135,8 @@ class LandingDetail extends React.Component {
                         </div>
                       </div>
                       <div id="detailmap" className="map-holder"  style={{height: "346px"}}>
-                         <input type="text" id="mapsearch"  />
-                        <div id="detailmap" style={{height: "320px", width: "100%"}}></div>
-
-                        <input defaultValue={""}  minLength="5" className="required" type="hidden" placeholder="" name="googlemaps" id="googlemaps" required />                      </div>
+                        <img src="images/view-billboard/map-placeholder.jpg" alt="image description" />
+                      </div>
                     </div>
                     <div className="article" style={{display:'none'}}>
                       <h2>ABOUT THE BILLBOARD</h2>
@@ -179,26 +176,38 @@ class LandingDetail extends React.Component {
                 } )
                 console.log(dailyPrice*numberDays)
               }
-              reevent(){
+               reevent(){
                 console.log('reevent')
                 var that = this;
+                console.log(that.state.availbility)
+                var disableddates = that.state.availbility;
+                //initJssorGallery2()
                 var today = new Date();
                 var y = today.getFullYear();
-                $('.multidate').click(function(){
-                  $('.multidate').val('')
-                  $('.multidate').datepicker('show')
-                  $('.multidate').multiDatesPicker('resetDates', 'disabled');
-                })
+                // $('.multidate').click(function(){
+                //   $('.multidate').val('')
+                //   $('.multidate').datepicker('show')
+                //   $('.multidate').multiDatesPicker('resetDates', 'disabled');
+                //     $('.multidate').multiDatesPicker('addDisabledDates', that.state.availbility);
+                // })
+
 
                 $('.multidate').multiDatesPicker({
-                
                   dateFormat: 'dd/mm/yy',
                   minDate: 0,
                   maxPicks: 2,
                   numberOfMonths: [3,4],
                   defaultDate: '1/1/'+y,
-                  addDisabledDates: that.state.availbility.length > 0 ? that.state.availbility : null  ,
+                  beforeShowDay: function(date) {
+                    var _date = new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(),date.getTimezoneOffset()/-60,0,0);
+                    var highlight = disableddates.includes(_date.getTime()/1000);
 
+                     if (highlight) {
+                           return [false, "event","Taken"];
+                     } else {
+                          return [true, '', ''];
+                     }
+                  },
                   onSelect: function() {
                     $(this).data('datepicker').inline = true;
                     if($('.multidate').val().includes(',')){
@@ -226,7 +235,6 @@ class LandingDetail extends React.Component {
                 var details = this.state.details
                 var idstock = this.props.querystring
                 var token;
-                var that = this
                 try {
                   token=JSON.parse(localStorage.getItem('session')).v_user_token
 
@@ -254,6 +262,9 @@ class LandingDetail extends React.Component {
                     _avaibility =  availbility.data[0].cursor.split(',')
                     _avaibility.pop()
                     _avaibility.reverse()
+                    _avaibility = JSON.stringify(_avaibility).split('"').join('')
+                    _avaibility = JSON.parse(_avaibility)
+
                   } catch(err){
                     return;
                   }
